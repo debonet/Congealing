@@ -1,0 +1,353 @@
+##########################################
+#  EXPERIMENTAL
+##########################################
+congeal.optimize.bestpoints 1000
+
+
+## @parameter test
+## @type string
+## @doc Currently unused. "Must be congeal."
+##
+test congeal
+
+##########################################
+#  PARAMETERS
+##########################################
+## @parameter congeal.inputfiles 
+## @type integer
+## @doc number of input files to use. Use '0' 
+## for all files when used in conjuctions with congeal.inputfiles.list
+##
+congeal.inputfiles 30
+
+## @parameter congeal.inputfile.format
+## @type string
+## @doc format of input files. Currently 'nifti' or 'brainweb'
+##
+congeal.inputfile.format nifti
+
+## @parameter congeal.inputfiles.list
+## @type string
+## @doc a path to a file containing a list 
+## of input data files. The list file should 
+## contain one filename per line. Only congeal.inputfiles
+## files will be used as input unless congeal.inputfiles is
+## set to '0' in which case all the files in the list 
+## will be used
+## 
+#congeal.inputfiles.list ../input/NIH/4yearolds
+congeal.inputfiles.list ../input/oasisNifti/allfiles
+
+
+## @parameter congeal.inputfiles.pattern
+## @type string
+## @doc a printf()-style string taking one integer parameter
+## to be replaced with the (zero-based) index of the file
+## @ example 
+##    ../input/testfiles/%00d.nii
+##
+# congeal.inputfile.pattern ../input/NIH/uncompressed/%d.nii
+
+## @parameter congeal.inputfile[]
+## @type string array
+## @doc an explicit list of input files. Only the first 
+## congeal.inputfiles files are used. Can be used in conjunction
+## with parameter substitution (e.g. {$n}) and incrementing 
+## (e.g. {++n})
+## @ example 
+##    n -1
+##      congeal.inputfile[{++n}] ../input/testfiles/A.nii
+##      congeal.inputfile[{++n}] ../input/testfiles/B.nii
+##      congeal.inputfile[{++n}] ../input/testfiles/C.nii
+
+
+
+##----------------------------------
+
+## @parameter congeal.optimize.algorithm
+## @type string {lbfgs,bruteforce,gradientdescent,randomwalk,neldermead)
+## @doc determines the optimization algorithm used
+##   lbfgs - a limited memory implementation of the Broyden-Fletcher-Goldfarb-Shanno method. NOTE: LBFGS is very slow, and does not seem to work all that well
+##   bruteforce - test a range of step sizes in each dimension. Take the best step.
+##   randomwalk - a beam-search type method
+##   gradientdescent - gradient descent optimization method
+## @ exmple
+##     congeal.optimize.algorithm lbfgs
+##     congeal.optimize.algorithm bruteforce
+##     congeal.optimize[bruteforce].range 20
+
+##----------------------------------
+## Gradient Descent parameters
+##----------------------------------
+
+## @parameter congeal.optimize[gradientdescent].kernel
+## @note only applies for congeal.optimize.algorithm gradientdescent
+## @type real
+## @doc size of support to use for computing gradient. This factor is multipled by *.initialsteps to establish a radius for each dimension
+
+## @parameter congeal.optimize[gradientdescent].walk
+## @note only applies for congeal.optimize.algorithm gradientdescent
+## @type boolean {true,false,0,1}
+## @doc if true, algorithm will take multiple steps in direction of gradient if beneficial
+
+## @parameter congeal.optimize[gradientdescent].walk.steps
+## @note only applies for congeal.optimize.algorithm gradientdescent
+## @note only applies for congeal.optimize[gradientdescent].walk true
+## @type int
+## @doc maximum number of steps to take in direction of gradient
+
+
+##----------------------------------
+## RandomWalk parameters
+##----------------------------------
+
+## @parameter congeal.optimize[randomwalk].kernel
+## @note only applies for congeal.optimize.algorithm randomwalk
+## @type real
+## @doc size of support to use for computing initial stepsize. This factor is multipled by *.initialsteps to establish a maximum step radius for each dimension
+
+## @parameter congeal.optimize[randomwalk].steps
+## @note only applies for congeal.optimize.algorithm randomwalk
+## @type int
+## @doc maximum number of steps to take along any beam
+
+## @parameter congeal.optimize[randomwalk].walk.directions
+## @note only applies for congeal.optimize.algorithm randomwalk
+## @type int
+## @doc number of beams to try during each iteration
+
+
+congeal.optimize.algorithm randomwalk
+congeal.optimize[randomwalk].kernel .1
+congeal.optimize[randomwalk].steps 10
+congeal.optimize[randomwalk].directions 20
+
+##----------------------------------
+## Error function parameters
+##----------------------------------
+## @parameter congeal.optimize.error
+## @type string {parzen, variance}
+## @doc selects the error metric to be used
+##    parzen -- entropy estimate based on Parzen density estimator
+##    variance -- variance of voxel stack
+congeal.optimize.error parzen
+
+
+## @parameter congeal.optimize[parzen].sigma
+## @note onlyu applies for congeal.optimize.error parzen
+## @type real
+## @doc sigma of Gaussian used as kernel in Parzen density estimator. Measured in voxel intensity
+congeal.error[parzen].sigma 30
+
+## @parameter congeal.optimize[parzen].apriori
+## @note only applies for congeal.optimize.error parzen
+## @type real
+## @doc constant factor added to each Parzen estimate
+congeal.error[parzen].apriori .000001
+
+##----------------------------------
+## Output display options
+##----------------------------------
+
+## @parameter congeal.output.prefix
+## @type string
+## @doc string prepended to the filenames of the outputfiles. This value can include an absolute or relative path, as well as a file prefix
+## @example
+##     congeal.output.prefix ../output/congeal/run12-
+congeal.output.prefix ../output/congeal/
+
+## @parameter congeal.output.colors.mid 
+## @type integer
+## @doc color equalization intercept. This value determines which data value will be mapped to mid gray
+congeal.output.colors.mid 128
+
+## @parameter congeal.output.colors.range
+## @type integer
+## @doc color equalization slope. This value determines the relationship between changes in data value and changes in output image gray value
+congeal.output.colors.range 256
+
+## @parameter congeal.output.sourcegrid
+## @type integer
+## @doc determines how many of the transformed source values are showm in the *-inputs* images
+congeal.output.sourcegrid 9
+
+
+## @parameter congeal.optimize.progresspoints 
+## @type integer
+## @doc determines how many output file sets will be generated during each schedule
+congeal.optimize.progresspoints 4
+
+
+## @parameter congeal.output.average.width
+## @type integer
+## @doc determines the width of the congealing average visualization
+congeal.output.average.width 512
+
+## @parameter congeal.output.average.height
+## @type integer
+## @doc determines the height of the congealing average visualization
+congeal.output.average.height 512
+
+
+##----------------------------------
+## initial step sizes for kernels
+##----------------------------------
+
+## @parameter congeal.initialsteps.translate 
+## @type real
+## @doc relative scaling of translation parameters when computing kernels and step sizes. Scale: translation as fraction of image size
+congeal.initialsteps.translate .2
+
+## @parameter congeal.initialsteps.rotation
+## @type real
+## @doc relative scaling of rotation parameters when computing kernels and step sizes. Scale: rotation in degrees
+congeal.initialsteps.rotate 30
+
+## @parameter congeal.initialsteps.scale
+## @type real
+## @doc relative scaling of scaling parameters when computing kernels and step sizes. Scale: Scale as fraction of image size
+congeal.initialsteps.scale .2
+
+## @parameter congeal.initialsteps.warp
+## @type real
+## @doc relative scaling of warp control point displacement when computing kernels and step sizes. Scale: Warp as fraction of control point's region
+congeal.initialsteps.warp 0.15
+
+## @parameter congeal.initialsteps.datascale.slope
+## @note CURRENTLY UNUSED
+## @type real
+## @doc slope changes in relative scaling of contrast. Scale: -1 to 1.
+##congeal.initialsteps.datascale.slope .25
+
+## @parameter congeal.initialsteps.datascale.intercept
+## @note CURRENTLY UNUSED
+## @type real
+## @doc intercept changes in relative scaling of contrast. Scale: 0 to 1
+##congeal.initialsteps.datascale.intercept .25
+
+##----------------------------------
+## Schedule options
+##----------------------------------
+
+## @parameter congeal.schedules 
+## @type integer
+## @doc establishes how many schedules will be run
+## @example
+##    congeal.schedules 7
+
+
+## @parameter congeal.schedule[<schedule>].cache 
+## @note the value of <schedule> determines which congealing schedule this parameter affects
+## @type boolean
+## @doc determines whether or not this schedules results can be retried from a previous run
+
+## @parameter congeal.schedule[<schedule>].downsample 
+## @note the value of <schedule> determines which congealing schedule this parameter affects
+## @type integer
+## @doc determines how many times the input data should be downsampled (by factors of 2 in each dimension) prior to congealing
+
+## @parameter congeal.schedule[<schedule>].optimize.affine 
+## @note the value of <schedule> determines which congealing schedule this parameter affects
+## @type boolean
+## @doc determines if affine parameters should be optimized or left fixed
+
+## @parameter congeal.schedule[<schedule>].optimize.warp[<field>].size
+## @note the value of <schedule> determines which congealing schedule this parameter affects
+## @note <field> can be 0,1, or 2
+## @type integer
+## @doc determines number of support points in each dimension of of B-Spline mesh  
+
+
+## @parameter congeal.schedule[<schedule>].optimize.warp[<field>]
+## @note the value of <schedule> determines which congealing schedule this parameter affects
+## @note <field> can be 0,1, or 2
+## @type boolean
+## @doc determines if the B-spline parameters for B-spline field <field> should be optimized or left fixed
+
+
+## @parameter congeal.schedule[<schedule>].optimize.iterations 
+## @note the value of <schedule> determines which congealing schedule this parameter affects
+## @type integer
+## @doc number of optimzation iterations to be taken in this schedule
+
+## @parameter congeal.schedule[<schedule>].optimize.samples
+## @note the value of <schedule> determines which congealing schedule this parameter affects
+## @type integer
+## @doc number of samples to be compared in each transformed input volume
+
+n -1
+
+congeal.schedule[{++n}].cache true
+congeal.schedule[{$n}].downsample 0
+congeal.schedule[{$n}].optimize.affine true
+congeal.schedule[{$n}].warpfield[0].size 1
+congeal.schedule[{$n}].warpfield[1].size 1
+congeal.schedule[{$n}].warpfield[2].size 1
+congeal.schedule[{$n}].warpfield[3].size 1
+congeal.schedule[{$n}].optimize.warp[0] false
+congeal.schedule[{$n}].optimize.warp[1] false
+congeal.schedule[{$n}].optimize.warp[2] false
+congeal.schedule[{$n}].optimize.warp[3] false
+congeal.schedule[{$n}].optimize.iterations 30
+congeal.schedule[{$n}].optimize.samples 50000
+
+congeal.schedule[{++n}].cache true
+congeal.schedule[{$n}].downsample 0
+congeal.schedule[{$n}].optimize.affine false
+congeal.schedule[{$n}].warpfield[0].size 4
+congeal.schedule[{$n}].warpfield[1].size 1
+congeal.schedule[{$n}].warpfield[2].size 1
+congeal.schedule[{$n}].warpfield[3].size 1
+congeal.schedule[{$n}].optimize.warp[0] true
+congeal.schedule[{$n}].optimize.warp[1] false
+congeal.schedule[{$n}].optimize.warp[2] false
+congeal.schedule[{$n}].optimize.warp[3] false
+congeal.schedule[{$n}].optimize.iterations 30
+congeal.schedule[{$n}].optimize.samples 50000
+
+congeal.schedule[{++n}].cache true
+congeal.schedule[{$n}].downsample 0
+congeal.schedule[{$n}].optimize.affine false
+congeal.schedule[{$n}].warpfield[0].size 4
+congeal.schedule[{$n}].warpfield[1].size 8
+congeal.schedule[{$n}].warpfield[2].size 1
+congeal.schedule[{$n}].warpfield[3].size 1
+congeal.schedule[{$n}].optimize.warp[0] false
+congeal.schedule[{$n}].optimize.warp[1] true
+congeal.schedule[{$n}].optimize.warp[2] false
+congeal.schedule[{$n}].optimize.warp[3] false
+congeal.schedule[{$n}].optimize.iterations 30
+congeal.schedule[{$n}].optimize.samples 500000
+
+congeal.schedule[{++n}].cache true
+congeal.schedule[{$n}].downsample 0
+congeal.schedule[{$n}].optimize.affine false
+congeal.schedule[{$n}].warpfield[0].size 4
+congeal.schedule[{$n}].warpfield[1].size 8
+congeal.schedule[{$n}].warpfield[2].size 16
+congeal.schedule[{$n}].warpfield[3].size 1
+congeal.schedule[{$n}].optimize.warp[0] false
+congeal.schedule[{$n}].optimize.warp[1] false
+congeal.schedule[{$n}].optimize.warp[2] true
+congeal.schedule[{$n}].optimize.warp[3] false
+congeal.schedule[{$n}].optimize.iterations 30
+congeal.schedule[{$n}].optimize.samples 500000
+
+congeal.schedule[{++n}].cache true
+congeal.schedule[{$n}].downsample 0
+congeal.schedule[{$n}].optimize.affine false
+congeal.schedule[{$n}].warpfield[0].size 4
+congeal.schedule[{$n}].warpfield[1].size 8
+congeal.schedule[{$n}].warpfield[2].size 16
+congeal.schedule[{$n}].warpfield[3].size 32
+congeal.schedule[{$n}].optimize.warp[0] false
+congeal.schedule[{$n}].optimize.warp[1] false
+congeal.schedule[{$n}].optimize.warp[2] false
+congeal.schedule[{$n}].optimize.warp[3] true
+congeal.schedule[{$n}].optimize.iterations 30
+congeal.schedule[{$n}].optimize.samples 500000
+
+
+congeal.schedules {++n}
+
+

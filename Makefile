@@ -1,0 +1,3 @@
+src: 
+	cd src
+	make
