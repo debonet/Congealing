@@ -22,7 +22,7 @@ congeal.inputfiles 30
 
 ## @parameter congeal.inputfile.format
 ## @type string
-## @doc format of input files. Currently 'nifti' or 'brainweb'
+## @doc format of input files. Currently only 'nifti' is supported
 ##
 congeal.inputfile.format nifti
 
@@ -35,8 +35,7 @@ congeal.inputfile.format nifti
 ## set to '0' in which case all the files in the list 
 ## will be used
 ## 
-#congeal.inputfiles.list ../input/NIH/4yearolds
-congeal.inputfiles.list ../input/oasisNifti/allfiles
+congeal.inputfiles.list ../input/sample/allfiles
 
 
 ## @parameter congeal.inputfiles.pattern
