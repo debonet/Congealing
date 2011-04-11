@@ -62,7 +62,8 @@ release :
 .PHONY : release
 
 ########## debug
-debug : PROGRAM := $(PROGRAM).debug
+debug : PROGRAM := $(PROGRAM).debugyes
+
 ifeq ($(OSTYPE),darwin)
 debug : CFLAGS = -g -O0 -Wall -frepo \
 			-DPTHREAD_BARRIER=1

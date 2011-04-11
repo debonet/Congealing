@@ -1,0 +1,10 @@
+1. To build Congeal, use:
+
+	cmake src -DCMAKE_BUILD_TYPE=Release
+	make clean
+	make
+
+2. To configure, copy src/config to your working directory, and modify as desired
+
+3. Run the Congeal executable
+

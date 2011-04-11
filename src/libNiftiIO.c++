@@ -97,7 +97,7 @@ NiftiVolume* ReadNifti(const char* sfl)
 	}
 	P("MAX %g MIN %g", rMax, rMin);
 
-	float rScale=rMax-rMin;
+//	float rScale=rMax-rMin;
 	for (int n=0; n<cSize; n++){
 //		pgv->WriteData()[n]=(vr[n]-rMin)/rScale*4095;
 		pgv->WriteData()[n]=vr[n];
