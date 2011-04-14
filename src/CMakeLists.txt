@@ -77,3 +77,9 @@ add_executable(Congeal ${All_CPP})
 target_link_libraries (Congeal pthread)
 
 
+
+install(TARGETS Congeal
+  RUNTIME DESTINATION bin
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+)
