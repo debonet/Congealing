@@ -30,6 +30,10 @@ NiftiVolume;
 //============================================================================
 NiftiVolume* ReadNifti(const char* sfl);
 
+//============================================================================
+//============================================================================
+bool WriteNifti(const char* sfl, NiftiDataVolume* pv);
+
 // nifti header based on code sample from
 //
 //   http://nifti.nimh.nih.gov/pub/dist/src/niftilib/nifti1.h
