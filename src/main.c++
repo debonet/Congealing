@@ -102,89 +102,7 @@ MAKE_COMBINE_ASSISTANT(
 template <class RECIPIE>
 void WriteRecipie(RECIPIE& recipie, int nSchedule, int nProgress)
 {
-	DimensionType dtSlice=DimensionType(ConfigValue("congeal.output.dimension",int(DimensionY)));
-	int nSlice=ConfigValue("congeal.output.slice",.5) * recipie.PSource(0)->Size().Dim(dtSlice);
-
-	// shut up the compiler
-	nSlice++;
-	nSlice--;
-	
 	String sflPrefix = ConfigValue("congeal.output.prefix","../output/congeal/");
-
-#if 0
-	//----------------------------------------
-	UD1("writing out representative slices of congealed volumes");
-	{
-		for (int n=0; n<recipie.CSources(); n++){
-			WritePGM(
-				StringF(sflPrefix + "out%03d.%03d-%03d-%03d.pgm",nSchedule,nProgress,n,nSlice),
-				Rasterize(Slice(dtSlice,nSlice,recipie.PSource(n))));
-		}
-	}
-
-	//----------------------------------------
-	UD1("writing out representative slices of average of congealed volumes");
-	{
-		WritePGM(
-			StringF(sflPrefix + "out%03d.%03d-average-%03d.pgm",nSchedule,nProgress,nSlice),
-			Rasterize(
-				Slice(
-					dtSlice,nSlice,
-					Average(recipie.VSources(),recipie.CSources()))));
-	}
-	//----------------------------------------
-	UD1("writing out representative slices of average of congealed volumes");
-	{
-		WritePGM(
-			StringF(sflPrefix + "out%03d.%03d-weightedaverage-%03d.pgm",nSchedule,nProgress,nSlice),
-			Rasterize(
-				Slice(
-					dtSlice,nSlice,
-					WeightedAverage(
-						Sum(
-							recipie.VSources(),
-							recipie.CSources(),
-							DistributionField10<typename Recipie_G3R_All_G3I::type_source>),
-						recipie.VSources(),recipie.CSources()
-					))));
-	}
-
-	//----------------------------------------
-	UD1("writing out representative slices of max dimension of average of distribution over congealed volumes");
-	{
-		WritePGM(
-			StringF(sflPrefix + "out%03d.%03d-maxdfield-%03d.pgm",nSchedule,nProgress,nSlice),
-			Rasterize(
-				Slice(
-					dtSlice,nSlice,
-					MaximumDimension(
-						Average(
-							recipie.VSources(),
-							recipie.CSources(),
-							DistributionField10<TypeOfSource(Recipie_G3R_All_G3I)>)))));
-	}
-#endif
-
-/*
-
-for (int n=0; n<recipie.CSources(); n++){
-GreyImage* pgi=Rasterize(
-Slice(
-DimensionType(dtSlice),nSlice,
-GreyPixelRangeScale(
-1024,1024,
-recipie.PSource(n))));
-forpoint(Point2D, pt,0,pgi->Size()){
-Pixel8BitGrey pxl;
-GetPoint(*pgi,pxl,pt);
-if (pxl!=127){
-UD("%d %s: %d", n,pt.Describe().V(),pxl);
-}
-}
-exit(1);
-}
-*/
-
 
 	//----------------------------------------
 	UD1("writing out overview congealed volumes");
@@ -260,113 +178,24 @@ exit(1);
 			}
 		}
 	}
-}
-
-
-	//----------------------------------------
-	// method 2
-/*
-
-UD1("writing out representative slices of max dimension of average of distribution over congealed volumes");
-{
-typedef TypeOfSource(Recipie_G3R_All_G3I) SOURCE;
-typedef TypeOfData(Recipie_G3R_All_G3I) DATA;
-typedef TypeOfPrecision(Recipie_G3R_All_G3I) PRECISION;
-const int DIMENSIONALITY = TypeOfDimensionality(Recipie_G3R_All_G3I);
-
-Real rSigmaSpatial = ConfigValue("congeal.output.spatialsigma",.2);
-
-#define Extends(_type) TypeOfData(_type), TypeOfDimensionality(_type), TypeOfPrecision(_type), _type
-
-typedef SourceAccessorDistributionFieldOf<
-DistributionFieldInfo<TypeOfData(SOURCE)>::type,
-DIMENSIONALITY,	
-PRECISION,
-SOURCE
-> DField;
-
-typedef SourceCombinePointwiseOperatorOf<
-OperatorAverageOf<TypeOfData(DField),	TypeOfData(DField)>,
-DIMENSIONALITY,	
-PRECISION,
-DField
->  AvgDField;
-	
-typedef SourceAccessorConvolutionOf<Extends(AvgDField) ProbabilityDensityFunction)> ;
-
-ProbabilityDensityFunction* pgvPDF = Average(
-recipie.VSources(),
-recipie.CSources(),
-DistributionField10<TypeOfSource(Recipie_G3R_All_G3I)>);
-
-typedef SourceMixedLookupDimensionOf(
-TypeOfData(ProbabilityDensityFunction),DIMENSIONS,PRECISION,SOURCE,ProbabilityDensityFunction
-) Lookup;
-Lookup vlooup
-
-LookupDimension
-WritePGM(
-Rasterize(
-Slice(
-dtSlice,nSlice,
-SelectSource(
-IndexOfMaximum(
-LookupDimension(
-recipie.VSources(),
-recipie.CSources(),
-Blur(
-pgvPDF)))))),
-StringF(sflPrefix + "out%03d.%03d-maxl-%03d.pgm",nSchedule,nProgress,nSlice)
-);
-}
-*/
-
-
-/*
-
-gvPDF = average(distrofield ( all ));
-
-selectsource(indexofmax(blur(lookupdimension(each, gvPDF)),
-
-
-
-
-SelectSource(
-	IndexOfMaximum(
-		Blur(
-			LookupDimension(
-				recipie.PSource(n)
-				Average(
-					recipie.VSources(),
-					recipie.CSources(),
-					DistributionField10()
-				)
-			)
-		) [0...c]
-	),
-	recipie.PSource(n) [0...c]
-)
-
-
-lookupdimension of each
 
 
 	{
-		typedef TypeOfSource(Recipie_G3R_All_G3I) SOURCE;
-		typedef TypeOfData(Recipie_G3R_All_G3I) DATA;
-		typedef TypeOfPrecision(Recipie_G3R_All_G3I) PRECISION;
-		const int DIMENSION = TypeOfDimension(Recipie_G3R_All_G3I);
+		TICK(dtmWriteVolume);
 
-		Real rSigmaSpatial = ConfigValue("congeal.output.spatialsigma",.2);
+		UD("STARTING WRITE NIFTI TIME (%g)", TOCK(dtmWriteVolume));
+		WriteNifti(
+			StringF(sflPrefix + "out%03d.nii",nSchedule),
+			Rasterize(
+				Average(
+					recipie.VSources(),
+					recipie.CSources())));
 
+		UD("WRITE NIFTI TIME (%g)", TOCK(dtmWriteVolume));
+	}
 
-		Average(
-			recipie.VSources(),
-			recipie.CSources(),
-			DistributionField10<TypeOfSource(Recipie_G3R_All_G3I)>);
+}
 
-
-*/
 
 
 //============================================================================

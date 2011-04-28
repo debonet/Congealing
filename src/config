@@ -35,7 +35,7 @@ congeal.inputfile.format nifti
 ## set to '0' in which case all the files in the list 
 ## will be used
 ## 
-congeal.inputfiles.list ../input/sample/allfiles
+congeal.inputfiles.list ../input/oasisNifti/allfiles
 
 
 ## @parameter congeal.inputfiles.pattern
@@ -348,5 +348,4 @@ congeal.schedule[{$n}].optimize.samples 500000
 
 
 congeal.schedules {++n}
-
 

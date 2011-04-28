@@ -149,8 +149,8 @@ typedef struct  {
 #define NIFTI_SLICE_ALT_DEC   4
 #define NIFTI_SLICE_ALT_INC2  5
 #define NIFTI_SLICE_ALT_DEC2  6
-#define NIFTI_UNITS_UNKNOWN 0
 
+#define NIFTI_UNITS_UNKNOWN 0
 #define NIFTI_UNITS_METER   1
 #define NIFTI_UNITS_MM      2
 #define NIFTI_UNITS_MICRON  3
