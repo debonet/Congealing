@@ -21,7 +21,7 @@ Interpolate(InterpolationType it, SOURCE* psrc)
 	case Linear:  return LinearInterpolation(psrc);
 	case Cubic:   return CubicInterpolation(psrc);
 	default:{
-		ERROR("unknown interpolation type %d", it);
+		CONGEAL_ERROR("unknown interpolation type %d", it);
 	}
 	}
 }

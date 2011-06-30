@@ -93,7 +93,7 @@ public:
 
 	void Set(const PRECISION &rX, const PRECISION &rY, const DATA& data)
 	{
-		ERROR("not implemeneted (but could be)");
+		CONGEAL_ERROR("not implemeneted (but could be)");
 	}
 
 };
@@ -176,7 +176,7 @@ public:
 
 	void Set(const PRECISION &rX, const PRECISION &rY, const PRECISION &rZ, const DATA& data)
 	{
-		ERROR("not implemeneted (but could be)");
+		CONGEAL_ERROR("not implemeneted (but could be)");
 	}
 
 };

@@ -7,11 +7,21 @@
 
 #include <fcntl.h> // for O_RDONLY etc.
 #include <sys/stat.h> // for fstat()
-#include <unistd.h>
+#ifdef _WIN32
+#  include <winsock.h>
+#else
+#  include <unistd.h>
+#endif
 
 #undef DEBUG
 #define DEBUG -1
 #include "libDebug.h"
+#ifdef _WIN32
+
+#  define ALWAYS_INLINE
+#else 
+#define ALWAYS_INLINE __attribute__((always_inline))
+#endif
 
 
 #include "Vector.h"
@@ -31,22 +41,22 @@ protected:
 	{	}
 
 public:
-	StreamOf()  __attribute__((always_inline))
+	StreamOf()  ALWAYS_INLINE
 		: VectorOf<T>()
 		, m_nStart(0)
 	{}
 
-	StreamOf(const StreamOf<T>& st)   __attribute__((always_inline))
+	StreamOf(const StreamOf<T>& st)   ALWAYS_INLINE
 		: VectorOf<T>(st)
 		, m_nStart(st.m_nStart)
 	{}
 
-	StreamOf(const T* vt, int c)  __attribute__((always_inline))
+	StreamOf(const T* vt, int c)  ALWAYS_INLINE
 		: VectorOf<T>(vt,c)
 		, m_nStart(0)
 	{}
 
-	StreamOf<T>& operator = (const StreamOf<T>& st) __attribute__((always_inline))
+	StreamOf<T>& operator = (const StreamOf<T>& st) ALWAYS_INLINE
 	{
 		VectorOf<T>::operator=(st);
 		m_nStart=st.m_nStart;
@@ -120,7 +130,7 @@ public:
 
 	T& Read()
 	{
-		ASSERT(C()>0);
+		CONGEAL_ASSERT(C()>0);
 		T& t=V()[0];
 		m_nStart++;
 		return t;
@@ -128,27 +138,27 @@ public:
 
 	void Skip(int d)
 	{
-		ASSERT(C()>=d);
+		CONGEAL_ASSERT(C()>=d);
 		m_nStart+=d;
 	}
 
 	void Skip(const VectorOf<T> &v)
 	{
-		ASSERT(C()>=v.C());
-		ASSERT(memcmp(V(),v.V(),v.C())==0);
+		CONGEAL_ASSERT(C()>=v.C());
+		CONGEAL_ASSERT(memcmp(V(),v.V(),v.C())==0);
 		m_nStart+=v.C();
 	}
 
 	void Read(T* vt, int c)
 	{
-		ASSERT(C()>=c);
+		CONGEAL_ASSERT(C()>=c);
 		memcpy(vt,V(),c);
 		m_nStart+=c;
 	}
 
 	VectorOf<T> Read(int c)
 	{
-		ASSERT(C()>=c);
+		CONGEAL_ASSERT(C()>=c);
 		VectorOf<T> vect;
 		vect.Allocate(c);
 		memcpy(vect.V(),V(),c);
@@ -173,7 +183,7 @@ typedef StreamOf<byte> Stream;
 inline void WriteStream(const Stream& st, const char* sfl)
 {
 	int fd = open(sfl, O_WRONLY | O_CREAT, 0666);
-	ASSERT(fd>=0);
+	CONGEAL_ASSERT(fd>=0);
 	write(fd,st.V(),st.C());
 	close(fd);
 }

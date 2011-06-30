@@ -14,6 +14,14 @@
 #define DEBUG 0
 #include "libDebug.h"
 
+
+#ifdef _WIN32
+#  define ALWAYS_INLINE
+#else 
+#define ALWAYS_INLINE __attribute__((always_inline))
+#endif
+
+
 typedef RegistryOf<Parameter*> RegistryOfParameters;
 
 inline void RegisterPointAsParameter(RegistryOfParameters &reg, PointOf<2,Real>& pt){
@@ -41,7 +49,7 @@ public:
 		: Counted()
 	{}
 
-	virtual ~BasicSource() __attribute__((always_inline))
+	virtual ~BasicSource() ALWAYS_INLINE
 	{}
 
 	virtual String Describe() const =0;
@@ -70,7 +78,7 @@ public:
 		return PRECISION(t);
 	}
 
-	virtual ~SourceBaseOf() __attribute__((always_inline))
+	virtual ~SourceBaseOf() ALWAYS_INLINE
 	{}
 
 	virtual String DescribeCommon() const
@@ -115,10 +123,11 @@ template<class DATA, class PRECISION>
 class SourceOf<DATA, 2, PRECISION>
 	: public SourceBaseOf<DATA,2,PRECISION>
 {
+public:
 	static const int DIMENSIONALITY=2;
 	typedef PointOf<DIMENSIONALITY,PRECISION> POINT;
 public:
-	virtual ~SourceOf() __attribute__((always_inline))
+	virtual ~SourceOf() ALWAYS_INLINE
 	{}
 
 	virtual void VirtualGet(DATA& dataOut, const PRECISION& nX, const PRECISION& nY) const =0;
@@ -130,11 +139,12 @@ template<class DATA, class PRECISION>
 class SourceOf<DATA, 3, PRECISION>
 	: public SourceBaseOf<DATA,3,PRECISION>
 {
+public:
 	static const int DIMENSIONALITY=3;
 	typedef PointOf<DIMENSIONALITY,PRECISION> POINT;
 public:
 
-	virtual ~SourceOf() __attribute__((always_inline))
+	virtual ~SourceOf() ALWAYS_INLINE
 	{}
 
 	virtual void VirtualGet(DATA& dataOut, const PRECISION& nX, const PRECISION& nY, const PRECISION& nZ) const =0;

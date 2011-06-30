@@ -26,6 +26,7 @@
 #include "SourceAccessorRangeScale.h"
 
 #include "SourceTransformSpatialScale.h"
+#include "libMatlabIO.h"
 
 #undef DEBUG 
 #define DEBUG 3
@@ -102,7 +103,15 @@ MAKE_COMBINE_ASSISTANT(
 template <class RECIPIE>
 void WriteRecipie(RECIPIE& recipie, int nSchedule, int nProgress)
 {
-	String sflPrefix = ConfigValue("congeal.output.prefix","../output/congeal/");
+
+	String sdir = ConfigValue("congeal.output.path","../output/congeal/");
+	String sflPrefix = ConfigValue("congeal.output.prefix","out");
+
+	SaveMatlab(
+		StringF(sdir + sflPrefix + "%03d.%03d.m",nSchedule,nProgress),
+		StringF(sflPrefix + "%03d.%03d",nSchedule,nProgress),
+		recipie
+	);
 
 	//----------------------------------------
 	UD1("writing out overview congealed volumes");
@@ -114,7 +123,7 @@ void WriteRecipie(RECIPIE& recipie, int nSchedule, int nProgress)
 			int nSlice=ConfigValue("congeal.output.slice",.5) * recipie.PSource(0)->Size().Dim(dtSlice);
 
 			ScanLayout layoutInputs;
-			int cLayout=min(recipie.CSources(),ConfigValue("congeal.output.sourcegrid",1024));
+			int cLayout=congeal_min(recipie.CSources(),ConfigValue("congeal.output.sourcegrid",1024));
 			int cC = floor(sqrt(cLayout));
 			int cR = floor(sqrt(cLayout));
 
@@ -132,7 +141,7 @@ void WriteRecipie(RECIPIE& recipie, int nSchedule, int nProgress)
 									Point2D(300.,300.),
 									Slice(
 										DimensionType(dtSlice),nSlice,
-										(//										CubicInterpolation(
+										(//										LinearInterpolation(
 											recipie.PSource(n)))))));
 				}
 				layoutInputs.AutoArrange();
@@ -143,7 +152,7 @@ void WriteRecipie(RECIPIE& recipie, int nSchedule, int nProgress)
 			{
 				TICK(dtmWriteVolume);
 				WritePGM(
-					StringF(sflPrefix + "out%03d.%03d-inputs%d-%03d.pgm",nSchedule,nProgress,dtSlice,nSlice),
+					StringF(sdir + sflPrefix + "%03d.%03d-inputs%d-%03d.pgm",nSchedule,nProgress,dtSlice,nSlice),
 					Rasterize(						
 						GreyPixelRangeScale(
 							dataMean,dataRange,
@@ -158,7 +167,7 @@ void WriteRecipie(RECIPIE& recipie, int nSchedule, int nProgress)
 				TICK(dtmWriteVolume);
 
 				WritePGM(
-					StringF(sflPrefix + "out%03d.%03d-average%d-%03d.pgm",nSchedule,nProgress,dtSlice,nSlice),
+					StringF(sdir + sflPrefix + "%03d.%03d-average%d-%03d.pgm",nSchedule,nProgress,dtSlice,nSlice),
 					Rasterize(
 						ScaleUpto(
 							Point2D(
@@ -169,7 +178,7 @@ void WriteRecipie(RECIPIE& recipie, int nSchedule, int nProgress)
 								dataMean,dataRange,
 								Slice(
 									DimensionType(dtSlice),nSlice,
-									(//									CubicInterpolation(
+									(//									LinearInterpolation(
 										Average(
 											recipie.VSources(),
 											recipie.CSources())))))));
@@ -185,7 +194,7 @@ void WriteRecipie(RECIPIE& recipie, int nSchedule, int nProgress)
 
 		UD("STARTING WRITE NIFTI TIME (%g)", TOCK(dtmWriteVolume));
 		WriteNifti(
-			StringF(sflPrefix + "out%03d.nii",nSchedule),
+			StringF(sdir + sflPrefix + "%03d.nii",nSchedule),
 			Rasterize(
 				Average(
 					recipie.VSources(),
@@ -212,7 +221,7 @@ void LoadAndScaleSources(int c, ScanVolume* vscan, const String& sConfig)
 	FILE *pfl=NULL;
 	if(bFromFile){
 		pfl=fopen(sflInputfiles,"r");
-		ASSERTf(pfl,"could not open file: " + sflInputfiles);
+		CONGEAL_ASSERTf(pfl,"could not open file: " + sflInputfiles);
 	}
 
 	for (int n=0; n<c; n++){
@@ -237,7 +246,7 @@ void LoadAndScaleSources(int c, ScanVolume* vscan, const String& sConfig)
 		);
 
 		if (sInputFormat == "brainweb"){
-			ERROR("not currently supported");
+			CONGEAL_ERROR("not currently supported");
 /*
 			vscan[n]=DereferencePointer(
 				RasterizeDownsample(			
@@ -509,21 +518,10 @@ void CongealSchedules()
 
 	P(DescribeConfiguration());
 
-	String sflPrefix = ConfigValue("congeal.output.prefix","../output/congeal/");
+	String sdir = ConfigValue("congeal.output.path","../output/congeal/");
+	String sflPrefix = ConfigValue("congeal.output.prefix","../output/congeal/out");
 
-	system("cp '" + GetConfigFile() + "' '" + sflPrefix + "config'");
-
-	// allocate warpfield
-	for (int n=0; n<c; n++){ 
-		recipie.LayerWarp0(n).AllocateWarpfield(PointOf<3,Real>(1),Cubic);
-		recipie.LayerWarp1(n).AllocateWarpfield(PointOf<3,Real>(1),Cubic);
-		recipie.LayerWarp2(n).AllocateWarpfield(PointOf<3,Real>(1),Cubic);
-		recipie.LayerWarp3(n).AllocateWarpfield(PointOf<3,Real>(1),Cubic);
-		Set(*recipie.LayerWarp0(n).GetPWarpControlPoints(),0,0,0,Point3DReal(0.));
-		Set(*recipie.LayerWarp1(n).GetPWarpControlPoints(),0,0,0,Point3DReal(0.));
-		Set(*recipie.LayerWarp2(n).GetPWarpControlPoints(),0,0,0,Point3DReal(0.));
-		Set(*recipie.LayerWarp3(n).GetPWarpControlPoints(),0,0,0,Point3DReal(0.));
-	}
+	system("cp '" + GetConfigFile() + "' '" + sdir + sflPrefix + ".config'");
 
 	// allocate spatialscale
 /*
@@ -539,7 +537,7 @@ void CongealSchedules()
 		UD("CONGEALING SCHEDULE %d/%d", nSchedule, cSchedules);
 
 		bool bCache=ConfigValue(sConfig + ".cache",	ConfigValue("congeal.cache",true));
-		String sflCache = StringF(sflPrefix + "out%03d.cache",nSchedule);
+		String sflCache = StringF(sdir + sflPrefix + "%03d.cache",nSchedule);
 
 		UD("Checking cache");
 		if (bCache && LoadCachedRecipie(sflCache, recipie, vscan)){
@@ -564,6 +562,93 @@ void CongealSchedules()
 	do {;} while(wait(&zReturn)!=-1 && errno !=ECHILD);
 }
 
+
+
+//============================================================================
+//============================================================================
+void ApplyCongeal()
+{
+	String sflCache=ConfigValue("apply.cachefile","../output/congeal/out000.cache");
+	int nTransform=ConfigValue("apply.transform",0);
+
+	String sflSource=ConfigValue("apply.inputfile","../input/in.nifti");
+	String sInputFormat=ConfigValue("apply.inputfile.format","nifti");
+
+	String sdir = ConfigValue("apply.output.path","../output/congeal/");
+	String sflPrefix = ConfigValue("apply.output.prefix","out");
+	ScanVolume scan;
+
+	Recipie_G3R_All_G3I recipie(1,&scan);
+
+
+	if (sInputFormat == "nifti"){
+		scan=DereferencePointer(
+			RasterizeDownsample(			
+				ConfigValue("apply.inputfile.downsample",0), 
+				ReadNifti(sflSource)
+			)
+		);
+	}
+	scan.PrepareForAccess();
+
+	Stream st;
+	if (!ReadStream(st,sflCache)){
+		CONGEAL_ERROR("cache file not found " + sflCache);
+	}
+
+	// HACK: because cache file contain an enitre group of transform-sets
+	// we 'eat up' the prior sets on the stream by repeateded deserializing
+	for (int n=0; n<=nTransform; n++){
+		recipie.Deserialize(st);
+	}
+	recipie.PrepareForAccess();
+
+
+	const int dataMean=ConfigValue("apply.output.colors.mid",2048);
+	const int dataRange=ConfigValue("apply.output.colors.range",1024);
+
+	// write out three slices
+	for (int dtSlice=0; dtSlice<3; dtSlice++){
+		int nSlice=(
+			ConfigValue("apply.output.slice",.5) 
+			* recipie.PSource(0)->Size().Dim(dtSlice)
+		);
+
+		WritePGM(
+			StringF(sdir + sflPrefix + "%d-%03d.pgm",dtSlice,nSlice),
+			Rasterize(
+				ScaleUpto(
+					Point2D(
+						ConfigValue("apply.output.width",512),
+						ConfigValue("apply.output.height",512)
+					),
+					GreyPixelRangeScale(
+						dataMean,dataRange,
+						Slice(
+							DimensionType(dtSlice),nSlice,
+							recipie.PSource(0)
+						)
+					)
+				)
+			)
+		);
+	}
+
+	// write out the whole volume
+	{
+		TICK(dtmWriteVolume)
+
+		UD("STARTING WRITE NIFTI TIME (%g)", TOCK(dtmWriteVolume));
+		WriteNifti(
+			StringF(sdir + sflPrefix + ".nii"),
+			Rasterize(
+				recipie.PSource(0)
+			)
+		);
+		UD("WRITE NIFTI TIME (%g)", TOCK(dtmWriteVolume));
+	}
+
+}
 
 
 
@@ -661,7 +746,19 @@ void TestInterpolation()
 int main(int cCLA, char *vsCLA[]){
 
 	if (cCLA>1){
-		SetConfigFile(vsCLA[1]);
+		int nCLA=1;
+		if (vsCLA[nCLA][0] != '-'){
+			SetConfigFile(vsCLA[1]);
+			nCLA++;
+		}
+		
+		for (; nCLA<cCLA-1; nCLA++){
+			String sCmd=ConfigValue(String("command[") + vsCLA[nCLA] + "]","");
+			if (sCmd.C() == 0){
+				CONGEAL_ERROR("unknown command line option " + String(vsCLA[nCLA]));
+			}
+			SetConfigValue(sCmd,vsCLA[nCLA+1]);
+		}
 	}
 	
 	ConfigValue("test","congeal");
@@ -677,15 +774,18 @@ int main(int cCLA, char *vsCLA[]){
 		else if (sTest==String("congeal")){
 			CongealSchedules();
 		}
+		else if (sTest==String("apply")){
+			ApplyCongeal();
+		}
 		else{
-			ERROR("Unknown test:"+ sTest +"--");
+			CONGEAL_ERROR("Unknown test:"+ sTest +"--");
 		}
 
 	}
 	D("Objects leaked %d", 
 		ObjectsOutstanding()	-cStaticObjects );
 
-	ASSERTf(	
+	CONGEAL_ASSERTf(	
 		ObjectsOutstanding() == cStaticObjects, 
 		"Objects leaked %d", 
 		ObjectsOutstanding()	-cStaticObjects 

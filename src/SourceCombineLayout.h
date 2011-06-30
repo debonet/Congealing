@@ -43,7 +43,7 @@ public:
 
 		for (int n=0; n<c; n++){
 			this->m_vecpsrc[n]->PrepareForAccess();
-			ptMax=max(ptMax,this->m_vecpsrc[n]->Size());
+			ptMax=congeal_max(ptMax,this->m_vecpsrc[n]->Size());
 		}
 		
 		typedef PointOf<DIMENSIONALITY,int> POINT;
@@ -92,7 +92,7 @@ public:
 		this->m_ptSize=m_vecpt[0]+this->m_vecpsrc[0]->Size();
 
 		for (int n=1; n<m_vecpt.C(); n++){
-			this->m_ptSize=max(this->m_ptSize, m_vecpt[n]+this->m_vecpsrc[n]->Size());
+			this->m_ptSize=congeal_max(this->m_ptSize, m_vecpt[n]+this->m_vecpsrc[n]->Size());
 		}
 	}
 

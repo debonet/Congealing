@@ -129,7 +129,7 @@ public:
 		dataOut=dataSource.MaxDimension();
 	}
 	static void ToSource(Point256DReal& dataSource, const Pixel8BitGrey& dataOut){
-		ERROR("NOT IMPLEMENTED");
+		CONGEAL_ERROR("NOT IMPLEMENTED");
 	}
 };
 

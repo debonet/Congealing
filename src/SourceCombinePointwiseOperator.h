@@ -275,7 +275,7 @@ public:
 	}
 
 	static void ToSource(DATA_SOURCE* vdata, const int& cdata, const DATA_OUT& dataOut){
-		ERROR("not implemented");
+		CONGEAL_ERROR("not implemented");
 	}
 };
 

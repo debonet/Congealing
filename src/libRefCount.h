@@ -7,6 +7,13 @@
 #define DEBUG 0
 #include "libDebug.h"
 
+#ifdef _WIN32
+#  define ALWAYS_INLINE
+#else 
+#define ALWAYS_INLINE __attribute__((always_inline))
+#endif
+
+
 class Counted;
 class String;
 
@@ -81,7 +88,7 @@ public:
 		Claim();
 	}
 
-	virtual ~Counted() __attribute__((always_inline))
+	virtual ~Counted() ALWAYS_INLINE
 	{
 		UD2("DESTROY: counted destroyed 0x%x with reference 0x%x", (int)this, (int)m_pref);
 		m_cPointerRefs--;
@@ -89,6 +96,7 @@ public:
 		Release();
 	}
 
+#ifndef _WIN32
 	Counted& operator = (const Counted& refc)
 	{
 		if (m_pref != refc.m_pref){
@@ -100,6 +108,7 @@ public:
 		// dont change m_cPointerRefs;
 		return *this;
 	}
+#endif
 
 	Counted& operator = (Counted& refc)
 	{
@@ -126,7 +135,7 @@ public:
 		UD2("CLAIM: counted 0x%x reference 0x%x increased to %d", (int)this, (int)m_pref, m_pref->m_cReferences);
 	}
 
-	void Release() const __attribute__((always_inline))
+	void Release() const ALWAYS_INLINE
 	{
 		m_pref->m_cReferences--;
 		UD2("RELEASE: counted 0x%x reference 0x%x decreased to %d", (int)this, (int)m_pref, m_pref->m_cReferences);
@@ -199,12 +208,12 @@ namespace {
 // take ownership of a pointer. This commits you to either 
 // calling ReleasePointer() or HandoffPointer()
 template<class COUNTED>
-inline COUNTED*	ClaimPointer(COUNTED *pcount) __attribute__((always_inline));
+inline COUNTED*	ClaimPointer(COUNTED *pcount) ALWAYS_INLINE;
 template<class COUNTED>
 inline COUNTED*	ClaimPointer(COUNTED *pcount)
 {
 	REFCOUNT_LOCK;
-	ASSERT(pcount != NULL);
+	CONGEAL_ASSERT(pcount != NULL);
 	pcount->m_cPointerRefs++;
 	REFCOUNT_UNLOCK;
 	return pcount;
@@ -215,13 +224,13 @@ inline COUNTED*	ClaimPointer(COUNTED *pcount)
 //============================================================================
 // dismiss ownership of a pointer, but do not free
 template<class COUNTED>
-inline COUNTED*	HandoffPointer(COUNTED *pcount) __attribute__((always_inline));
+inline COUNTED*	HandoffPointer(COUNTED *pcount) ALWAYS_INLINE;
 template<class COUNTED>
 inline COUNTED*	HandoffPointer(COUNTED *pcount)
 {
 	REFCOUNT_LOCK;
-	ASSERT(pcount != NULL);
-	ASSERT(pcount->m_cPointerRefs > 0);
+	CONGEAL_ASSERT(pcount != NULL);
+	CONGEAL_ASSERT(pcount->m_cPointerRefs > 0);
 	pcount->m_cPointerRefs--;
 	REFCOUNT_UNLOCK;
 	return pcount;
@@ -231,7 +240,7 @@ inline COUNTED*	HandoffPointer(COUNTED *pcount)
 //============================================================================
 //============================================================================
 // dismiss ownership of a pointer, potentially freeing
-inline void ReleasePointer(Counted *pcount) __attribute__((always_inline));
+inline void ReleasePointer(Counted *pcount) ALWAYS_INLINE;
 inline void ReleasePointer(Counted *pcount)
 {
 	if(pcount == NULL){
@@ -264,7 +273,7 @@ inline void ReleasePointer(Counted *pcount)
 // release the current pointer and take claim of a new one, unless the
 // pointers are the same, in which case, do nothing
 template <class COUNTED> 
-inline void ChangePointer(COUNTED*& pcount1,  COUNTED*& pcount2) __attribute__((always_inline));
+inline void ChangePointer(COUNTED*& pcount1,  COUNTED*& pcount2) ALWAYS_INLINE;
 template <class COUNTED> 
 inline void ChangePointer(COUNTED*& pcount1,  COUNTED*& pcount2) 
 {

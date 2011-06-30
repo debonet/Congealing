@@ -41,7 +41,7 @@ void SuperRes()
 
 		//--------------------------------------------------------
 		D("clipping, exploding, interpolating, scaling, blurring");
-		Point2D ptEnd = min(Point2D(cBlocksize),pi->Size()-ptShift);
+		Point2D ptEnd = congeal_min(Point2D(cBlocksize),pi->Size()-ptShift);
 		int cSupport=int(3*rSigmaBlur);
 		int cSupport2=cSupport*2+1;
 

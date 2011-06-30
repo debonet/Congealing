@@ -94,7 +94,7 @@ public:
 		}
 
 		default:{
-			ERROR("not implemented yet");
+			CONGEAL_ERROR("not implemented yet");
 			break;
 		}
 		}

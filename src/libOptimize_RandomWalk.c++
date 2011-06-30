@@ -28,7 +28,7 @@ bool Optimize_RandomWalk(
 	double *prTest=vrParamTest;
 	double *prMin=vrParamMin;
 
-	cIterations*=sqrt(cDimensions);
+	cIterations=(int)(cIterations*sqrt((double)cDimensions));
 	int nIteration;
 
 	for (int nDimension=0; nDimension<cDimensions; nDimension++){
@@ -81,15 +81,6 @@ bool Optimize_RandomWalk(
 	UD("iterations: %d    Error: %g", nIteration, rErrMin);
 	UD("Parameters:");
 
-	int cAcross=10;
-	for (int nDimension=0; nDimension<cDimensions; nDimension+=cAcross){
-		UIDX(2,"%3d-%3d] ", nDimension, min(cDimensions-1,nDimension+cAcross));
-		for (int d=0; d<cAcross && (d+nDimension) < cDimensions; d++){
-			PX("%+1.2f ", vrParamMin[nDimension]);
-		}
-		P(" ");
-	}
-	P("\n");
 
 
 	// cleanup

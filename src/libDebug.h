@@ -10,7 +10,7 @@
 //==========================================================================
 //==========================================================================
 // indented debug no newline
-#define IDX0(_c,_s...)																					\
+#define IDX0(_c,_s,...)																					\
 	do {																													\
 		static volatile int _d##__LINE__=0;													\
 		if (_d##__LINE__ < 10) {																		\
@@ -18,14 +18,14 @@
 			for (int _n=0; _n<_c; _n++){															\
 				printf("\t");																						\
 			};																												\
-			printf(_s);																								\
+			printf(_s, ##__VA_ARGS__);																	\
 		}																														\
 		else if (IsIntegral(log2((_d##__LINE__)))) {								\
 			printf("%s:%d: [%d] ",__FILE__ ,__LINE__, _d##__LINE__);	\
 			for (int _n=0; _n<_c; _n++){															\
 				printf("\t");																						\
 			};																												\
-			printf(_s);																								\
+			printf(_s, ##__VA_ARGS__);																	\
 		}																														\
 		_d##__LINE__++;																							\
 	} while(0)
@@ -33,7 +33,7 @@
 //==========================================================================
 //==========================================================================
 // indented debug
-#define ID0(_c,_s...)																						\
+#define ID0(_c,_s,...)																					\
 	do {																													\
 		static volatile int _d##__LINE__=0;													\
 		int _dt##__LINE__ = _d##__LINE__;														\
@@ -42,7 +42,7 @@
 			for (int _n=0; _n<_c; _n++){															\
 				printf("\t");																						\
 			};																												\
-			printf(_s);																								\
+			printf(_s, ##__VA_ARGS__);																	\
 			printf("\n");																							\
 		}																														\
 		else if (IsIntegral(log2((_dt##__LINE__)))) {								\
@@ -50,7 +50,7 @@
 			for (int _n=0; _n<_c; _n++){															\
 				printf("\t");																						\
 			};																												\
-			printf(_s);																								\
+			printf(_s, ##__VA_ARGS__);																	\
 			printf("\n");																							\
 		}																														\
 		_d##__LINE__++;																							\
@@ -59,39 +59,39 @@
 
 //==========================================================================
 //==========================================================================
-#define DX0(_s...) do {IDX0(0,_s);} while(0)
+#define DX0(_s,...) do {IDX0(0,_s, ##__VA_ARGS__);} while(0)
 
 //==========================================================================
 //==========================================================================
 // debug
-#define D0(_s...)	do {ID0(0,_s);} while(0)
+#define D0(_s,...)	do {ID0(0,_s, ##__VA_ARGS__);} while(0)
 
 //==========================================================================
 //==========================================================================
 // unconditional indented debug with no newline
-#define UIDX0(_c,_s...)													\
+#define UIDX0(_c,_s,...)												\
 	do {																					\
 		printf("%s:%d: ",__FILE__ ,__LINE__);				\
 		for (int _n=0; _n<_c; _n++){								\
 			printf("\t");															\
 		};																					\
-		printf(_s);																	\
+		printf(_s, ##__VA_ARGS__);										\
 	} while(0)
 //==========================================================================
 //==========================================================================
 // unconditional indented debug
-#define UID0(_c,_s...) do {UIDX0(_c,_s); printf("\n");} while(0)
+#define UID0(_c,_s,...) do {UIDX0(_c,_s, ##__VA_ARGS__); printf("\n");} while(0)
 
 //==========================================================================
 //==========================================================================
 // unconditional debug with no newline
-#define UDX0(_s...) do {UIDX0(0,_s);} while(0)
+#define UDX0(_s,...) do {UIDX0(0,_s, ##__VA_ARGS__);} while(0)
 
 
 //==========================================================================
 //==========================================================================
 // unconditional debug
-#define UD0(_s...) do {UDX(_s); printf("\n"); } while(0)
+#define UD0(_s,...) do {UDX(_s, ##__VA_ARGS__); printf("\n"); } while(0)
 
 
 
@@ -108,24 +108,24 @@
 #undef DEBUGONLY
 #if DEBUG >= 0
 # define DEBUGONLY(x) x
-# define D(x...) D0(x)
-# define DX(x...) DX0(x)
-# define ID(x...) ID0(x)
-# define IDX(x...) IDX0(x)
-# define UD(x...) UD0(x)
-# define UDX(x...) UDX0(x)
-# define UID(x...) UID0(x)
-# define UIDX(x...) UIDX0(x)
+# define D(x,...) D0(x, ##__VA_ARGS__)
+# define DX(x,...) DX0(x, ##__VA_ARGS__)
+# define ID(x,...) ID0(x, ##__VA_ARGS__)
+# define IDX(x,...) IDX0(x, ##__VA_ARGS__)
+# define UD(x,...) UD0(x, ##__VA_ARGS__)
+# define UDX(x,...) UDX0(x, ##__VA_ARGS__)
+# define UID(x,...) UID0(x, ##__VA_ARGS__)
+# define UIDX(x,...) UIDX0(x, ##__VA_ARGS__)
 #else
 # define DEBUGONLY(x)
-# define D(x...) 
-# define DX(x...)
-# define ID(x...)
-# define IDX(x...)
-# define UD(x...)
-# define UDX(x...)
-# define UID(x...)
-# define UIDX(x...)
+# define D(x,...) 
+# define DX(x,...)
+# define ID(x,...)
+# define IDX(x,...)
+# define UD(x,...)
+# define UDX(x,...)
+# define UID(x,...)
+# define UIDX(x,...)
 #endif
 
 
@@ -140,23 +140,23 @@
 #undef UID1
 #undef UIDX1
 #if DEBUG >= 1
-# define D1(x...) D0(x)
-# define DX1(x...) DX0(x)
-# define ID1(x...) ID0(x)
-# define IDX1(x...) IDX0(x)
-# define UD1(x...) UD0(x)
-# define UDX1(x...) UDX0(x)
-# define UID1(x...) UID0(x)
-# define UIDX1(x...) UIDX0(x)
+# define D1(x,...) D0(x, ##__VA_ARGS__)
+# define DX1(x,...) DX0(x, ##__VA_ARGS__)
+# define ID1(x,...) ID0(x, ##__VA_ARGS__)
+# define IDX1(x,...) IDX0(x, ##__VA_ARGS__)
+# define UD1(x,...) UD0(x, ##__VA_ARGS__)
+# define UDX1(x,...) UDX0(x, ##__VA_ARGS__)
+# define UID1(x,...) UID0(x, ##__VA_ARGS__)
+# define UIDX1(x,...) UIDX0(x, ##__VA_ARGS__)
 #else
-# define D1(x...) 
-# define DX1(x...)
-# define ID1(x...)
-# define IDX1(x...)
-# define UD1(x...)
-# define UDX1(x...)
-# define UID1(x...)
-# define UIDX1(x...)
+# define D1(x,...) 
+# define DX1(x,...)
+# define ID1(x,...)
+# define IDX1(x,...)
+# define UD1(x,...)
+# define UDX1(x,...)
+# define UID1(x,...)
+# define UIDX1(x,...)
 #endif
 
 
@@ -171,23 +171,23 @@
 #undef UID2
 #undef UIDX2
 #if DEBUG >= 2
-# define D2(x...) D0(x)
-# define DX2(x...) DX0(x)
-# define ID2(x...) ID0(x)
-# define IDX2(x...) IDX0(x)
-# define UD2(x...) UD0(x)
-# define UDX2(x...) UDX0(x)
-# define UID2(x...) UID0(x)
-# define UIDX2(x...) UIDX0(x)
+# define D2(x,...) D0(x, ##__VA_ARGS__)
+# define DX2(x,...) DX0(x, ##__VA_ARGS__)
+# define ID2(x,...) ID0(x, ##__VA_ARGS__)
+# define IDX2(x,...) IDX0(x, ##__VA_ARGS__)
+# define UD2(x,...) UD0(x, ##__VA_ARGS__)
+# define UDX2(x,...) UDX0(x, ##__VA_ARGS__)
+# define UID2(x,...) UID0(x, ##__VA_ARGS__)
+# define UIDX2(x,...) UIDX0(x, ##__VA_ARGS__)
 #else
-# define D2(x...) 
-# define DX2(x...)
-# define ID2(x...)
-# define IDX2(x...)
-# define UD2(x...)
-# define UDX2(x...)
-# define UID2(x...)
-# define UIDX2(x...)
+# define D2(x,...) 
+# define DX2(x,...)
+# define ID2(x,...)
+# define IDX2(x,...)
+# define UD2(x,...)
+# define UDX2(x,...)
+# define UID2(x,...)
+# define UIDX2(x,...)
 #endif
 
 
@@ -203,23 +203,23 @@
 #undef UID3
 #undef UIDX3
 #if DEBUG >= 3
-# define D3(x...) D0(x)
-# define DX3(x...) DX0(x)
-# define ID3(x...) ID0(x)
-# define IDX3(x...) IDX0(x)
-# define UD3(x...) UD0(x)
-# define UDX3(x...) UDX0(x)
-# define UID3(x...) UID0(x)
-# define UIDX3(x...) UIDX0(x)
+# define D3(x,...) D0(x, ##__VA_ARGS__)
+# define DX3(x,...) DX0(x, ##__VA_ARGS__)
+# define ID3(x,...) ID0(x, ##__VA_ARGS__)
+# define IDX3(x,...) IDX0(x, ##__VA_ARGS__)
+# define UD3(x,...) UD0(x, ##__VA_ARGS__)
+# define UDX3(x,...) UDX0(x, ##__VA_ARGS__)
+# define UID3(x,...) UID0(x, ##__VA_ARGS__)
+# define UIDX3(x,...) UIDX0(x, ##__VA_ARGS__)
 #else
-# define D3(x...) 
-# define DX3(x...)
-# define ID3(x...)
-# define IDX3(x...)
-# define UD3(x...)
-# define UDX3(x...)
-# define UID3(x...)
-# define UIDX3(x...)
+# define D3(x,...) 
+# define DX3(x,...)
+# define ID3(x,...)
+# define IDX3(x,...)
+# define UD3(x,...)
+# define UDX3(x,...)
+# define UID3(x,...)
+# define UIDX3(x,...)
 #endif
 
 
@@ -234,21 +234,21 @@
 #undef UID4
 #undef UIDX4
 #if DEBUG >= 4
-# define D4(x...) D0(x)
-# define DX4(x...) DX0(x)
-# define ID4(x...) ID0(x)
-# define IDX4(x...) IDX0(x)
-# define UD4(x...) UD0(x)
-# define UDX4(x...) UDX0(x)
-# define UID4(x...) UID0(x)
-# define UIDX4(x...) UIDX0(x)
+# define D4(x,...) D0(x, ##__VA_ARGS__)
+# define DX4(x,...) DX0(x, ##__VA_ARGS__)
+# define ID4(x,...) ID0(x, ##__VA_ARGS__)
+# define IDX4(x,...) IDX0(x, ##__VA_ARGS__)
+# define UD4(x,...) UD0(x, ##__VA_ARGS__)
+# define UDX4(x,...) UDX0(x, ##__VA_ARGS__)
+# define UID4(x,...) UID0(x, ##__VA_ARGS__)
+# define UIDX4(x,...) UIDX0(x, ##__VA_ARGS__)
 #else
-# define D4(x...) 
-# define DX4(x...)
-# define ID4(x...)
-# define IDX4(x...)
-# define UD4(x...)
-# define UDX4(x...)
-# define UID4(x...)
-# define UIDX4(x...)
+# define D4(x,...) 
+# define DX4(x,...)
+# define ID4(x,...)
+# define IDX4(x,...)
+# define UD4(x,...)
+# define UDX4(x,...)
+# define UID4(x,...)
+# define UIDX4(x,...)
 #endif

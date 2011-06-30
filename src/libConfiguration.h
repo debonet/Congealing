@@ -55,7 +55,7 @@ private:
 					sT=g_h.Get(String(&sT.V()[1]),"");
 				}
 				else if (sT.V()[0]=='+'){ 
-          ASSERT(sT.V()[1]=='+'); // assume ++
+          CONGEAL_ASSERT(sT.V()[1]=='+'); // assume ++
 					String sVal=g_h.Get(String(&sT.V()[2]),"");
 					sVal=String(sVal.AsInt()+1);
 					g_h.Set(String(&sT.V()[2]),sVal);
@@ -187,6 +187,15 @@ public:
 		}
 		return bDefault;
 	}
+
+	static void SetConfigValue(const char *s, const char* sVal){
+		if (!g_bRead){
+			ReadConfigFile();
+		}
+
+		g_h.Set(s,sVal);
+	}
+
 };
 
 inline void SetConfigFile(String sfl){
@@ -208,6 +217,11 @@ inline const char* ConfigValue(const char *s, const char* tDefault){
 template<class T>
 inline T ConfigValue(const char *s, const T& tDefault){
 	return Configuration::ConfigValue(s,tDefault);
+}
+
+
+inline void SetConfigValue(const char *s, const char* tVal){
+	Configuration::SetConfigValue(s,tVal);
 }
 
 

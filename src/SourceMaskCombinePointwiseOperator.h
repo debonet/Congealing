@@ -167,7 +167,7 @@ public:
 		Point256DReal& dataMask,  Pixel8BitGrey* vdata, const int& cdata,
 		const Pixel8BitGrey& dataOut
 	){
-		ERROR("not implemented");
+		CONGEAL_ERROR("not implemented");
 	}
 
 };

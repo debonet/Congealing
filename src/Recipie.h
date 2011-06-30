@@ -110,6 +110,10 @@ public:
 		return &m_vsrcFinal[n];
 	}
 
+	virtual const SOURCE* PSource(int n) const{
+		return &m_vsrcFinal[n];
+	}
+
 	virtual SOURCE* VSources(){
 		return m_vsrcFinal;
 	}

@@ -56,7 +56,7 @@ public:
 		case DimensionX: return ::Get(*(this->m_psource),dataOut,m_rAlong,rX,rY);
 		case DimensionY: return ::Get(*(this->m_psource),dataOut,rX,m_rAlong,rY);
 		case DimensionZ: return ::Get(*(this->m_psource),dataOut,rX,rY,m_rAlong);
-		default: ERROR("Bad dimension %d", m_dim);
+		default: CONGEAL_ERROR("Bad dimension %d", m_dim);
 		}
 	}
 
@@ -66,7 +66,7 @@ public:
 		case DimensionX: return ::Set(*(this->m_psource),m_rAlong,rX,rY,data);
 		case DimensionY: return ::Set(*(this->m_psource),rX,m_rAlong,rY,data);
 		case DimensionZ: return ::Set(*(this->m_psource),rX,rY,m_rAlong,data);
-		default: ERROR("Bad dimension %d", m_dim);
+		default: CONGEAL_ERROR("Bad dimension %d", m_dim);
 		}
 	}
 
@@ -94,7 +94,7 @@ public:
 			break;
 		}
 		default: {
-			ERROR("Bad dimension %d", m_dim);
+			CONGEAL_ERROR("Bad dimension %d", m_dim);
 		}
 		}
 

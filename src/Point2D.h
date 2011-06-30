@@ -374,8 +374,8 @@ POINT2D_SCALARCOMPARATOR(==,&&);
 		);																																				\
 	}
 
-POINT2D_FUNCTION(min);
-POINT2D_FUNCTION(max);
+POINT2D_FUNCTION(congeal_min);
+POINT2D_FUNCTION(congeal_max);
 
 
 //============================================================================
@@ -404,8 +404,8 @@ POINT2D_FUNCTION(max);
 		);																															\
 	}
 
-POINT2D_SCALARFUNCTION(min);
-POINT2D_SCALARFUNCTION(max);
+POINT2D_SCALARFUNCTION(congeal_min);
+POINT2D_SCALARFUNCTION(congeal_max);
 
 //============================================================================
 // create (point x scalar) and (scalar x point) operators

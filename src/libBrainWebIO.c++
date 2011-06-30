@@ -13,7 +13,7 @@
 BrainWebVolume* ReadBrainWeb(const char* sfl)
 {
 	FILE *pfl=fopen(sfl,"r");
-	ASSERTf(pfl!=NULL, "could not open file %s", sfl);
+	CONGEAL_ASSERTf(pfl!=NULL, "could not open file %s", sfl);
 
 	char s[4096];
 	int nDims;
@@ -33,18 +33,18 @@ BrainWebVolume* ReadBrainWeb(const char* sfl)
 	}
 	fclose(pfl);
 
-	ASSERTf(nDims == 3, "Must be 3D");
-	ASSERTf(cX!=-1,"Must provide dimension");
-	ASSERTf(cY!=-1,"Must provide dimension");
-	ASSERTf(cZ!=-1,"Must provide dimension");
+	CONGEAL_ASSERTf(nDims == 3, "Must be 3D");
+	CONGEAL_ASSERTf(cX!=-1,"Must provide dimension");
+	CONGEAL_ASSERTf(cY!=-1,"Must provide dimension");
+	CONGEAL_ASSERTf(cZ!=-1,"Must provide dimension");
 
 	char sflDataConstructed[4096]={'\0'};
 	sprintf(sflDataConstructed, "%.*s.raw", (int)(strrchr(sfl,'.')-sfl),sfl);
 	if (strcmp(sflData,sflDataConstructed)){
-		WARNING("Datafile name does not match headerfile name");
+		CONGEAL_WARNING("Datafile name does not match headerfile name");
 		int fd=open(sflDataConstructed,O_RDONLY);
 		if (fd!=-1){
-			WARNING(
+			CONGEAL_WARNING(
 				"Datafile '%s' constructed from headerfile name"
 				" exists. Using constructed datafile name", sflDataConstructed
 			);
@@ -61,7 +61,7 @@ BrainWebVolume* ReadBrainWeb(const char* sfl)
 	int c = statbuf.st_size;
 	D1("Size %d %d %d scale %g %g %g", cX, cY, cZ, rX, rY, rZ);
 
-	ASSERT(c >= cX*cY*cZ);
+	CONGEAL_ASSERT(c >= cX*cY*cZ);
 
 	if (c<2*cX*cY*cZ){
 		// WORKAROUND: check for filesize bug, and adjust cZ accordingly
@@ -95,8 +95,8 @@ BrainWebVolume* ReadBrainWeb(const char* sfl)
 		unsigned int nMax=0;
 		for (int n=0; n<cy; n++){
 			if (pz[n]>0){
-				nMin=(nMin>0)?min(nMin,pz[n]):pz[n];
-				nMax=(nMax>0)?max(nMax,pz[n]):pz[n];
+				nMin=(nMin>0)?congeal_min(nMin,pz[n]):pz[n];
+				nMax=(nMax>0)?congeal_max(nMax,pz[n]):pz[n];
 			}
 		}
 

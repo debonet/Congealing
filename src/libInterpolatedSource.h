@@ -27,7 +27,7 @@ NewInterpolatedSource (SourceOf<DATA,DIMENSIONALITY,int>* psrc, InterpolationTyp
 		break;
 	}
 	default:{
-		ERROR("unknown interpolation type %d", it);
+		CONGEAL_ERROR("unknown interpolation type %d", it);
 	}
 	}
 

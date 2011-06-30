@@ -176,7 +176,7 @@ public:
 		m_precipie->PrepareForAccess();
 		m_precipie->RegisterParameters(m_regParams,	m_regSteps);
 
-		ASSERTf(
+		CONGEAL_ASSERTf(
 			m_regParams.C() == m_regSteps.C(),
 			"Must have matching number of parameters and initial scales %d != %d", 
 			m_regParams.C(), m_regSteps.C()
@@ -226,7 +226,7 @@ public:
 		m_precipie->RegisterParameters(m_regParams);
 		m_precipie->RegisterInitialSteps(m_regSteps);
 
-		ASSERTf(
+		CONGEAL_ASSERTf(
 			m_regParams.C() == m_regSteps.C(),
 			"Must have matching number of parameters and initial scales %d != %d", 
 			m_regParams.C(), m_regSteps.C()

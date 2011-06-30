@@ -10,6 +10,13 @@
 #define DEBUG -1
 #include "libDebug.h"
 
+#ifdef _WIN32
+#  define ALWAYS_INLINE
+#else 
+#define ALWAYS_INLINE __attribute__((always_inline))
+#endif
+
+
 
 #include "Stream.h"
 typedef StreamOf<char> StCh;
@@ -25,32 +32,32 @@ protected:
 
 
 public:
-	String()  __attribute__((always_inline))
+	String()  ALWAYS_INLINE
 		: StCh()
 	{}
 
-	String(const String& s)   __attribute__((always_inline))
+	String(const String& s)   ALWAYS_INLINE
 		: StCh(s)
 	{}
 
-	String(const char* vch)  __attribute__((always_inline))
+	String(const char* vch)  ALWAYS_INLINE
 		: StCh(vch,strlen(vch)+1)
 	{
 		SetSizeUnsafe(C()-1);
 	}
 
-	String(const int& n) __attribute__((always_inline))
+	String(const int& n) ALWAYS_INLINE
 		: StCh() 
 	{
 		EnsureSpace(32);
-		SetSize(min(31,snprintf(V(),32,"%d",n)));
+		SetSize(congeal_min(31,snprintf(V(),32,"%d",n)));
 	}
 
-	String(const Real& r)  __attribute__((always_inline))
+	String(const Real& r)  ALWAYS_INLINE
 		: StCh()
 	{
 		EnsureSpace(32);
-		SetSize(min(31,snprintf(V(),32,"%.4lf",r)));
+		SetSize(congeal_min(31,snprintf(V(),32,"%.4lf",r)));
 	}
 
 	Real AsReal() // TODO: consider throwing up on failure
@@ -173,30 +180,30 @@ public:
 
 	int ReadInt()
 	{
-		ASSERT(C()>0);
+		CONGEAL_ASSERT(C()>0);
 		int c=0;
 		int z=0;
-		ASSERT(sscanf(V(),"%d%n",&z,&c)==1);
+		CONGEAL_ASSERT(sscanf(V(),"%d%n",&z,&c)==1);
 		m_nStart+=c;
 		return z;
 	}
 
 	Real ReadReal()
 	{
-		ASSERT(C()>0);
+		CONGEAL_ASSERT(C()>0);
 		int c=0;
 		Real r=0;
-		ASSERT(sscanf(V(),SFMT_REAL "%n",&r,&c)==1);
+		CONGEAL_ASSERT(sscanf(V(),SFMT_REAL "%n",&r,&c)==1);
 		m_nStart+=c;
 		return r;
 	}
 
 	String ReadString()
 	{
-		ASSERT(C()>0);
+		CONGEAL_ASSERT(C()>0);
 		int c=0;
 		char sT[4096];
-		ASSERT(sscanf(V(),"%4095s%n",sT,&c)==1);
+		CONGEAL_ASSERT(sscanf(V(),"%4095s%n",sT,&c)==1);
 		m_nStart+=c;
 		return String(sT);
 	}
@@ -204,9 +211,9 @@ public:
 
 	void Skip(const char* vch)
 	{
-		ASSERT(C()>0);
+		CONGEAL_ASSERT(C()>0);
 		int c=strlen(vch);
-		ASSERT(strncmp(V(),vch,c)==0);
+		CONGEAL_ASSERT(strncmp(V(),vch,c)==0);
 		m_nStart+=c;
 	}
 

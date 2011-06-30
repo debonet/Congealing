@@ -181,7 +181,7 @@ public:
 
 	void Set(const PRECISION& rX, const PRECISION& rY, const DATA& data)
 	{
-		ERROR("not implemented");
+		CONGEAL_ERROR("not implemented");
 	}
 };
 
@@ -257,7 +257,7 @@ public:
 
 	void Set(const PRECISION& rX, const PRECISION& rY, const PRECISION& rZ, const DATA& data)
 	{
-		ERROR("not implemented");
+		CONGEAL_ERROR("not implemented");
 	}
 };
 

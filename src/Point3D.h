@@ -363,8 +363,8 @@ POINT3D_SCALARCOMPARATOR(==,&&);
 		);																																				\
 	}
 
-POINT3D_FUNCTION(min);
-POINT3D_FUNCTION(max);
+POINT3D_FUNCTION(congeal_min);
+POINT3D_FUNCTION(congeal_max);
 
 
 //============================================================================
@@ -397,8 +397,8 @@ POINT3D_FUNCTION(max);
 		);																															\
 	}
 
-POINT3D_SCALARFUNCTION(min);
-POINT3D_SCALARFUNCTION(max);
+POINT3D_SCALARFUNCTION(congeal_min);
+POINT3D_SCALARFUNCTION(congeal_max);
 
 //============================================================================
 // create (point x scalar) and (scalar x point) operators

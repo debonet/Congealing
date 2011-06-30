@@ -45,7 +45,7 @@ public:
 	template<int DIMENSIONALITY2,class PRECISION2>
 	PointOf(const PointOf<DIMENSIONALITY2,PRECISION2>& pt)
 	{
-		int c=min(DIMENSIONALITY,DIMENSIONALITY2);
+		int c=congeal_min(DIMENSIONALITY,DIMENSIONALITY2);
 		for (int n=0; n<c; n++){
 			m_vx[n]=pt.m_vx[n];
 		}
@@ -56,7 +56,7 @@ public:
 		const PointOf<DIMENSIONALITY2,PRECISION2> &pt
 	)
 	{
-		int c=min(DIMENSIONALITY,DIMENSIONALITY2);
+		int c=congeal_min(DIMENSIONALITY,DIMENSIONALITY2);
 		for (int n=0; n<c; n++){
 			m_vx[n]=pt.m_vx[n];
 		}
@@ -472,8 +472,8 @@ POINT_SCALARCOMPARATOR(==,false,false);
 		return ptOut;																															\
 	}
 
-POINT_FUNCTION(min);
-POINT_FUNCTION(max);
+POINT_FUNCTION(congeal_min);
+POINT_FUNCTION(congeal_max);
 
 
 //============================================================================
@@ -511,8 +511,8 @@ POINT_FUNCTION(max);
 		return ptOut;																															\
 	}
 
-POINT_SCALARFUNCTION(min);
-POINT_SCALARFUNCTION(max);
+POINT_SCALARFUNCTION(congeal_min);
+POINT_SCALARFUNCTION(congeal_max);
 
 
 

@@ -232,7 +232,6 @@ void NormalizeGroup(
 			SetPoint(*vsrc[n].GetPWarpControlPoints(),pt,dpt);
 		}
 	}
-*/
 
 	forpoint(POINT,pt,0,vsrc[0].GetPWarpControlPoints()->Size()){
 		WARPCP dptT(0.);
@@ -250,6 +249,7 @@ void NormalizeGroup(
 		}
 	}
 
+*/
 }
 
 template<class DATA, int DIMENSIONALITY, class PRECISION, class SUBSOURCE>

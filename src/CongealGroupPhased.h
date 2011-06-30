@@ -215,7 +215,7 @@ private:
 		for (int nSource=0; nSource<m_cSources; nSource++){
 			m_vregParams[nSource].Clear();
 			m_precipie->RegisterParameters(nSource,m_vregParams[nSource]);
-			ASSERTf(m_vregParams[nSource].C() == m_regSteps.C(),"%d != %d",m_vregParams[nSource].C(), m_regSteps.C());
+			CONGEAL_ASSERTf(m_vregParams[nSource].C() == m_regSteps.C(),"%d != %d",m_vregParams[nSource].C(), m_regSteps.C());
 		}
 
 		// allocate scratch transfer space for using generalize optimization
@@ -522,7 +522,7 @@ public:
 			// Unknown algorithm -------------------------------------------
 			else{
 				P(DescribeConfiguration());
-				ERROR(
+				CONGEAL_ERROR(
 					"Unknown algorithm." 
 					"Parameter congeal.optimize.algorithm must be one of {lbfgs|gradientdescent|neldermead}."
 					"Algorithm given: '%s'", sAlgorithm.VCH()
@@ -651,17 +651,8 @@ public:
 		Real rStep
 	){
 		static Real rKernelFactor=ConfigValue("congeal.optimize[randomwalk].kernel",30.);
-		static int cSteps=ConfigValue("congeal.optimize[randomwalk].steps",1000);
+		static int cSteps=ConfigValue("congeal.optimize[randomwalk].steps",100);
 		static int cDirections=ConfigValue("congeal.optimize[randomwalk].directions",100);
-
-		
-/*
-		Real rErrTotalIn;
-		UDTIMEEXECUTION(
-			"Time to measure full error %g",
-			rErrTotalIn=MeasureFullInverseParzenProbabilityInPlace(pObjectiveInfo)
-		);
-*/
 
 		Real rErrIn=fxnObjective(pObjectiveInfo);
 		Real rErrMin=rErrIn;
@@ -671,37 +662,29 @@ public:
 			Parameter dStep=vSteps[nDim] * rStep * rKernelFactor;
 			dStep *= Random(-1.,1.);
 
-			Parameter dStepThreshold = vSteps[nDim] / 100000;
+//			Parameter dStepThreshold = vSteps[nDim] / 100000;
 
 			for (int nStep=0; nStep<cSteps; nStep++){
-//				Real paramFrom=(*(vpParams[nDim]));
 				(*(vpParams[nDim])) += dStep;
-//				Real paramTo=(*(vpParams[nDim]));
 
 				Real rErrNew=fxnObjective(pObjectiveInfo);
 				
 				if (rErrNew>=rErrMin){
-//					UD("     wrong %g + (%g) == %g err %g to %g", paramFrom, dStep, paramTo, rErrMin, rErrNew);
 					(*(vpParams[nDim])) -= dStep;
+					break;
+/*
+
 					dStep=-dStep*.9;
-					if (dStep > dStepThreshold || dStep < -dStepThreshold){
-						nStep--;
+					if (abs(dStep) < dStepThreshold){
+						break;
 					}
+*/
 				}
 				else{
 					rErrMin=rErrNew;
-//					UD("[%d] +++RIGHT %g + (%g) == %g ERR %g TO %g", nDim,paramFrom, dStep, paramTo, rErrMin, rErrNew);
 				}
 			}
 		}
-
-/*
-			Real rErrTotalNew=MeasureFullInverseParzenProbabilityInPlace(pObjectiveInfo);			
-
-		UD("MOVED FROM STOCERROR(%g-->%g) TOTALERROR(%g-->%g) in %d directions", 
-			 rErrIn,rErrMin,rErrTotalIn,rErrTotalNew,cDirections
-		);
-*/
 
 		return rErrMin;
 	}
@@ -998,7 +981,7 @@ public:
 
 				Real rProbSource = Gaussian(dataTest, dataPrior, rSigma);
 
-				ASSERTf(rProbSource>=0, "NEGATIVE ERROR %g", rProbSource);
+				CONGEAL_ASSERTf(rProbSource>=0, "NEGATIVE ERROR %g", rProbSource);
 
 				static Real rApriori=ConfigValue("congeal.error[parzen].apriori",.2);
 				Real rLogProbSource = -log(rProbSource + rApriori);
@@ -1064,7 +1047,7 @@ public:
 
 				Real rProbSource = FastGaussian(dataTest, dataPrior, rSigma);
 
-				ASSERTf(rProbSource>=0, "NEGATIVE ERROR %g", rProbSource);
+				CONGEAL_ASSERTf(rProbSource>=0, "NEGATIVE ERROR %g", rProbSource);
 
 				static Real rApriori=ConfigValue("congeal.error[parzen].apriori",.2);
 				rLogProbSample += -log(rProbSource + rApriori);

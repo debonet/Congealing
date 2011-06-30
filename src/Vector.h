@@ -8,6 +8,13 @@
 #define DEBUG 0
 #include "libDebug.h"
 
+#ifdef _WIN32
+#  define ALWAYS_INLINE
+#else 
+#define ALWAYS_INLINE __attribute__((always_inline))
+#endif
+
+
 template <class T>
 class VectorOf
 	: public Counted
@@ -36,7 +43,7 @@ protected:
 	// this leaves undefined values at the end if c>m_ct
 	void SetSizeUnsafe(int c)
 	{
-		ASSERT(c<m_ctAlloc);
+		CONGEAL_ASSERT(c<m_ctAlloc);
 		m_ct=c;
 	}
 
@@ -49,16 +56,16 @@ public:
 		m_vt=NULL;
 	}
 
-	~VectorOf() __attribute__((always_inline))
+	~VectorOf() ALWAYS_INLINE
 	{
 		Release();
 	}
 
 
-	VectorOf(const T* vt, int ct)  __attribute__((always_inline))
+	VectorOf(const T* vt, int ct)  ALWAYS_INLINE
 		: Counted()
 	{
-		m_ctAlloc = max(1<<int(ceil(log2(ct))),32);
+		m_ctAlloc = congeal_max(1<<int(ceil(log2(ct))),32);
 		m_ct=ct;
 		m_vt = new T [m_ctAlloc];
 		if (vt!=NULL){
@@ -66,7 +73,7 @@ public:
 		}
 	}
 
-	VectorOf(const VectorOf& vec)   __attribute__((always_inline))
+	VectorOf(const VectorOf& vec)   ALWAYS_INLINE
 		: Counted(vec)
 	{
 		m_vt=vec.m_vt;
@@ -74,7 +81,7 @@ public:
 		m_ctAlloc=vec.m_ctAlloc;
 	}
 
-	VectorOf& operator = (const VectorOf& vec) __attribute__((always_inline))
+	VectorOf& operator = (const VectorOf& vec) ALWAYS_INLINE
 	{
 		Release();
 		Counted::operator=(vec);
@@ -150,7 +157,7 @@ public:
 	void Append(const T* vt, int c)
 	{
 		if (vt==NULL){
-			ASSERTf(
+			CONGEAL_ASSERTf(
 				c<=0,
 				"trying to append null pointer which is reported as not empty %d", 
 				c);
@@ -175,7 +182,7 @@ public:
 	void EnsureSpace(int c)
 	{
 		if (c>m_ctAlloc){
-			m_ctAlloc = max(1<<int(ceil(log2(c))),32);
+			m_ctAlloc = congeal_max(1<<int(ceil(log2(c))),32);
 			T* vtT = new T [m_ctAlloc];
 			if (m_vt!=NULL){
 				memcpy(vtT,m_vt,m_ct*sizeof(T));

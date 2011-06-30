@@ -86,7 +86,7 @@ public:
 	//--------------------------------------------------------------------------
 	virtual void Allocate(const PointOf<DIMENSIONALITY,int>& ptSize)
 	{
-		ASSERTf(Counted::References()==1,"Shared object being reallocated?");
+		CONGEAL_ASSERTf(Counted::References()==1,"Shared object being reallocated?");
 		if (m_ptSize.CVolume() == ptSize.CVolume()){
 			m_ptSize=ptSize;
 			D1("KEEPING MEMORY %ld", sizeof(DATA)*this->CSize());
@@ -197,7 +197,7 @@ class SourceMemoryOf
 	: public SourceMemoryBaseOf<DATA, DIMENSIONALITY>
 {
 	void RegisterDataAsParameters(RegistryOfParameters& reg){
-		ERROR("NOT IMPLEMENTED");
+		CONGEAL_ERROR("NOT IMPLEMENTED");
 	}
 };
 
@@ -326,7 +326,7 @@ inline void SourceMemoryOf<Real,3>::RegisterDataAsParameters(RegistryOfParameter
 template <class DATA>
 inline void SourceMemoryOf<DATA,2>::RegisterDataAsParameters(RegistryOfParameters& reg) 
 {
-	ERROR("NOT IMPLEMENTED");
+	CONGEAL_ERROR("NOT IMPLEMENTED");
 }
 
 //--------------------------------------------------------------------------
@@ -334,7 +334,7 @@ inline void SourceMemoryOf<DATA,2>::RegisterDataAsParameters(RegistryOfParameter
 template <class DATA>
 inline void SourceMemoryOf<DATA,3>::RegisterDataAsParameters(RegistryOfParameters& reg) 
 {
-	ERROR("NOT IMPLEMENTED");
+	CONGEAL_ERROR("NOT IMPLEMENTED");
 }
 
 

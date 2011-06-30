@@ -105,12 +105,12 @@ String DescribeNifti(NiftiHeader &niih){
 NiftiVolume* ReadNifti(const char* sfl)
 {
 	NiftiHeader nifti;
-	ASSERT(sizeof(NiftiHeader)==348);
+	CONGEAL_ASSERT(sizeof(NiftiHeader)==348);
 
 	// TODO: consider natively reading .gz files
 
 	int fd=open(sfl,O_RDONLY);
-	ASSERTf(fd>=0, "Failed to open %s", sfl);
+	CONGEAL_ASSERTf(fd>=0, "Failed to open %s", sfl);
 	
 	read(fd,&nifti,sizeof(NiftiHeader));
 
@@ -131,7 +131,7 @@ NiftiVolume* ReadNifti(const char* sfl)
 */
 
 
-	ASSERT(nifti.m_vcSize[0]==3);
+	CONGEAL_ASSERT(nifti.m_vcSize[0]==3);
 
 	int cX=nifti.m_vcSize[1];
 	int cY=nifti.m_vcSize[2];
@@ -144,14 +144,14 @@ NiftiVolume* ReadNifti(const char* sfl)
 	int cSize=cX*cY*cZ;
 
 	// only know how to do FLOAT32's right now
-	ASSERT(nifti.m_nCodeData==NIFTI_TYPE_FLOAT32);
+	CONGEAL_ASSERT(nifti.m_nCodeData==NIFTI_TYPE_FLOAT32);
 
 	// check the size
 	struct stat statbuf;
 	fstat(fd, &statbuf);
 	int c = statbuf.st_size;
 
-	ASSERT(c-nifti.m_nyDataStart == cSize * 4);
+	CONGEAL_ASSERT(c-nifti.m_nyDataStart == cSize * 4);
 
 	// move to the data
 	lseek(fd, nifti.m_nyDataStart, SEEK_SET);
@@ -165,7 +165,7 @@ NiftiVolume* ReadNifti(const char* sfl)
 	NiftiDataVolume* pgv=new NiftiDataVolume;
 	pgv->Allocate(Point3D(cX, cY, cZ));
 
-	ASSERT(pgv->CSize()==cSize);
+	CONGEAL_ASSERT(pgv->CSize()==cSize);
 
 	// scale data into bytes
 	float rMin=vr[0];
@@ -179,7 +179,7 @@ NiftiVolume* ReadNifti(const char* sfl)
 			rMax=vr[n];
 		}
 	}
-//	P("MAX %g MIN %g", rMax, rMin);
+	P("MAX %g MIN %g", rMax, rMin);
 
 //	float rScale=rMax-rMin;
 	for (int n=0; n<cSize; n++){
@@ -207,10 +207,10 @@ NiftiVolume* ReadNifti(const char* sfl)
 bool WriteNifti(const char* sfl, NiftiDataVolume* pv)
 {
 	NiftiHeader nifti;
-	ASSERT(sizeof(NiftiHeader)==348);
+	CONGEAL_ASSERT(sizeof(NiftiHeader)==348);
 
 	int fd=open(sfl,O_WRONLY | O_CREAT, S_IRWXU | S_IRWXG | S_IROTH);
-	ASSERTf(fd>=0, "Failed to open %s", sfl);
+	CONGEAL_ASSERTf(fd>=0, "Failed to open %s", sfl);
 	
 
 	nifti.m_cySizeHeader=348;

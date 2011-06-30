@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------
 # SETUP
 # ---------------------------------------------------------------
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 2.8)
 project (Congeal)
 
 message(STATUS "BUILDING FOR [" ${CMAKE_SYSTEM_NAME} "]")
@@ -19,6 +19,11 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
 
+
+add_definitions(-DPTHREAD_BARRIER=1)
+
+if(${CMAKE_SYSTEM_NAME} MATCHES "CYGWIN")
+endif(${CMAKE_SYSTEM_NAME} MATCHES "CYGWIN")
 
 # ---------------------------------------------------------------
 # Mac settings

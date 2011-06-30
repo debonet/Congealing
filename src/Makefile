@@ -1,6 +1,6 @@
 ########### settings
 BINDIR = ../bin/
-PROGRAM = congeal
+PROGRAM = a.out
 CC = g++ 
 OBJDIR = ../obj/
 
@@ -43,9 +43,6 @@ release : CFLAGS = \
 			--param inline-unit-growth=90000 \
 			--param large-function-growth=90000 \
 			--param max-inline-insns-single=20000 \
-			--param max-inline-insns-auto=20000 \
-			--param max-inline-insns-recursive=20000 \
-			--param max-inline-insns-recursive-auto=20000 \
 			--param large-stack-frame=90000 \
 			--param large-stack-frame-growth=900 \
 			-falign-loops=16 \
@@ -66,7 +63,6 @@ release :
 
 ########## debug
 debug : PROGRAM := $(PROGRAM).debug
-
 ifeq ($(OSTYPE),darwin)
 debug : CFLAGS = -g -O0 -Wall -frepo \
 			-DPTHREAD_BARRIER=1

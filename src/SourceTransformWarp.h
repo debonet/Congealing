@@ -211,6 +211,7 @@ public:
 		: SourceTransformOf<DATA, DIMENSIONALITY,PRECISION, SOURCE> ()
 		, m_pwarpfield(NULL)
 	{
+		AllocateWarpfield(PointOf<DIMENSIONALITY,int>(1),Cubic);
 	}
 
 	virtual ~SourceTransformWarpBaseOf()
@@ -279,7 +280,7 @@ public:
 
 	void PrepareForAccessAction() const
 	{
-		ASSERTf(m_pwarpfield,"Null warpfield");
+		CONGEAL_ASSERTf(m_pwarpfield,"Null warpfield");
 		// prepare the warp for access to allow all of the warp's
 		// sources to compute their final sizes
 		m_pwarpfield->PrepareForAccess();
