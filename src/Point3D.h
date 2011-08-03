@@ -19,6 +19,7 @@ public:
 	static const int type_dimensionality = 3;
 
 public:
+
 	PointOf(PRECISION* vx){
 		m_xX=vx[0];
 		m_xY=vx[1];

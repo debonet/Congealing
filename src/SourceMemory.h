@@ -70,6 +70,7 @@ public:
 
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
+	/// return a const pointer to the raw data
 	const DATA *ReadData() const
 	{
 		return m_vdata;
@@ -77,6 +78,7 @@ public:
 
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
+	/// return a writable pointer to the raw data
 	DATA *WriteData() 
 	{
 		return m_vdata;
@@ -84,6 +86,8 @@ public:
 
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
+	/// allocate the memory required to store the data
+	/// \param ptSize set the dimensions of the memory to allocate
 	virtual void Allocate(const PointOf<DIMENSIONALITY,int>& ptSize)
 	{
 		CONGEAL_ASSERTf(Counted::References()==1,"Shared object being reallocated?");
@@ -101,6 +105,7 @@ public:
 
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
+	/// release any allocated memory
 	void Free()
 	{
 		if (m_vdata!=NULL){
@@ -112,6 +117,8 @@ public:
 
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
+	/// fill with a single value
+	/// \param data the value with which to fill the source 
 	virtual void Fill(const DATA& data){
 		int c=this->CSize();
 		for (int n=0; n<c; n++){
@@ -163,6 +170,7 @@ public:
 	}
 */
 
+	/// the unique name the object, used for serialization
 	static String SerializationId()
 	{
 		return String("SourceMemory(") + DIMENSIONALITY +"D)";

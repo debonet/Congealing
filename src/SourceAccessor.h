@@ -9,6 +9,9 @@
 #include "Point3D.h"
 #include <math.h>
 
+
+/// base class for SourceAccessors. Essentially a SourceTransform with 
+/// no free parameters
 template<class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE>
 class SourceAccessorOf 
 	: public SourceTransformOf<DATA, DIMENSIONALITY, PRECISION, SOURCE>
@@ -88,6 +91,8 @@ inline void Set(
 //============================================================================
 // interpolation assistants
 //============================================================================
+/// helper macro to make an accessor with the same DATA and DIMENSIONALITY but
+/// a Real PRECISION
 #define MAKE_INTERPOLANT_ASSISTANT(_name,_class)															\
 	MAKE_TYPECHANGE_ASSISTANT(																									\
 		_name,																																		\

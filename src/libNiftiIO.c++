@@ -312,6 +312,11 @@ bool WriteNifti(const char* sfl, NiftiDataVolume* pv)
 
 	
 	write(fd,&nifti,sizeof(NiftiHeader));
+
+	char vyZeros[4]={0,0,0,0};
+
+	write(fd,&nifti,sizeof(NiftiHeader));
+	write(fd,&vyZeros,sizeof(vyZeros));
 	write(fd,vr,c*sizeof(float));
 
 	delete [] vr;

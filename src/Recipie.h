@@ -7,6 +7,7 @@
 
 //============================================================================
 //=================================================p===========================
+/// class to encapsulate a collection of stacked sources.
 template<class SOURCE> 
 class RecipieOf :
 	public Counted
@@ -34,6 +35,9 @@ protected:
 	{
 	}
 
+	/// set up the array of sources
+	/// \param c number of sources
+	/// \param vsrc vector of sources
 	void SetSource(int c, SOURCE* vsrc)
 	{
 		m_csrc=c;
@@ -41,11 +45,12 @@ protected:
 	}
 
 public:
-	// must reimplement these
+	/// each derived Recipie must reimplement this
 	virtual void RegisterParameters( 
 		RegistryOfParameters& regParam
 	) =0;
 
+	/// each derived Recipie must reimplement this
 	virtual void RegisterInitialSteps( 
 		RegistryOfInitialSteps& regSteps
 	) =0;
@@ -57,17 +62,19 @@ public:
 	{
 	}
 
-	// other methods
+	/// size of the sources. Assumes all sources are the same size
 	virtual const POINT& Size() const 
 	{
 		return m_vsrcFinal[0].Size();
 	}
 
+	/// volume of the sources. Assumes all sources are the same volume
 	virtual PRECISION CSize() const
 	{
 		return m_vsrcFinal[0].CSize();
 	}
 
+	/// return a vector of data a point in each source
 	virtual void GetPoint(DATA* vdataOut, const POINT& pt) const
 	{
 		for (int n=0; n<m_csrc; n++){
@@ -75,16 +82,20 @@ public:
 		}
 	}
 
+	/// prepare all sources for access
 	virtual void PrepareForAccess() const {
 		for (int n=0; n<m_csrc; n++){
 			m_vsrcFinal[n].PrepareForAccess();
 		}
 	}
 
+	/// prepare a single source for access
+	/// \param n which source to prepare
 	virtual void PrepareForAccess(int n) const {
 		m_vsrcFinal[n].PrepareForAccess();
 	}
 
+	/// create a human readable description of the recipie
 	virtual String Describe() const
 	{
 		String s;
@@ -101,23 +112,31 @@ public:
 		);
 	}
 
+	/// number of sources
 	virtual int CSources() const
 	{
 		return m_csrc;
 	}
 
+	/// writable pointer to the requested source
+	/// \param n which source
 	virtual SOURCE* PSource(int n){
 		return &m_vsrcFinal[n];
 	}
 
+	/// const pointer to the requested source
+	/// \param n which source
 	virtual const SOURCE* PSource(int n) const{
 		return &m_vsrcFinal[n];
 	}
 
+	/// vector of all sources
 	virtual SOURCE* VSources(){
 		return m_vsrcFinal;
 	}
 
+	/// create allocated copies of each source
+	/// \param viOut vector into which sources are to be stored
 	template <class SOURCE_OUT>
 	void AllocatedCopies(SOURCE_OUT* viOut)
 	{
@@ -127,11 +146,13 @@ public:
 		}
 	}
 
+	/// unique ID used for serialization
 	static String SerializationId()
 	{
 		return "Recipie";
 	}
 
+	/// serialize the recipie into a stream
 	void Serialize(Stream& st) const
 	{ 
 		for (int n=0; n<m_csrc; n++){
@@ -139,6 +160,7 @@ public:
 		}
 	}
 
+	/// deserialize the recipie from a stream
 	void Deserialize(Stream &st)
 	{
 		for (int n=0; n<m_csrc; n++){
@@ -221,6 +243,15 @@ public:
 //=============================================================================
 // MAKE RECIPIE
 //=============================================================================
+/// macro used to construct a derived recipie class.
+/// Creates named accessors for each layer
+/// \param _recipie name of the class to be created
+/// \param _source the type of the underlying source 
+///   (the type of the first underlying source not encapsulated in the recipie)
+///  \param  _do_mid_layers this argument to the macro is a macro itself. It is of the form:
+/// 	 { _layer(<layer-name>,<layer-source-class>,  <layer-data>, <layer-dimensionality>, <layer-precision>, <preceeding-layer-in-the-stack | INPUT>) }*
+///  \param  _do_last_layer this argument to the macro is a macro itself. It is of the form:
+/// 	  _layer(<layer-name>,<layer-source-class>,  <layer-data>, <layer-dimensionality>, <layer-precision>, <preceeding-layer-in-the-stack | INPUT>)	
 #define MAKE_RECIPIE(																													\
 	_recipie,																																		\
 	_source,																																		\
@@ -337,11 +368,7 @@ public:
 			_do_last_layer(_RECIPIE_NORMALIZE);																			\
 		}																																					\
 	};																																					
-
-
-/* Example usage
-
-
+/*!< \li example
 
 // A congeal recipie for a translate, rotate, warp of a volume
 #define my_mid_layers(_layer)																											\

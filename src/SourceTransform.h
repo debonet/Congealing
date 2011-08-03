@@ -14,6 +14,15 @@
 
 typedef RegistryOf<Parameter> RegistryOfInitialSteps;
 
+
+/// Core of all transform and accessor sources
+/// SourceTransforms (and deriveds) 
+/// Defines the dimension, type and precision dependent parts of 
+/// the SourceTransform interface
+/// \tparam DATA the storage type of the source
+///	\tparam DIMENSIONALITY the number of dimensions of the source
+/// \tparam PRECISION the class used to index each dimension
+/// \tparam SOURCE the class of the underlying source which is transformed by this layer
 template<class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE>
 class SourceTransformOf 
 	: public SourceOf<DATA, DIMENSIONALITY, PRECISION>
@@ -43,21 +52,25 @@ protected:
 
 public:
 
+	/// pointer to the underlying source
 	SOURCE* PSource() 
 	{
 		return m_psource;
 	}
 
+	/// constant pointer to the underlying source
 	const SOURCE* PSource() const
 	{
 		return m_psource;
 	}
 
+	/// set the underlying source
 	void SetSource(SOURCE* psource)
 	{
 		ChangePointer(m_psource,psource);
 	}
 
+	/// set the underlying source to null
 	void WipeSource()
 	{
 		m_psource=NULL;
@@ -98,11 +111,15 @@ public:
 		);
 	}
 
+	/// the actions required for preparing the transformation for access
+	/// does not recursively call the underlying source
 	virtual void PrepareForAccessAction() const
 	{
  		this->m_ptSize=this->PSource()->Size();
 	}
 
+	/// the actions required for preparing the transformation for access
+	/// recursivelys call the underlying source as required
 	virtual void PrepareForAccess() const
 	{
 		// tell source to prepare first
@@ -180,31 +197,34 @@ inline void Set(
 //============================================================================
 #define COMMA ,
 
-#define MAKE_TYPECHANGE_ASSISTANT(																						\
-	_name,_class,_data,_dims,_precision,_code,...																\
-)																																							\
-	template <class SOURCE>																											\
-	inline _class<_data,_dims,_precision,SOURCE> *															\
-	_name(__VA_ARGS__ SOURCE* psrcIn)																						\
-	{																																						\
+/// helper macro to create a transformation of an underlying source
+#define MAKE_TYPECHANGE_ASSISTANT(																			\
+	_name,_class,_data,_dims,_precision,_code,...													\
+)																																				\
+	template <class SOURCE>																									\
+	inline _class<_data,_dims,_precision,SOURCE> *														\
+	_name(__VA_ARGS__ SOURCE* psrcIn)																				\
+	{																																			\
 		typedef _class<_data,_dims,_precision,SOURCE> SRC_OUT;										\
-																																							\
-		SRC_OUT *psrcOut=new SRC_OUT;																							\
-		psrcOut->SetSource(psrcIn);																								\
-		_code;																																		\
-	 	HandoffPointer(psrcOut);																									\
-		return psrcOut;																														\
+																																				\
+		SRC_OUT *psrcOut=new SRC_OUT;																						\
+		psrcOut->SetSource(psrcIn);																					\
+		_code;																															\
+	 	HandoffPointer(psrcOut);																						\
+		return psrcOut;																											\
 	}
 
-#define MAKE_ASSISTANT(_name,_class,_code,...)																\
-	MAKE_TYPECHANGE_ASSISTANT(																									\
-		_name,																																		\
-		_class,																																		\
-		TypeOfData(SOURCE),																												\
-		TypeOfDimensionality(SOURCE),																							\
-		TypeOfPrecision(SOURCE),																									\
-		_code,																																		\
-		##__VA_ARGS__																															\
+/// helper macro to create a transformation of an underlying source
+/// where the transformation has the same DATA, DIMENSIONALITY, and PRECISION
+#define MAKE_ASSISTANT(_name,_class,_code,...)													\
+	MAKE_TYPECHANGE_ASSISTANT(																						\
+		_name,																															\
+		_class,																															\
+		TypeOfData(SOURCE),																									\
+		TypeOfDimensionality(SOURCE),																				\
+		TypeOfPrecision(SOURCE),																						\
+		_code,																															\
+		##__VA_ARGS__																												\
 	);
 
 
