@@ -1,4 +1,3 @@
-
 // file I/O libraries
 #include "libBrainWebIO.h"
 #include "libNiftiIO.h"
@@ -189,16 +188,19 @@ void WriteRecipie(RECIPIE& recipie, int nSchedule, int nProgress)
 	}
 
 
+	UD1("Writing NIFTI average volume ");
 	{
 		TICK(dtmWriteVolume);
 
 		UD("STARTING WRITE NIFTI TIME (%g)", TOCK(dtmWriteVolume));
 		WriteNifti(
-			StringF(sdir + sflPrefix + "%03d.nii",nSchedule),
+			StringF(sdir + sflPrefix + "%03d.%03d.nii",nSchedule,nProgress),
 			Rasterize(
-				Average(
-					recipie.VSources(),
-					recipie.CSources())));
+				Aperature(
+					Point3D(0),Point3D(256),
+					Average(
+						recipie.VSources(),
+						recipie.CSources()))));
 
 		UD("WRITE NIFTI TIME (%g)", TOCK(dtmWriteVolume));
 	}

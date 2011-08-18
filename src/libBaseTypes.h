@@ -13,11 +13,11 @@
 //==========================================================================
 #define REAL_AS_DOUBLE 1
 #if REAL_AS_DOUBLE
-  typedef double Real;
+typedef double Real;
 #  define REAL_MAX DBL_MAX
 #  define SFMT_REAL "%lf"
 #else
-  typedef float Real;
+typedef float Real;
 #  define REAL_MAX FLT_MAX
 #  define SFMT_REAL "%f"
 #endif

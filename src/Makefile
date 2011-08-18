@@ -1,6 +1,6 @@
 ########### settings
 BINDIR = ../bin/
-PROGRAM = a.out
+PROGRAM = congeal
 CC = g++ 
 OBJDIR = ../obj/
 

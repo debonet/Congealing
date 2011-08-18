@@ -114,7 +114,7 @@ NiftiVolume* ReadNifti(const char* sfl)
 	
 	read(fd,&nifti,sizeof(NiftiHeader));
 
-//	D(DescribeNifti(*((NiftiHeader*)&nifti)));
+	D(DescribeNifti(*((NiftiHeader*)&nifti)));
 
 /*
 
@@ -211,14 +211,18 @@ bool WriteNifti(const char* sfl, NiftiDataVolume* pv)
 
 	int fd=open(sfl,O_WRONLY | O_CREAT, S_IRWXU | S_IRWXG | S_IROTH);
 	CONGEAL_ASSERTf(fd>=0, "Failed to open %s", sfl);
-	
 
 	nifti.m_cySizeHeader=348;
 	nifti.m_vcSize[0]=3;
 	nifti.m_vcSize[1]=pv->CX();
 	nifti.m_vcSize[2]=pv->CY();
 	nifti.m_vcSize[3]=pv->CZ();
+	nifti.m_vcSize[4]=1;
+	nifti.m_vcSize[5]=1;
+	nifti.m_vcSize[6]=1;
+	nifti.m_vcSize[7]=1;
 
+	nifti.m_vchUnused[0]=0;
 
 	// Unsure of what this is
 	nifti.m_vrIntent[0]=0.; // intent parameters
@@ -264,6 +268,7 @@ bool WriteNifti(const char* sfl, NiftiDataVolume* pv)
 	nifti.m_dtmOffset=0; // Time axis shift.
 
 	//nifti.m_vchUnused2[8];
+	nifti.m_vchUnused2[0]=0;
 
 	nifti.m_vchDescription[0]=0;
 	nifti.m_sflAux[0]=0;
@@ -314,12 +319,12 @@ bool WriteNifti(const char* sfl, NiftiDataVolume* pv)
 	write(fd,&nifti,sizeof(NiftiHeader));
 
 	char vyZeros[4]={0,0,0,0};
-
-	write(fd,&nifti,sizeof(NiftiHeader));
-	write(fd,&vyZeros,sizeof(vyZeros));
+	write(fd,vyZeros,sizeof(vyZeros));
 	write(fd,vr,c*sizeof(float));
 
 	delete [] vr;
+
+	ReleasePointer(ReadNifti(sfl));
 
 	return true;
 }
