@@ -53,6 +53,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h1>main.c++ File Reference</h1>  </div>
 </div>
 <div class="contents">
+<code>#include &quot;<a class="el" href="libBaseTypes_8h_source.html">libBaseTypes.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="libBrainWebIO_8h_source.html">libBrainWebIO.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="libNiftiIO_8h_source.html">libNiftiIO.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="libPGM_8h_source.html">libPGM.h</a>&quot;</code><br/>
@@ -63,7 +64,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="CongealGroupPhased_8h_source.html">CongealGroupPhased.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="PaddedImage_8h_source.html">PaddedImage.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="libConfiguration_8h_source.html">libConfiguration.h</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="libBaseTypes_8h_source.html">libBaseTypes.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="libAssistants_8h_source.html">libAssistants.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="SourceCombine_8h_source.html">SourceCombine.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="SourceCombinePointwiseOperator_8h_source.html">SourceCombinePointwiseOperator.h</a>&quot;</code><br/>
@@ -82,8 +82,6 @@ Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a1e04772ba1700e45eb2958160c44bab6">FORK_WRITES</a>&nbsp;&nbsp;&nbsp;1</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a48af83e4332bcbc9912fc2044c0ccf57">my_mid_layers</a>(_layer)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a5b6662faaab57588ec3029074e8b508c">my_last_layer</a>(_layer)&nbsp;&nbsp;&nbsp;_layer(Warp3, <a class="el" href="classSourceTransformWarpOf.html">SourceTransformWarpOf</a>, <a class="el" href="main_8c_09_09.html#af3b9f0c5105b1af42a45e1d354c96fd0">ScanPixel</a>, 3, <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>,Warp2)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a8c71ac42a001da7bd2de55403c2f59f3">speed_mid_layers</a>(_layer)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a4ca63544644e520fb0c244ecf56c47d8">speed_last_layer</a>(_layer)&nbsp;&nbsp;&nbsp;_layer(Warp, <a class="el" href="classSourceTransformWarpOf.html">SourceTransformWarpOf</a>, <a class="el" href="main_8c_09_09.html#af3b9f0c5105b1af42a45e1d354c96fd0">ScanPixel</a>, 3, <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>,Scale)</td></tr>
 <tr><td colspan="2"><h2><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classImageOf.html">NiftiDataVolume</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#ad3c2217824b8adb9e433859450c69f9e">ScanVolume</a></td></tr>
@@ -92,14 +90,14 @@ Typedefs</h2></td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a0aa25cb63a0fed21c3090dc66bed3ad0">MAKE_RECIPIE</a> (Recipie_G3R_All_G3I, <a class="el" href="classImageOf.html">ScanVolume</a>, my_mid_layers, my_last_layer)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a949f6ee0b3c863072557ce72e1b51456">MAKE_TYPECHANGE_ASSISTANT</a> (DistributionField10, <a class="el" href="classSourceAccessorDistributionFieldOf.html">SourceAccessorDistributionFieldOf</a>, typename <a class="el" href="classDistributionFieldInfo.html">DistributionFieldInfo</a>&lt; typename SOURCE::type_data &gt;::type, SOURCE::type_dimensionality, typename SOURCE::type_precision,{psrcOut-&gt;SetSigmaParzen(10.);})</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a2d9c6aa6018d9e3989aa0e44f9d51f82">MAKE_COMBINE_ASSISTANT</a> (AverageDistributionField10, <a class="el" href="classSourceCombinePointwiseOperatorOf.html">SourceCombinePointwiseOperatorOf</a>, <a class="el" href="classOperatorAverageOf.html">OperatorAverageOf</a>&lt; typename <a class="el" href="classDistributionFieldInfo.html">DistributionFieldInfo</a>&lt; typename SOURCE::type_data &gt;::type COMMA typename <a class="el" href="classDistributionFieldInfo.html">DistributionFieldInfo</a>&lt; typename SOURCE::type_data &gt;::type &gt;, TypeOfDimensionality(<a class="el" href="classDistributionFieldInfo.html">DistributionFieldInfo</a>&lt; typename SOURCE::type_data &gt;::type), TypeOfPrecision(<a class="el" href="classDistributionFieldInfo.html">DistributionFieldInfo</a>&lt; typename SOURCE::type_data &gt;::type),{})</td></tr>
+<tr><td class="memTemplParams" colspan="2">template&lt;class SOURCE &gt; </td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a8223229530373feaaa116c81e6d9dac5">MeasureFullInverseParzenProbabilityInPlace</a> (int cSources, SOURCE *vsrc)</td></tr>
+<tr><td class="memTemplParams" colspan="2">template&lt;class RECIPIE &gt; </td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a776e52178df7b9db5e7222c812bc9e7a">ComputeParzenError</a> (RECIPIE &amp;recipie)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;class RECIPIE &gt; </td></tr>
 <tr><td class="memTemplItemLeft" align="right" valign="top">void&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#acef24ed54c9e95e1b03610bae566032a">WriteRecipie</a> (RECIPIE &amp;recipie, int nSchedule, int nProgress)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a95884705a812907487680557cb7dc2f5">LoadAndScaleSources</a> (int c, <a class="el" href="classImageOf.html">ScanVolume</a> *vscan, const <a class="el" href="classString.html">String</a> &amp;sConfig)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a5e8c7ccef55174d9f7cc42c44d0ccebf">IncreaseWarpfieldControlPointResolution</a> (int c, Recipie_G3R_All_G3I &amp;recipie, const <a class="el" href="classString.html">String</a> &amp;sConfig)</td></tr>
-<tr><td class="memTemplParams" colspan="2">template&lt;class SOURCE_IN , class SOURCE_OUT &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top">void&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a9c57852075af4bf5327a69b11b8f22d1">XCopyInto</a> (SOURCE_OUT *psrcOut, SOURCE_IN *psrcIn, bool bPrepared=false)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a52afda39a92ef6e45e9e8c79ebf7136a">UpdateScheduleRegistrationParameters</a> (Recipie_G3R_All_G3I &amp;recipie, const <a class="el" href="classString.html">String</a> &amp;sConfig)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a9486700c8a53b9039ae137a7019764a3">Congeal</a> (int nSchedule, Recipie_G3R_All_G3I &amp;recipie, const <a class="el" href="classString.html">String</a> &amp;sConfig)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#ad9e37e6d13e0cda48fc4493b9171912a">LoadCachedRecipie</a> (const char *sflCache, Recipie_G3R_All_G3I &amp;recipie, <a class="el" href="classImageOf.html">ScanVolume</a> *vscan)</td></tr>
@@ -107,16 +105,7 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#aac3eb70694c8e237762b6da1f158e995">LinesInFile</a> (const char *sfl)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a54c250e7311205a9646110a563958f59">CongealSchedules</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a27a63e0346c00906d8ff25f419a19c4b">ApplyCongeal</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a88fd02a15717d7ab95807852f09bb957">MAKE_RECIPIE</a> (Recipie_G3R_Speed_G3I, <a class="el" href="classImageOf.html">ScanVolume</a>, speed_mid_layers, speed_last_layer)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a62c3ae2ffdcc2f1910e7804595e1001a">TestSpeed</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a65f16383e74580e0e7983e2e34b82ae6">TestInterpolation</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a2d580580ee70188a81c807aa7025624b">main</a> (int cCLA, char *vsCLA[])</td></tr>
-<tr><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classString.html">String</a>&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a95368e8762a4c244c4e96abd88a6fef2">ToString</a> (const T &amp;t)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classString.html">String</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#a7b1988255bed48a3556b248ff407d9ac">ToString</a> (const <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a> &amp;t)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classString.html">String</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#aa6e31ba4f2bf9fe43d88c4728d60bc96">ToString</a> (const int &amp;t)</td></tr>
-<tr><td class="memTemplParams" colspan="2">template&lt;class SOURCE &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top">SOURCE *&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="main_8c_09_09.html#ad2e93a3157f6a8ae2462ad5135f71d77">PrintImage</a> (SOURCE *psrc)</td></tr>
 </table>
 <hr/><h2>Define Documentation</h2>
 <a class="anchor" id="ad72dbcf6d0153db1b8d8a58001feed83"></a><!-- doxytag: member="main.c++::DEBUG" ref="ad72dbcf6d0153db1b8d8a58001feed83" args="" -->
@@ -188,46 +177,6 @@ Functions</h2></td></tr>
 </pre></div>
 </div>
 </div>
-<a class="anchor" id="a4ca63544644e520fb0c244ecf56c47d8"></a><!-- doxytag: member="main.c++::speed_last_layer" ref="a4ca63544644e520fb0c244ecf56c47d8" args="(_layer)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define speed_last_layer</td>
-          <td>(</td>
-          <td class="paramtype">&nbsp;</td>
-          <td class="paramname">_layer</td>
-          <td>&nbsp;)&nbsp;</td>
-          <td>&nbsp;&nbsp;&nbsp;_layer(Warp, <a class="el" href="classSourceTransformWarpOf.html">SourceTransformWarpOf</a>, <a class="el" href="main_8c_09_09.html#af3b9f0c5105b1af42a45e1d354c96fd0">ScanPixel</a>, 3, <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>,Scale)</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a8c71ac42a001da7bd2de55403c2f59f3"></a><!-- doxytag: member="main.c++::speed_mid_layers" ref="a8c71ac42a001da7bd2de55403c2f59f3" args="(_layer)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define speed_mid_layers</td>
-          <td>(</td>
-          <td class="paramtype">&nbsp;</td>
-          <td class="paramname">_layer</td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<b>Value:</b><div class="fragment"><pre class="fragment">_layer(Translate0,    <a class="code" href="classSourceTransformTranslateOf.html">SourceTransformTranslateOf</a>,     <a class="code" href="main_8c_09_09.html#af3b9f0c5105b1af42a45e1d354c96fd0">ScanPixel</a>, 3, <a class="code" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>, INPUT) \
-                _layer(Rotate,        <a class="code" href="classSourceTransformRotateOf.html">SourceTransformRotateOf</a>,        <a class="code" href="main_8c_09_09.html#af3b9f0c5105b1af42a45e1d354c96fd0">ScanPixel</a>, 3, <a class="code" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>, Translate0) \
-                _layer(Translate1,    <a class="code" href="classSourceTransformTranslateOf.html">SourceTransformTranslateOf</a>,     <a class="code" href="main_8c_09_09.html#af3b9f0c5105b1af42a45e1d354c96fd0">ScanPixel</a>, 3, <a class="code" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>, Rotate) \
-                _layer(Scale,         <a class="code" href="classSourceTransformScaleOf.html">SourceTransformScaleOf</a>,         <a class="code" href="main_8c_09_09.html#af3b9f0c5105b1af42a45e1d354c96fd0">ScanPixel</a>, 3, <a class="code" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>, Translate1)
-</pre></div>
-</div>
-</div>
 <hr/><h2>Typedef Documentation</h2>
 <a class="anchor" id="ad051c96c023bfae82c47fe81a89806a0"></a><!-- doxytag: member="main.c++::ScanLayout" ref="ad051c96c023bfae82c47fe81a89806a0" args="" -->
 <div class="memitem">
@@ -277,6 +226,26 @@ Functions</h2></td></tr>
           <td class="memname">void ApplyCongeal </td>
           <td>(</td>
           <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a776e52178df7b9db5e7222c812bc9e7a"></a><!-- doxytag: member="main.c++::ComputeParzenError" ref="a776e52178df7b9db5e7222c812bc9e7a" args="(RECIPIE &amp;recipie)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class RECIPIE &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a> ComputeParzenError </td>
+          <td>(</td>
+          <td class="paramtype">RECIPIE &amp;&nbsp;</td>
+          <td class="paramname"> <em>recipie</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
         </tr>
@@ -480,51 +449,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a2d9c6aa6018d9e3989aa0e44f9d51f82"></a><!-- doxytag: member="main.c++::MAKE_COMBINE_ASSISTANT" ref="a2d9c6aa6018d9e3989aa0e44f9d51f82" args="(AverageDistributionField10, SourceCombinePointwiseOperatorOf, OperatorAverageOf&lt; typename DistributionFieldInfo&lt; typename SOURCE::type_data &gt;::type COMMA typename DistributionFieldInfo&lt; typename SOURCE::type_data &gt;::type &gt;, TypeOfDimensionality(DistributionFieldInfo&lt; typename SOURCE::type_data &gt;::type), TypeOfPrecision(DistributionFieldInfo&lt; typename SOURCE::type_data &gt;::type),{})" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">MAKE_COMBINE_ASSISTANT </td>
-          <td>(</td>
-          <td class="paramtype">AverageDistributionField10&nbsp;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classSourceCombinePointwiseOperatorOf.html">SourceCombinePointwiseOperatorOf</a>&nbsp;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classOperatorAverageOf.html">OperatorAverageOf</a>&lt; typename <a class="el" href="classDistributionFieldInfo.html">DistributionFieldInfo</a>&lt; typename SOURCE::type_data &gt;::type COMMA typename <a class="el" href="classDistributionFieldInfo.html">DistributionFieldInfo</a>&lt; typename SOURCE::type_data &gt;::type &gt;&nbsp;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TypeOfDimensionality(<a class="el" href="classDistributionFieldInfo.html">DistributionFieldInfo</a>&lt; typename SOURCE::type_data &gt;::type)&nbsp;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TypeOfPrecision(<a class="el" href="classDistributionFieldInfo.html">DistributionFieldInfo</a>&lt; typename SOURCE::type_data &gt;::type)&nbsp;</td>
-          <td class="paramname"></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a0aa25cb63a0fed21c3090dc66bed3ad0"></a><!-- doxytag: member="main.c++::MAKE_RECIPIE" ref="a0aa25cb63a0fed21c3090dc66bed3ad0" args="(Recipie_G3R_All_G3I, ScanVolume, my_mid_layers, my_last_layer)" -->
 <div class="memitem">
 <div class="memproto">
@@ -564,103 +488,28 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a88fd02a15717d7ab95807852f09bb957"></a><!-- doxytag: member="main.c++::MAKE_RECIPIE" ref="a88fd02a15717d7ab95807852f09bb957" args="(Recipie_G3R_Speed_G3I, ScanVolume, speed_mid_layers, speed_last_layer)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">MAKE_RECIPIE </td>
-          <td>(</td>
-          <td class="paramtype">Recipie_G3R_Speed_G3I&nbsp;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classImageOf.html">ScanVolume</a>&nbsp;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">speed_mid_layers&nbsp;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">speed_last_layer&nbsp;</td>
-          <td class="paramname"></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a949f6ee0b3c863072557ce72e1b51456"></a><!-- doxytag: member="main.c++::MAKE_TYPECHANGE_ASSISTANT" ref="a949f6ee0b3c863072557ce72e1b51456" args="(DistributionField10, SourceAccessorDistributionFieldOf, typename DistributionFieldInfo&lt; typename SOURCE::type_data &gt;::type, SOURCE::type_dimensionality, typename SOURCE::type_precision,{psrcOut&#45;&gt;SetSigmaParzen(10.);})" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">MAKE_TYPECHANGE_ASSISTANT </td>
-          <td>(</td>
-          <td class="paramtype">DistributionField10&nbsp;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classSourceAccessorDistributionFieldOf.html">SourceAccessorDistributionFieldOf</a>&nbsp;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">typename <a class="el" href="classDistributionFieldInfo.html">DistributionFieldInfo</a>&lt; typename SOURCE::type_data &gt;::type&nbsp;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">SOURCE::type_dimensionality&nbsp;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">typename SOURCE::type_precision&nbsp;</td>
-          <td class="paramname"></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ad2e93a3157f6a8ae2462ad5135f71d77"></a><!-- doxytag: member="main.c++::PrintImage" ref="ad2e93a3157f6a8ae2462ad5135f71d77" args="(SOURCE *psrc)" -->
+<a class="anchor" id="a8223229530373feaaa116c81e6d9dac5"></a><!-- doxytag: member="main.c++::MeasureFullInverseParzenProbabilityInPlace" ref="a8223229530373feaaa116c81e6d9dac5" args="(int cSources, SOURCE *vsrc)" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class SOURCE &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">SOURCE* PrintImage </td>
+          <td class="memname"><a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a> MeasureFullInverseParzenProbabilityInPlace </td>
           <td>(</td>
-          <td class="paramtype">SOURCE *&nbsp;</td>
-          <td class="paramname"> <em>psrc</em></td>
-          <td>&nbsp;)&nbsp;</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>cSources</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">SOURCE *&nbsp;</td>
+          <td class="paramname"> <em>vsrc</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
         </tr>
       </table>
 </div>
@@ -688,96 +537,6 @@ template&lt;class SOURCE &gt; </div>
           <td></td>
           <td>)</td>
           <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a65f16383e74580e0e7983e2e34b82ae6"></a><!-- doxytag: member="main.c++::TestInterpolation" ref="a65f16383e74580e0e7983e2e34b82ae6" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void TestInterpolation </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a62c3ae2ffdcc2f1910e7804595e1001a"></a><!-- doxytag: member="main.c++::TestSpeed" ref="a62c3ae2ffdcc2f1910e7804595e1001a" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void TestSpeed </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a7b1988255bed48a3556b248ff407d9ac"></a><!-- doxytag: member="main.c++::ToString" ref="a7b1988255bed48a3556b248ff407d9ac" args="(const Real &amp;t)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classString.html">String</a> ToString </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>t</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a95368e8762a4c244c4e96abd88a6fef2"></a><!-- doxytag: member="main.c++::ToString" ref="a95368e8762a4c244c4e96abd88a6fef2" args="(const T &amp;t)" -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classString.html">String</a> ToString </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;&nbsp;</td>
-          <td class="paramname"> <em>t</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="aa6e31ba4f2bf9fe43d88c4728d60bc96"></a><!-- doxytag: member="main.c++::ToString" ref="aa6e31ba4f2bf9fe43d88c4728d60bc96" args="(const int &amp;t)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classString.html">String</a> ToString </td>
-          <td>(</td>
-          <td class="paramtype">const int &amp;&nbsp;</td>
-          <td class="paramname"> <em>t</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
         </tr>
       </table>
 </div>
@@ -847,41 +606,6 @@ template&lt;class RECIPIE &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a9c57852075af4bf5327a69b11b8f22d1"></a><!-- doxytag: member="main.c++::XCopyInto" ref="a9c57852075af4bf5327a69b11b8f22d1" args="(SOURCE_OUT *psrcOut, SOURCE_IN *psrcIn, bool bPrepared=false)" -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class SOURCE_IN , class SOURCE_OUT &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void XCopyInto </td>
-          <td>(</td>
-          <td class="paramtype">SOURCE_OUT *&nbsp;</td>
-          <td class="paramname"> <em>psrcOut</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">SOURCE_IN *&nbsp;</td>
-          <td class="paramname"> <em>psrcIn</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&nbsp;</td>
-          <td class="paramname"> <em>bPrepared</em> = <code>false</code></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -897,7 +621,7 @@ template&lt;class SOURCE_IN , class SOURCE_OUT &gt; </div>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Aug 3 2011 05:15:07 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Sep 19 2011 11:20:24 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

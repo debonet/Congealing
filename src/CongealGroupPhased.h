@@ -105,9 +105,6 @@ public:
 	//--------------------------------------------------------------------------
 	CongealGroupPhasedOf(RECIPIE* precipie)
 	{
-		static Real rSigma=ConfigValue("congeal.error[parzen].sigma",10.);
-		InitFastGaussian(rSigma);
-
 		m_precipie=precipie;
 		ClaimPointer(m_precipie);
 
@@ -881,25 +878,6 @@ public:
 		return MeasureInverseParzenProbabilityInPlace(p);
 	}
 
-#define FASTGAUSSIAN_TABLESIZE 1024
-#define FASTGAUSSIAN_TABLESIZE_DIV_2 512
-
-	static Real m_vrFastGaussian[FASTGAUSSIAN_TABLESIZE];
-	//--------------------------------------------------------------------------
-	//--------------------------------------------------------------------------
-	static void InitFastGaussian(Real &rSigma){
-		D("InitFastGaussian");
-		for (int n=0; n<FASTGAUSSIAN_TABLESIZE; n++){
-			m_vrFastGaussian[n]=Gaussian(n-FASTGAUSSIAN_TABLESIZE_DIV_2, 0, rSigma);		
-		}
-	}
-	//--------------------------------------------------------------------------
-	//--------------------------------------------------------------------------
-	static Real FastGaussian(const DATA &r, const DATA &rMean, Real &rSigma){
-		int n=Bound(rMean-r + FASTGAUSSIAN_TABLESIZE_DIV_2,0,FASTGAUSSIAN_TABLESIZE-1);
-		return m_vrFastGaussian[n];
-	}
-
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
 	// note this function assumes parameter values are already inserted into
@@ -1045,7 +1023,7 @@ public:
 					pt
 				);
 
-				Real rProbSource = FastGaussian(dataTest, dataPrior, rSigma);
+				Real rProbSource = Gaussian(dataTest, dataPrior, rSigma);
 
 				CONGEAL_ASSERTf(rProbSource>=0, "NEGATIVE ERROR %g", rProbSource);
 

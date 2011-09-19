@@ -48,260 +48,262 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h1>libDebug.h</h1>  </div>
 </div>
 <div class="contents">
-<a href="libDebug_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#undef D0</span>
-<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#undef DX0</span>
-<a name="l00003"></a>00003 <span class="preprocessor"></span><span class="preprocessor">#undef ID0</span>
-<a name="l00004"></a>00004 <span class="preprocessor"></span><span class="preprocessor">#undef IDX0</span>
-<a name="l00005"></a>00005 <span class="preprocessor"></span><span class="preprocessor">#undef UD0</span>
-<a name="l00006"></a>00006 <span class="preprocessor"></span><span class="preprocessor">#undef UDX0</span>
-<a name="l00007"></a>00007 <span class="preprocessor"></span><span class="preprocessor">#undef UID0</span>
-<a name="l00008"></a>00008 <span class="preprocessor"></span><span class="preprocessor">#undef UIDX0</span>
-<a name="l00009"></a>00009 <span class="preprocessor"></span>
-<a name="l00010"></a>00010 <span class="comment">//==========================================================================</span>
-<a name="l00011"></a>00011 <span class="comment">//==========================================================================</span>
-<a name="l00012"></a>00012 <span class="comment">// indented debug no newline</span>
-<a name="l00013"></a><a class="code" href="libDebug_8h.html#a2d2ae91beb0130f14c43b480b7d3b291">00013</a> <span class="preprocessor">#define IDX0(_c,_s,...)                                                                                                                                                                 \</span>
-<a name="l00014"></a>00014 <span class="preprocessor">        do {                                                                                                                                                                                                                                    \</span>
-<a name="l00015"></a>00015 <span class="preprocessor">                static volatile int _d##__LINE__=0;                                                                                                     \</span>
-<a name="l00016"></a>00016 <span class="preprocessor">                if (_d##__LINE__ &lt; 10) {                                                                                                                                                \</span>
-<a name="l00017"></a>00017 <span class="preprocessor">                        printf(&quot;%s:%d: &quot;,__FILE__ ,__LINE__);                                                                                   \</span>
-<a name="l00018"></a>00018 <span class="preprocessor">                        for (int _n=0; _n&lt;_c; _n++){                                                                                                                    \</span>
-<a name="l00019"></a>00019 <span class="preprocessor">                                printf(&quot;\t&quot;);                                                                                                                                                                           \</span>
-<a name="l00020"></a>00020 <span class="preprocessor">                        };                                                                                                                                                                                                                              \</span>
-<a name="l00021"></a>00021 <span class="preprocessor">                        printf(_s, ##__VA_ARGS__);                                                                                                                                      \</span>
-<a name="l00022"></a>00022 <span class="preprocessor">                }                                                                                                                                                                                                                                               \</span>
-<a name="l00023"></a>00023 <span class="preprocessor">                else if (IsIntegral(log2((_d##__LINE__)))) {                                                            \</span>
-<a name="l00024"></a>00024 <span class="preprocessor">                        printf(&quot;%s:%d: [%d] &quot;,__FILE__ ,__LINE__, _d##__LINE__);        \</span>
-<a name="l00025"></a>00025 <span class="preprocessor">                        for (int _n=0; _n&lt;_c; _n++){                                                                                                                    \</span>
-<a name="l00026"></a>00026 <span class="preprocessor">                                printf(&quot;\t&quot;);                                                                                                                                                                           \</span>
-<a name="l00027"></a>00027 <span class="preprocessor">                        };                                                                                                                                                                                                                              \</span>
-<a name="l00028"></a>00028 <span class="preprocessor">                        printf(_s, ##__VA_ARGS__);                                                                                                                                      \</span>
-<a name="l00029"></a>00029 <span class="preprocessor">                }                                                                                                                                                                                                                                               \</span>
-<a name="l00030"></a>00030 <span class="preprocessor">                _d##__LINE__++;                                                                                                                                                                                 \</span>
-<a name="l00031"></a>00031 <span class="preprocessor">        } while(0)</span>
-<a name="l00032"></a>00032 <span class="preprocessor"></span>
-<a name="l00033"></a>00033 <span class="comment">//==========================================================================</span>
-<a name="l00034"></a>00034 <span class="comment">//==========================================================================</span>
-<a name="l00035"></a>00035 <span class="comment">// indented debug</span>
-<a name="l00036"></a><a class="code" href="libDebug_8h.html#a54b7e2af6e53f38c1bb9f4d8d78e47f2">00036</a> <span class="preprocessor">#define ID0(_c,_s,...)                                                                                                                                                                  \</span>
-<a name="l00037"></a>00037 <span class="preprocessor">        do {                                                                                                                                                                                                                                    \</span>
-<a name="l00038"></a>00038 <span class="preprocessor">                static volatile int _d##__LINE__=0;                                                                                                     \</span>
-<a name="l00039"></a>00039 <span class="preprocessor">                int _dt##__LINE__ = _d##__LINE__;                                                                                                               \</span>
-<a name="l00040"></a>00040 <span class="preprocessor">                if (_dt##__LINE__ &lt; 10) {                                                                                                                                               \</span>
-<a name="l00041"></a>00041 <span class="preprocessor">                        printf(&quot;%s:%d: &quot;,__FILE__ ,__LINE__);                                                                                   \</span>
-<a name="l00042"></a>00042 <span class="preprocessor">                        for (int _n=0; _n&lt;_c; _n++){                                                                                                                    \</span>
-<a name="l00043"></a>00043 <span class="preprocessor">                                printf(&quot;\t&quot;);                                                                                                                                                                           \</span>
-<a name="l00044"></a>00044 <span class="preprocessor">                        };                                                                                                                                                                                                                              \</span>
-<a name="l00045"></a>00045 <span class="preprocessor">                        printf(_s, ##__VA_ARGS__);                                                                                                                                      \</span>
-<a name="l00046"></a>00046 <span class="preprocessor">                        printf(&quot;\n&quot;);                                                                                                                                                                                   \</span>
-<a name="l00047"></a>00047 <span class="preprocessor">                }                                                                                                                                                                                                                                               \</span>
-<a name="l00048"></a>00048 <span class="preprocessor">                else if (IsIntegral(log2((_dt##__LINE__)))) {                                                           \</span>
-<a name="l00049"></a>00049 <span class="preprocessor">                        printf(&quot;%s:%d: [%d] &quot;,__FILE__ ,__LINE__, _dt##__LINE__);       \</span>
-<a name="l00050"></a>00050 <span class="preprocessor">                        for (int _n=0; _n&lt;_c; _n++){                                                                                                                    \</span>
-<a name="l00051"></a>00051 <span class="preprocessor">                                printf(&quot;\t&quot;);                                                                                                                                                                           \</span>
-<a name="l00052"></a>00052 <span class="preprocessor">                        };                                                                                                                                                                                                                              \</span>
-<a name="l00053"></a>00053 <span class="preprocessor">                        printf(_s, ##__VA_ARGS__);                                                                                                                                      \</span>
-<a name="l00054"></a>00054 <span class="preprocessor">                        printf(&quot;\n&quot;);                                                                                                                                                                                   \</span>
-<a name="l00055"></a>00055 <span class="preprocessor">                }                                                                                                                                                                                                                                               \</span>
-<a name="l00056"></a>00056 <span class="preprocessor">                _d##__LINE__++;                                                                                                                                                                                 \</span>
-<a name="l00057"></a>00057 <span class="preprocessor">        } while(0)</span>
-<a name="l00058"></a>00058 <span class="preprocessor"></span>
-<a name="l00059"></a>00059 
-<a name="l00060"></a>00060 <span class="comment">//==========================================================================</span>
-<a name="l00061"></a>00061 <span class="comment">//==========================================================================</span>
-<a name="l00062"></a><a class="code" href="libDebug_8h.html#a70c6613bde43f5ac31d80834bc542d10">00062</a> <span class="preprocessor">#define DX0(_s,...) do {IDX0(0,_s, ##__VA_ARGS__);} while(0)</span>
-<a name="l00063"></a>00063 <span class="preprocessor"></span>
-<a name="l00064"></a>00064 <span class="comment">//==========================================================================</span>
-<a name="l00065"></a>00065 <span class="comment">//==========================================================================</span>
-<a name="l00066"></a>00066 <span class="comment">// debug</span>
-<a name="l00067"></a><a class="code" href="libDebug_8h.html#a2067cbfe7a62994e13b394a818a6b945">00067</a> <span class="preprocessor">#define D0(_s,...)      do {ID0(0,_s, ##__VA_ARGS__);} while(0)</span>
-<a name="l00068"></a>00068 <span class="preprocessor"></span>
-<a name="l00069"></a>00069 <span class="comment">//==========================================================================</span>
-<a name="l00070"></a>00070 <span class="comment">//==========================================================================</span>
-<a name="l00071"></a>00071 <span class="comment">// unconditional indented debug with no newline</span>
-<a name="l00072"></a><a class="code" href="libDebug_8h.html#ad6f5561c3e801b0521948410dbc93212">00072</a> <span class="preprocessor">#define UIDX0(_c,_s,...)                                                                                                \</span>
-<a name="l00073"></a>00073 <span class="preprocessor">        do {                                                                                                                                                                    \</span>
-<a name="l00074"></a>00074 <span class="preprocessor">                printf(&quot;%s:%d: &quot;,__FILE__ ,__LINE__);                           \</span>
-<a name="l00075"></a>00075 <span class="preprocessor">                for (int _n=0; _n&lt;_c; _n++){                                                            \</span>
-<a name="l00076"></a>00076 <span class="preprocessor">                        printf(&quot;\t&quot;);                                                                                                                   \</span>
-<a name="l00077"></a>00077 <span class="preprocessor">                };                                                                                                                                                                      \</span>
-<a name="l00078"></a>00078 <span class="preprocessor">                printf(_s, ##__VA_ARGS__);                                                                              \</span>
-<a name="l00079"></a>00079 <span class="preprocessor">        } while(0)</span>
-<a name="l00080"></a>00080 <span class="preprocessor"></span><span class="comment">//==========================================================================</span>
-<a name="l00081"></a>00081 <span class="comment">//==========================================================================</span>
-<a name="l00082"></a>00082 <span class="comment">// unconditional indented debug</span>
-<a name="l00083"></a><a class="code" href="libDebug_8h.html#adb0d56ad1236731abfe664977bcea24e">00083</a> <span class="preprocessor">#define UID0(_c,_s,...) do {UIDX0(_c,_s, ##__VA_ARGS__); printf(&quot;\n&quot;);} while(0)</span>
-<a name="l00084"></a>00084 <span class="preprocessor"></span>
-<a name="l00085"></a>00085 <span class="comment">//==========================================================================</span>
-<a name="l00086"></a>00086 <span class="comment">//==========================================================================</span>
-<a name="l00087"></a>00087 <span class="comment">// unconditional debug with no newline</span>
-<a name="l00088"></a><a class="code" href="libDebug_8h.html#ab9ea733629587eead1e150df2d42f55c">00088</a> <span class="preprocessor">#define UDX0(_s,...) do {UIDX0(0,_s, ##__VA_ARGS__);} while(0)</span>
-<a name="l00089"></a>00089 <span class="preprocessor"></span>
-<a name="l00090"></a>00090 
-<a name="l00091"></a>00091 <span class="comment">//==========================================================================</span>
-<a name="l00092"></a>00092 <span class="comment">//==========================================================================</span>
-<a name="l00093"></a>00093 <span class="comment">// unconditional debug</span>
-<a name="l00094"></a><a class="code" href="libDebug_8h.html#ab7a822cbffb9971b0df0fcf0257f9e42">00094</a> <span class="preprocessor">#define UD0(_s,...) do {UDX(_s, ##__VA_ARGS__); printf(&quot;\n&quot;); } while(0)</span>
-<a name="l00095"></a>00095 <span class="preprocessor"></span>
-<a name="l00096"></a>00096 
-<a name="l00097"></a>00097 
-<a name="l00098"></a>00098 <span class="comment">//==========================================================================</span>
-<a name="l00099"></a>00099 <span class="comment">//==========================================================================</span>
-<a name="l00100"></a>00100 <span class="preprocessor">#undef D</span>
-<a name="l00101"></a>00101 <span class="preprocessor"></span><span class="preprocessor">#undef DX</span>
-<a name="l00102"></a>00102 <span class="preprocessor"></span><span class="preprocessor">#undef ID</span>
-<a name="l00103"></a>00103 <span class="preprocessor"></span><span class="preprocessor">#undef IDX</span>
-<a name="l00104"></a>00104 <span class="preprocessor"></span><span class="preprocessor">#undef UD</span>
-<a name="l00105"></a>00105 <span class="preprocessor"></span><span class="preprocessor">#undef UDX</span>
-<a name="l00106"></a>00106 <span class="preprocessor"></span><span class="preprocessor">#undef UID</span>
-<a name="l00107"></a>00107 <span class="preprocessor"></span><span class="preprocessor">#undef UIDX</span>
-<a name="l00108"></a>00108 <span class="preprocessor"></span><span class="preprocessor">#undef DEBUGONLY</span>
-<a name="l00109"></a>00109 <span class="preprocessor"></span><span class="preprocessor">#if DEBUG &gt;= 0</span>
-<a name="l00110"></a><a class="code" href="libDebug_8h.html#aafc3e7c4c7cbcd681377b5810c84329b">00110</a> <span class="preprocessor"></span><span class="preprocessor"># define DEBUGONLY(x) x</span>
-<a name="l00111"></a><a class="code" href="libDebug_8h.html#a395d9c5ab58648b157f820f4ef640f21">00111</a> <span class="preprocessor"></span><span class="preprocessor"># define D(x,...) D0(x, ##__VA_ARGS__)</span>
-<a name="l00112"></a><a class="code" href="libDebug_8h.html#a141cc22aac55b6678afa4058286605bd">00112</a> <span class="preprocessor"></span><span class="preprocessor"># define DX(x,...) DX0(x, ##__VA_ARGS__)</span>
-<a name="l00113"></a><a class="code" href="libDebug_8h.html#aed0f37f5343aa378d55f17ef92f83bf2">00113</a> <span class="preprocessor"></span><span class="preprocessor"># define ID(x,...) ID0(x, ##__VA_ARGS__)</span>
-<a name="l00114"></a><a class="code" href="libDebug_8h.html#a5f9789b487a3d89b2129ff2ea062d522">00114</a> <span class="preprocessor"></span><span class="preprocessor"># define IDX(x,...) IDX0(x, ##__VA_ARGS__)</span>
-<a name="l00115"></a><a class="code" href="libDebug_8h.html#a08dc2d35e2eb1acc8539d8cc9b68157e">00115</a> <span class="preprocessor"></span><span class="preprocessor"># define UD(x,...) UD0(x, ##__VA_ARGS__)</span>
-<a name="l00116"></a><a class="code" href="libDebug_8h.html#a4d254af99bf2d0d50e55de58ef2081ff">00116</a> <span class="preprocessor"></span><span class="preprocessor"># define UDX(x,...) UDX0(x, ##__VA_ARGS__)</span>
-<a name="l00117"></a><a class="code" href="libDebug_8h.html#a7950fd267d91fc4f780b5a6292ce1d3c">00117</a> <span class="preprocessor"></span><span class="preprocessor"># define UID(x,...) UID0(x, ##__VA_ARGS__)</span>
-<a name="l00118"></a><a class="code" href="libDebug_8h.html#a6780b8246f1c595555aae10c44b000bd">00118</a> <span class="preprocessor"></span><span class="preprocessor"># define UIDX(x,...) UIDX0(x, ##__VA_ARGS__)</span>
-<a name="l00119"></a>00119 <span class="preprocessor"></span><span class="preprocessor">#else</span>
-<a name="l00120"></a>00120 <span class="preprocessor"></span><span class="preprocessor"># define DEBUGONLY(x)</span>
-<a name="l00121"></a>00121 <span class="preprocessor"></span><span class="preprocessor"># define D(x,...) </span>
-<a name="l00122"></a>00122 <span class="preprocessor"></span><span class="preprocessor"># define DX(x,...)</span>
-<a name="l00123"></a>00123 <span class="preprocessor"></span><span class="preprocessor"># define ID(x,...)</span>
-<a name="l00124"></a>00124 <span class="preprocessor"></span><span class="preprocessor"># define IDX(x,...)</span>
-<a name="l00125"></a>00125 <span class="preprocessor"></span><span class="preprocessor"># define UD(x,...)</span>
-<a name="l00126"></a>00126 <span class="preprocessor"></span><span class="preprocessor"># define UDX(x,...)</span>
-<a name="l00127"></a>00127 <span class="preprocessor"></span><span class="preprocessor"># define UID(x,...)</span>
-<a name="l00128"></a>00128 <span class="preprocessor"></span><span class="preprocessor"># define UIDX(x,...)</span>
-<a name="l00129"></a>00129 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
-<a name="l00130"></a>00130 <span class="preprocessor"></span>
-<a name="l00131"></a>00131 
-<a name="l00132"></a>00132 <span class="comment">//==========================================================================</span>
-<a name="l00133"></a>00133 <span class="comment">//==========================================================================</span>
-<a name="l00134"></a>00134 <span class="preprocessor">#undef D1</span>
-<a name="l00135"></a>00135 <span class="preprocessor"></span><span class="preprocessor">#undef DX1</span>
-<a name="l00136"></a>00136 <span class="preprocessor"></span><span class="preprocessor">#undef ID1</span>
-<a name="l00137"></a>00137 <span class="preprocessor"></span><span class="preprocessor">#undef IDX1</span>
-<a name="l00138"></a>00138 <span class="preprocessor"></span><span class="preprocessor">#undef UD1</span>
-<a name="l00139"></a>00139 <span class="preprocessor"></span><span class="preprocessor">#undef UDX1</span>
-<a name="l00140"></a>00140 <span class="preprocessor"></span><span class="preprocessor">#undef UID1</span>
-<a name="l00141"></a>00141 <span class="preprocessor"></span><span class="preprocessor">#undef UIDX1</span>
-<a name="l00142"></a>00142 <span class="preprocessor"></span><span class="preprocessor">#if DEBUG &gt;= 1</span>
-<a name="l00143"></a>00143 <span class="preprocessor"></span><span class="preprocessor"># define D1(x,...) D0(x, ##__VA_ARGS__)</span>
-<a name="l00144"></a>00144 <span class="preprocessor"></span><span class="preprocessor"># define DX1(x,...) DX0(x, ##__VA_ARGS__)</span>
-<a name="l00145"></a>00145 <span class="preprocessor"></span><span class="preprocessor"># define ID1(x,...) ID0(x, ##__VA_ARGS__)</span>
-<a name="l00146"></a>00146 <span class="preprocessor"></span><span class="preprocessor"># define IDX1(x,...) IDX0(x, ##__VA_ARGS__)</span>
-<a name="l00147"></a>00147 <span class="preprocessor"></span><span class="preprocessor"># define UD1(x,...) UD0(x, ##__VA_ARGS__)</span>
-<a name="l00148"></a>00148 <span class="preprocessor"></span><span class="preprocessor"># define UDX1(x,...) UDX0(x, ##__VA_ARGS__)</span>
-<a name="l00149"></a>00149 <span class="preprocessor"></span><span class="preprocessor"># define UID1(x,...) UID0(x, ##__VA_ARGS__)</span>
-<a name="l00150"></a>00150 <span class="preprocessor"></span><span class="preprocessor"># define UIDX1(x,...) UIDX0(x, ##__VA_ARGS__)</span>
-<a name="l00151"></a>00151 <span class="preprocessor"></span><span class="preprocessor">#else</span>
-<a name="l00152"></a><a class="code" href="libDebug_8h.html#a0bcbe29da956486d086a1c09e0beeebf">00152</a> <span class="preprocessor"></span><span class="preprocessor"># define D1(x,...) </span>
-<a name="l00153"></a><a class="code" href="libDebug_8h.html#a6c1573bbd9bf69711fd447e7bd2a8e53">00153</a> <span class="preprocessor"></span><span class="preprocessor"># define DX1(x,...)</span>
-<a name="l00154"></a><a class="code" href="libDebug_8h.html#ae75a8bd68ce44ffc566a8ac1eb17fdd4">00154</a> <span class="preprocessor"></span><span class="preprocessor"># define ID1(x,...)</span>
-<a name="l00155"></a><a class="code" href="libDebug_8h.html#a2cc7fb4b04c2935e18bfabbaf22959d4">00155</a> <span class="preprocessor"></span><span class="preprocessor"># define IDX1(x,...)</span>
-<a name="l00156"></a><a class="code" href="libDebug_8h.html#a8ae9cfcf225ca9f70084f5fdb4f45b41">00156</a> <span class="preprocessor"></span><span class="preprocessor"># define UD1(x,...)</span>
-<a name="l00157"></a><a class="code" href="libDebug_8h.html#a8ef2f43f00c4065c5f78fa893a754c95">00157</a> <span class="preprocessor"></span><span class="preprocessor"># define UDX1(x,...)</span>
-<a name="l00158"></a><a class="code" href="libDebug_8h.html#ae764fdffcc2eec869466ac5a75e3a25f">00158</a> <span class="preprocessor"></span><span class="preprocessor"># define UID1(x,...)</span>
-<a name="l00159"></a><a class="code" href="libDebug_8h.html#a6dd0f9f779db431294648d8101071e7f">00159</a> <span class="preprocessor"></span><span class="preprocessor"># define UIDX1(x,...)</span>
-<a name="l00160"></a>00160 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
-<a name="l00161"></a>00161 <span class="preprocessor"></span>
-<a name="l00162"></a>00162 
-<a name="l00163"></a>00163 <span class="comment">//==========================================================================</span>
-<a name="l00164"></a>00164 <span class="comment">//==========================================================================</span>
-<a name="l00165"></a>00165 <span class="preprocessor">#undef D2</span>
-<a name="l00166"></a>00166 <span class="preprocessor"></span><span class="preprocessor">#undef DX2</span>
-<a name="l00167"></a>00167 <span class="preprocessor"></span><span class="preprocessor">#undef ID2</span>
-<a name="l00168"></a>00168 <span class="preprocessor"></span><span class="preprocessor">#undef IDX2</span>
-<a name="l00169"></a>00169 <span class="preprocessor"></span><span class="preprocessor">#undef UD2</span>
-<a name="l00170"></a>00170 <span class="preprocessor"></span><span class="preprocessor">#undef UDX2</span>
-<a name="l00171"></a>00171 <span class="preprocessor"></span><span class="preprocessor">#undef UID2</span>
-<a name="l00172"></a>00172 <span class="preprocessor"></span><span class="preprocessor">#undef UIDX2</span>
-<a name="l00173"></a>00173 <span class="preprocessor"></span><span class="preprocessor">#if DEBUG &gt;= 2</span>
-<a name="l00174"></a>00174 <span class="preprocessor"></span><span class="preprocessor"># define D2(x,...) D0(x, ##__VA_ARGS__)</span>
-<a name="l00175"></a>00175 <span class="preprocessor"></span><span class="preprocessor"># define DX2(x,...) DX0(x, ##__VA_ARGS__)</span>
-<a name="l00176"></a>00176 <span class="preprocessor"></span><span class="preprocessor"># define ID2(x,...) ID0(x, ##__VA_ARGS__)</span>
-<a name="l00177"></a>00177 <span class="preprocessor"></span><span class="preprocessor"># define IDX2(x,...) IDX0(x, ##__VA_ARGS__)</span>
-<a name="l00178"></a>00178 <span class="preprocessor"></span><span class="preprocessor"># define UD2(x,...) UD0(x, ##__VA_ARGS__)</span>
-<a name="l00179"></a>00179 <span class="preprocessor"></span><span class="preprocessor"># define UDX2(x,...) UDX0(x, ##__VA_ARGS__)</span>
-<a name="l00180"></a>00180 <span class="preprocessor"></span><span class="preprocessor"># define UID2(x,...) UID0(x, ##__VA_ARGS__)</span>
-<a name="l00181"></a>00181 <span class="preprocessor"></span><span class="preprocessor"># define UIDX2(x,...) UIDX0(x, ##__VA_ARGS__)</span>
-<a name="l00182"></a>00182 <span class="preprocessor"></span><span class="preprocessor">#else</span>
-<a name="l00183"></a><a class="code" href="libDebug_8h.html#a3523efae9a14a2819cf002a594fd0aa8">00183</a> <span class="preprocessor"></span><span class="preprocessor"># define D2(x,...) </span>
-<a name="l00184"></a><a class="code" href="libDebug_8h.html#a29d1d70fb8ede6b4318ad09921f3294b">00184</a> <span class="preprocessor"></span><span class="preprocessor"># define DX2(x,...)</span>
-<a name="l00185"></a><a class="code" href="libDebug_8h.html#af1ee0145eff32ebbfaa25c868adf4c38">00185</a> <span class="preprocessor"></span><span class="preprocessor"># define ID2(x,...)</span>
-<a name="l00186"></a><a class="code" href="libDebug_8h.html#a1bca890aec4edcb3cedc8892670994fd">00186</a> <span class="preprocessor"></span><span class="preprocessor"># define IDX2(x,...)</span>
-<a name="l00187"></a><a class="code" href="libDebug_8h.html#a1582739902a0042c0bac2bc422d1803e">00187</a> <span class="preprocessor"></span><span class="preprocessor"># define UD2(x,...)</span>
-<a name="l00188"></a><a class="code" href="libDebug_8h.html#afd263052cb91941b77910d105e275bb3">00188</a> <span class="preprocessor"></span><span class="preprocessor"># define UDX2(x,...)</span>
-<a name="l00189"></a><a class="code" href="libDebug_8h.html#ae06494c79288a0cd6fc719cd2f3070b7">00189</a> <span class="preprocessor"></span><span class="preprocessor"># define UID2(x,...)</span>
-<a name="l00190"></a><a class="code" href="libDebug_8h.html#ad9af2123fdd03e245d2ec0d5434ce5f2">00190</a> <span class="preprocessor"></span><span class="preprocessor"># define UIDX2(x,...)</span>
-<a name="l00191"></a>00191 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
-<a name="l00192"></a>00192 <span class="preprocessor"></span>
-<a name="l00193"></a>00193 
-<a name="l00194"></a>00194 
-<a name="l00195"></a>00195 <span class="comment">//==========================================================================</span>
-<a name="l00196"></a>00196 <span class="comment">//==========================================================================</span>
-<a name="l00197"></a>00197 <span class="preprocessor">#undef D3</span>
-<a name="l00198"></a>00198 <span class="preprocessor"></span><span class="preprocessor">#undef DX3</span>
-<a name="l00199"></a>00199 <span class="preprocessor"></span><span class="preprocessor">#undef ID3</span>
-<a name="l00200"></a>00200 <span class="preprocessor"></span><span class="preprocessor">#undef IDX3</span>
-<a name="l00201"></a>00201 <span class="preprocessor"></span><span class="preprocessor">#undef UD3</span>
-<a name="l00202"></a>00202 <span class="preprocessor"></span><span class="preprocessor">#undef UDX3</span>
-<a name="l00203"></a>00203 <span class="preprocessor"></span><span class="preprocessor">#undef UID3</span>
-<a name="l00204"></a>00204 <span class="preprocessor"></span><span class="preprocessor">#undef UIDX3</span>
-<a name="l00205"></a>00205 <span class="preprocessor"></span><span class="preprocessor">#if DEBUG &gt;= 3</span>
-<a name="l00206"></a>00206 <span class="preprocessor"></span><span class="preprocessor"># define D3(x,...) D0(x, ##__VA_ARGS__)</span>
-<a name="l00207"></a>00207 <span class="preprocessor"></span><span class="preprocessor"># define DX3(x,...) DX0(x, ##__VA_ARGS__)</span>
-<a name="l00208"></a>00208 <span class="preprocessor"></span><span class="preprocessor"># define ID3(x,...) ID0(x, ##__VA_ARGS__)</span>
-<a name="l00209"></a>00209 <span class="preprocessor"></span><span class="preprocessor"># define IDX3(x,...) IDX0(x, ##__VA_ARGS__)</span>
-<a name="l00210"></a>00210 <span class="preprocessor"></span><span class="preprocessor"># define UD3(x,...) UD0(x, ##__VA_ARGS__)</span>
-<a name="l00211"></a>00211 <span class="preprocessor"></span><span class="preprocessor"># define UDX3(x,...) UDX0(x, ##__VA_ARGS__)</span>
-<a name="l00212"></a>00212 <span class="preprocessor"></span><span class="preprocessor"># define UID3(x,...) UID0(x, ##__VA_ARGS__)</span>
-<a name="l00213"></a>00213 <span class="preprocessor"></span><span class="preprocessor"># define UIDX3(x,...) UIDX0(x, ##__VA_ARGS__)</span>
-<a name="l00214"></a>00214 <span class="preprocessor"></span><span class="preprocessor">#else</span>
-<a name="l00215"></a><a class="code" href="libDebug_8h.html#a1f7f54ab528c0470ef3c90e767db7b9d">00215</a> <span class="preprocessor"></span><span class="preprocessor"># define D3(x,...) </span>
-<a name="l00216"></a><a class="code" href="libDebug_8h.html#a219b56ae517abf9532b836074b5d01cf">00216</a> <span class="preprocessor"></span><span class="preprocessor"># define DX3(x,...)</span>
-<a name="l00217"></a><a class="code" href="libDebug_8h.html#a6e971e665b658c8d7a5c0ea36f95f833">00217</a> <span class="preprocessor"></span><span class="preprocessor"># define ID3(x,...)</span>
-<a name="l00218"></a><a class="code" href="libDebug_8h.html#ada22cc2cce85b9a571b995dc9456d83d">00218</a> <span class="preprocessor"></span><span class="preprocessor"># define IDX3(x,...)</span>
-<a name="l00219"></a><a class="code" href="libDebug_8h.html#af6a0befb79b3e2fabb06e46b26473fe5">00219</a> <span class="preprocessor"></span><span class="preprocessor"># define UD3(x,...)</span>
-<a name="l00220"></a><a class="code" href="libDebug_8h.html#aee5c773c340bd7ac054216b615df09e4">00220</a> <span class="preprocessor"></span><span class="preprocessor"># define UDX3(x,...)</span>
-<a name="l00221"></a><a class="code" href="libDebug_8h.html#a668eaa54ee7f048c2327d31771b27e5c">00221</a> <span class="preprocessor"></span><span class="preprocessor"># define UID3(x,...)</span>
-<a name="l00222"></a><a class="code" href="libDebug_8h.html#af8ff9cf1da1812305433d055b37a9fa5">00222</a> <span class="preprocessor"></span><span class="preprocessor"># define UIDX3(x,...)</span>
-<a name="l00223"></a>00223 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
-<a name="l00224"></a>00224 <span class="preprocessor"></span>
-<a name="l00225"></a>00225 
-<a name="l00226"></a>00226 <span class="comment">//==========================================================================</span>
-<a name="l00227"></a>00227 <span class="comment">//==========================================================================</span>
-<a name="l00228"></a>00228 <span class="preprocessor">#undef D4</span>
-<a name="l00229"></a>00229 <span class="preprocessor"></span><span class="preprocessor">#undef DX4</span>
-<a name="l00230"></a>00230 <span class="preprocessor"></span><span class="preprocessor">#undef ID4</span>
-<a name="l00231"></a>00231 <span class="preprocessor"></span><span class="preprocessor">#undef IDX4</span>
-<a name="l00232"></a>00232 <span class="preprocessor"></span><span class="preprocessor">#undef UD4</span>
-<a name="l00233"></a>00233 <span class="preprocessor"></span><span class="preprocessor">#undef UDX4</span>
-<a name="l00234"></a>00234 <span class="preprocessor"></span><span class="preprocessor">#undef UID4</span>
-<a name="l00235"></a>00235 <span class="preprocessor"></span><span class="preprocessor">#undef UIDX4</span>
-<a name="l00236"></a>00236 <span class="preprocessor"></span><span class="preprocessor">#if DEBUG &gt;= 4</span>
-<a name="l00237"></a>00237 <span class="preprocessor"></span><span class="preprocessor"># define D4(x,...) D0(x, ##__VA_ARGS__)</span>
-<a name="l00238"></a>00238 <span class="preprocessor"></span><span class="preprocessor"># define DX4(x,...) DX0(x, ##__VA_ARGS__)</span>
-<a name="l00239"></a>00239 <span class="preprocessor"></span><span class="preprocessor"># define ID4(x,...) ID0(x, ##__VA_ARGS__)</span>
-<a name="l00240"></a>00240 <span class="preprocessor"></span><span class="preprocessor"># define IDX4(x,...) IDX0(x, ##__VA_ARGS__)</span>
-<a name="l00241"></a>00241 <span class="preprocessor"></span><span class="preprocessor"># define UD4(x,...) UD0(x, ##__VA_ARGS__)</span>
-<a name="l00242"></a>00242 <span class="preprocessor"></span><span class="preprocessor"># define UDX4(x,...) UDX0(x, ##__VA_ARGS__)</span>
-<a name="l00243"></a>00243 <span class="preprocessor"></span><span class="preprocessor"># define UID4(x,...) UID0(x, ##__VA_ARGS__)</span>
-<a name="l00244"></a>00244 <span class="preprocessor"></span><span class="preprocessor"># define UIDX4(x,...) UIDX0(x, ##__VA_ARGS__)</span>
-<a name="l00245"></a>00245 <span class="preprocessor"></span><span class="preprocessor">#else</span>
-<a name="l00246"></a><a class="code" href="libDebug_8h.html#ae8cdb2e535e4d1031d20efa98eef28b3">00246</a> <span class="preprocessor"></span><span class="preprocessor"># define D4(x,...) </span>
-<a name="l00247"></a><a class="code" href="libDebug_8h.html#a1f8be7a7a016150eaf262be18c4b0488">00247</a> <span class="preprocessor"></span><span class="preprocessor"># define DX4(x,...)</span>
-<a name="l00248"></a><a class="code" href="libDebug_8h.html#ad4c0f645a6637655732e4b1857616c21">00248</a> <span class="preprocessor"></span><span class="preprocessor"># define ID4(x,...)</span>
-<a name="l00249"></a><a class="code" href="libDebug_8h.html#a6931cb439abd6493516154aebccbe568">00249</a> <span class="preprocessor"></span><span class="preprocessor"># define IDX4(x,...)</span>
-<a name="l00250"></a><a class="code" href="libDebug_8h.html#ad91c6c6faa885a742d75d39c8f974797">00250</a> <span class="preprocessor"></span><span class="preprocessor"># define UD4(x,...)</span>
-<a name="l00251"></a><a class="code" href="libDebug_8h.html#a8d200d6549172a005825cd6ddb93b98d">00251</a> <span class="preprocessor"></span><span class="preprocessor"># define UDX4(x,...)</span>
-<a name="l00252"></a><a class="code" href="libDebug_8h.html#a6f7fd2bbab8c3287647aa7b5b9ac6e40">00252</a> <span class="preprocessor"></span><span class="preprocessor"># define UID4(x,...)</span>
-<a name="l00253"></a><a class="code" href="libDebug_8h.html#a013d18c6e0df4c275a349c09441bc6d4">00253</a> <span class="preprocessor"></span><span class="preprocessor"># define UIDX4(x,...)</span>
-<a name="l00254"></a>00254 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a href="libDebug_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include &quot;<a class="code" href="libUtility_8h.html">libUtility.h</a>&quot;</span>
+<a name="l00002"></a>00002 
+<a name="l00003"></a>00003 <span class="preprocessor">#undef D0</span>
+<a name="l00004"></a>00004 <span class="preprocessor"></span><span class="preprocessor">#undef DX0</span>
+<a name="l00005"></a>00005 <span class="preprocessor"></span><span class="preprocessor">#undef ID0</span>
+<a name="l00006"></a>00006 <span class="preprocessor"></span><span class="preprocessor">#undef IDX0</span>
+<a name="l00007"></a>00007 <span class="preprocessor"></span><span class="preprocessor">#undef UD0</span>
+<a name="l00008"></a>00008 <span class="preprocessor"></span><span class="preprocessor">#undef UDX0</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#undef UID0</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span><span class="preprocessor">#undef UIDX0</span>
+<a name="l00011"></a>00011 <span class="preprocessor"></span>
+<a name="l00012"></a>00012 <span class="comment">//==========================================================================</span>
+<a name="l00013"></a>00013 <span class="comment">//==========================================================================</span>
+<a name="l00014"></a>00014 <span class="comment">// indented debug no newline</span>
+<a name="l00015"></a><a class="code" href="libDebug_8h.html#a2d2ae91beb0130f14c43b480b7d3b291">00015</a> <span class="preprocessor">#define IDX0(_c,_s,...)                                                                                                                                                                 \</span>
+<a name="l00016"></a>00016 <span class="preprocessor">        do {                                                                                                                                                                                                                                    \</span>
+<a name="l00017"></a>00017 <span class="preprocessor">                static volatile int _d##__LINE__=0;                                                                                                     \</span>
+<a name="l00018"></a>00018 <span class="preprocessor">                if (_d##__LINE__ &lt; 10) {                                                                                                                                                \</span>
+<a name="l00019"></a>00019 <span class="preprocessor">                        printf(&quot;%s:%d: &quot;,__FILE__ ,__LINE__);                                                                                   \</span>
+<a name="l00020"></a>00020 <span class="preprocessor">                        for (int _n=0; _n&lt;_c; _n++){                                                                                                                    \</span>
+<a name="l00021"></a>00021 <span class="preprocessor">                                printf(&quot;\t&quot;);                                                                                                                                                                           \</span>
+<a name="l00022"></a>00022 <span class="preprocessor">                        };                                                                                                                                                                                                                              \</span>
+<a name="l00023"></a>00023 <span class="preprocessor">                        printf(_s, ##__VA_ARGS__);                                                                                                                                      \</span>
+<a name="l00024"></a>00024 <span class="preprocessor">                }                                                                                                                                                                                                                                               \</span>
+<a name="l00025"></a>00025 <span class="preprocessor">                else if (IsIntegral(log2((_d##__LINE__)))) {                                                            \</span>
+<a name="l00026"></a>00026 <span class="preprocessor">                        printf(&quot;%s:%d: [%d] &quot;,__FILE__ ,__LINE__, _d##__LINE__);        \</span>
+<a name="l00027"></a>00027 <span class="preprocessor">                        for (int _n=0; _n&lt;_c; _n++){                                                                                                                    \</span>
+<a name="l00028"></a>00028 <span class="preprocessor">                                printf(&quot;\t&quot;);                                                                                                                                                                           \</span>
+<a name="l00029"></a>00029 <span class="preprocessor">                        };                                                                                                                                                                                                                              \</span>
+<a name="l00030"></a>00030 <span class="preprocessor">                        printf(_s, ##__VA_ARGS__);                                                                                                                                      \</span>
+<a name="l00031"></a>00031 <span class="preprocessor">                }                                                                                                                                                                                                                                               \</span>
+<a name="l00032"></a>00032 <span class="preprocessor">                _d##__LINE__++;                                                                                                                                                                                 \</span>
+<a name="l00033"></a>00033 <span class="preprocessor">        } while(0)</span>
+<a name="l00034"></a>00034 <span class="preprocessor"></span>
+<a name="l00035"></a>00035 <span class="comment">//==========================================================================</span>
+<a name="l00036"></a>00036 <span class="comment">//==========================================================================</span>
+<a name="l00037"></a>00037 <span class="comment">// indented debug</span>
+<a name="l00038"></a><a class="code" href="libDebug_8h.html#a54b7e2af6e53f38c1bb9f4d8d78e47f2">00038</a> <span class="preprocessor">#define ID0(_c,_s,...)                                                                                                                                                                  \</span>
+<a name="l00039"></a>00039 <span class="preprocessor">        do {                                                                                                                                                                                                                                    \</span>
+<a name="l00040"></a>00040 <span class="preprocessor">                static volatile int _d##__LINE__=0;                                                                                                     \</span>
+<a name="l00041"></a>00041 <span class="preprocessor">                int _dt##__LINE__ = _d##__LINE__;                                                                                                               \</span>
+<a name="l00042"></a>00042 <span class="preprocessor">                if (_dt##__LINE__ &lt; 10) {                                                                                                                                               \</span>
+<a name="l00043"></a>00043 <span class="preprocessor">                        printf(&quot;%s:%d: &quot;,__FILE__ ,__LINE__);                                                                                   \</span>
+<a name="l00044"></a>00044 <span class="preprocessor">                        for (int _n=0; _n&lt;_c; _n++){                                                                                                                    \</span>
+<a name="l00045"></a>00045 <span class="preprocessor">                                printf(&quot;\t&quot;);                                                                                                                                                                           \</span>
+<a name="l00046"></a>00046 <span class="preprocessor">                        };                                                                                                                                                                                                                              \</span>
+<a name="l00047"></a>00047 <span class="preprocessor">                        printf(_s, ##__VA_ARGS__);                                                                                                                                      \</span>
+<a name="l00048"></a>00048 <span class="preprocessor">                        printf(&quot;\n&quot;);                                                                                                                                                                                   \</span>
+<a name="l00049"></a>00049 <span class="preprocessor">                }                                                                                                                                                                                                                                               \</span>
+<a name="l00050"></a>00050 <span class="preprocessor">                else if (IsIntegral(log2((_dt##__LINE__)))) {                                                           \</span>
+<a name="l00051"></a>00051 <span class="preprocessor">                        printf(&quot;%s:%d: [%d] &quot;,__FILE__ ,__LINE__, _dt##__LINE__);       \</span>
+<a name="l00052"></a>00052 <span class="preprocessor">                        for (int _n=0; _n&lt;_c; _n++){                                                                                                                    \</span>
+<a name="l00053"></a>00053 <span class="preprocessor">                                printf(&quot;\t&quot;);                                                                                                                                                                           \</span>
+<a name="l00054"></a>00054 <span class="preprocessor">                        };                                                                                                                                                                                                                              \</span>
+<a name="l00055"></a>00055 <span class="preprocessor">                        printf(_s, ##__VA_ARGS__);                                                                                                                                      \</span>
+<a name="l00056"></a>00056 <span class="preprocessor">                        printf(&quot;\n&quot;);                                                                                                                                                                                   \</span>
+<a name="l00057"></a>00057 <span class="preprocessor">                }                                                                                                                                                                                                                                               \</span>
+<a name="l00058"></a>00058 <span class="preprocessor">                _d##__LINE__++;                                                                                                                                                                                 \</span>
+<a name="l00059"></a>00059 <span class="preprocessor">        } while(0)</span>
+<a name="l00060"></a>00060 <span class="preprocessor"></span>
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062 <span class="comment">//==========================================================================</span>
+<a name="l00063"></a>00063 <span class="comment">//==========================================================================</span>
+<a name="l00064"></a><a class="code" href="libDebug_8h.html#a70c6613bde43f5ac31d80834bc542d10">00064</a> <span class="preprocessor">#define DX0(_s,...) do {IDX0(0,_s, ##__VA_ARGS__);} while(0)</span>
+<a name="l00065"></a>00065 <span class="preprocessor"></span>
+<a name="l00066"></a>00066 <span class="comment">//==========================================================================</span>
+<a name="l00067"></a>00067 <span class="comment">//==========================================================================</span>
+<a name="l00068"></a>00068 <span class="comment">// debug</span>
+<a name="l00069"></a><a class="code" href="libDebug_8h.html#a2067cbfe7a62994e13b394a818a6b945">00069</a> <span class="preprocessor">#define D0(_s,...)      do {ID0(0,_s, ##__VA_ARGS__);} while(0)</span>
+<a name="l00070"></a>00070 <span class="preprocessor"></span>
+<a name="l00071"></a>00071 <span class="comment">//==========================================================================</span>
+<a name="l00072"></a>00072 <span class="comment">//==========================================================================</span>
+<a name="l00073"></a>00073 <span class="comment">// unconditional indented debug with no newline</span>
+<a name="l00074"></a><a class="code" href="libDebug_8h.html#ad6f5561c3e801b0521948410dbc93212">00074</a> <span class="preprocessor">#define UIDX0(_c,_s,...)                                                                                                \</span>
+<a name="l00075"></a>00075 <span class="preprocessor">        do {                                                                                                                                                                    \</span>
+<a name="l00076"></a>00076 <span class="preprocessor">                printf(&quot;%s:%d: &quot;,__FILE__ ,__LINE__);                           \</span>
+<a name="l00077"></a>00077 <span class="preprocessor">                for (int _n=0; _n&lt;_c; _n++){                                                            \</span>
+<a name="l00078"></a>00078 <span class="preprocessor">                        printf(&quot;\t&quot;);                                                                                                                   \</span>
+<a name="l00079"></a>00079 <span class="preprocessor">                };                                                                                                                                                                      \</span>
+<a name="l00080"></a>00080 <span class="preprocessor">                printf(_s, ##__VA_ARGS__);                                                                              \</span>
+<a name="l00081"></a>00081 <span class="preprocessor">        } while(0)</span>
+<a name="l00082"></a>00082 <span class="preprocessor"></span><span class="comment">//==========================================================================</span>
+<a name="l00083"></a>00083 <span class="comment">//==========================================================================</span>
+<a name="l00084"></a>00084 <span class="comment">// unconditional indented debug</span>
+<a name="l00085"></a><a class="code" href="libDebug_8h.html#adb0d56ad1236731abfe664977bcea24e">00085</a> <span class="preprocessor">#define UID0(_c,_s,...) do {UIDX0(_c,_s, ##__VA_ARGS__); printf(&quot;\n&quot;);} while(0)</span>
+<a name="l00086"></a>00086 <span class="preprocessor"></span>
+<a name="l00087"></a>00087 <span class="comment">//==========================================================================</span>
+<a name="l00088"></a>00088 <span class="comment">//==========================================================================</span>
+<a name="l00089"></a>00089 <span class="comment">// unconditional debug with no newline</span>
+<a name="l00090"></a><a class="code" href="libDebug_8h.html#ab9ea733629587eead1e150df2d42f55c">00090</a> <span class="preprocessor">#define UDX0(_s,...) do {UIDX0(0,_s, ##__VA_ARGS__);} while(0)</span>
+<a name="l00091"></a>00091 <span class="preprocessor"></span>
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093 <span class="comment">//==========================================================================</span>
+<a name="l00094"></a>00094 <span class="comment">//==========================================================================</span>
+<a name="l00095"></a>00095 <span class="comment">// unconditional debug</span>
+<a name="l00096"></a><a class="code" href="libDebug_8h.html#ab7a822cbffb9971b0df0fcf0257f9e42">00096</a> <span class="preprocessor">#define UD0(_s,...) do {UDX(_s, ##__VA_ARGS__); printf(&quot;\n&quot;); } while(0)</span>
+<a name="l00097"></a>00097 <span class="preprocessor"></span>
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100 <span class="comment">//==========================================================================</span>
+<a name="l00101"></a>00101 <span class="comment">//==========================================================================</span>
+<a name="l00102"></a>00102 <span class="preprocessor">#undef D</span>
+<a name="l00103"></a>00103 <span class="preprocessor"></span><span class="preprocessor">#undef DX</span>
+<a name="l00104"></a>00104 <span class="preprocessor"></span><span class="preprocessor">#undef ID</span>
+<a name="l00105"></a>00105 <span class="preprocessor"></span><span class="preprocessor">#undef IDX</span>
+<a name="l00106"></a>00106 <span class="preprocessor"></span><span class="preprocessor">#undef UD</span>
+<a name="l00107"></a>00107 <span class="preprocessor"></span><span class="preprocessor">#undef UDX</span>
+<a name="l00108"></a>00108 <span class="preprocessor"></span><span class="preprocessor">#undef UID</span>
+<a name="l00109"></a>00109 <span class="preprocessor"></span><span class="preprocessor">#undef UIDX</span>
+<a name="l00110"></a>00110 <span class="preprocessor"></span><span class="preprocessor">#undef DEBUGONLY</span>
+<a name="l00111"></a>00111 <span class="preprocessor"></span><span class="preprocessor">#if DEBUG &gt;= 0</span>
+<a name="l00112"></a><a class="code" href="libDebug_8h.html#aafc3e7c4c7cbcd681377b5810c84329b">00112</a> <span class="preprocessor"></span><span class="preprocessor"># define DEBUGONLY(x) x</span>
+<a name="l00113"></a><a class="code" href="libDebug_8h.html#a395d9c5ab58648b157f820f4ef640f21">00113</a> <span class="preprocessor"></span><span class="preprocessor"># define D(x,...) D0(x, ##__VA_ARGS__)</span>
+<a name="l00114"></a><a class="code" href="libDebug_8h.html#a141cc22aac55b6678afa4058286605bd">00114</a> <span class="preprocessor"></span><span class="preprocessor"># define DX(x,...) DX0(x, ##__VA_ARGS__)</span>
+<a name="l00115"></a><a class="code" href="libDebug_8h.html#aed0f37f5343aa378d55f17ef92f83bf2">00115</a> <span class="preprocessor"></span><span class="preprocessor"># define ID(x,...) ID0(x, ##__VA_ARGS__)</span>
+<a name="l00116"></a><a class="code" href="libDebug_8h.html#a5f9789b487a3d89b2129ff2ea062d522">00116</a> <span class="preprocessor"></span><span class="preprocessor"># define IDX(x,...) IDX0(x, ##__VA_ARGS__)</span>
+<a name="l00117"></a><a class="code" href="libDebug_8h.html#a08dc2d35e2eb1acc8539d8cc9b68157e">00117</a> <span class="preprocessor"></span><span class="preprocessor"># define UD(x,...) UD0(x, ##__VA_ARGS__)</span>
+<a name="l00118"></a><a class="code" href="libDebug_8h.html#a4d254af99bf2d0d50e55de58ef2081ff">00118</a> <span class="preprocessor"></span><span class="preprocessor"># define UDX(x,...) UDX0(x, ##__VA_ARGS__)</span>
+<a name="l00119"></a><a class="code" href="libDebug_8h.html#a7950fd267d91fc4f780b5a6292ce1d3c">00119</a> <span class="preprocessor"></span><span class="preprocessor"># define UID(x,...) UID0(x, ##__VA_ARGS__)</span>
+<a name="l00120"></a><a class="code" href="libDebug_8h.html#a6780b8246f1c595555aae10c44b000bd">00120</a> <span class="preprocessor"></span><span class="preprocessor"># define UIDX(x,...) UIDX0(x, ##__VA_ARGS__)</span>
+<a name="l00121"></a>00121 <span class="preprocessor"></span><span class="preprocessor">#else</span>
+<a name="l00122"></a>00122 <span class="preprocessor"></span><span class="preprocessor"># define DEBUGONLY(x)</span>
+<a name="l00123"></a>00123 <span class="preprocessor"></span><span class="preprocessor"># define D(x,...) </span>
+<a name="l00124"></a>00124 <span class="preprocessor"></span><span class="preprocessor"># define DX(x,...)</span>
+<a name="l00125"></a>00125 <span class="preprocessor"></span><span class="preprocessor"># define ID(x,...)</span>
+<a name="l00126"></a>00126 <span class="preprocessor"></span><span class="preprocessor"># define IDX(x,...)</span>
+<a name="l00127"></a>00127 <span class="preprocessor"></span><span class="preprocessor"># define UD(x,...)</span>
+<a name="l00128"></a>00128 <span class="preprocessor"></span><span class="preprocessor"># define UDX(x,...)</span>
+<a name="l00129"></a>00129 <span class="preprocessor"></span><span class="preprocessor"># define UID(x,...)</span>
+<a name="l00130"></a>00130 <span class="preprocessor"></span><span class="preprocessor"># define UIDX(x,...)</span>
+<a name="l00131"></a>00131 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00132"></a>00132 <span class="preprocessor"></span>
+<a name="l00133"></a>00133 
+<a name="l00134"></a>00134 <span class="comment">//==========================================================================</span>
+<a name="l00135"></a>00135 <span class="comment">//==========================================================================</span>
+<a name="l00136"></a>00136 <span class="preprocessor">#undef D1</span>
+<a name="l00137"></a>00137 <span class="preprocessor"></span><span class="preprocessor">#undef DX1</span>
+<a name="l00138"></a>00138 <span class="preprocessor"></span><span class="preprocessor">#undef ID1</span>
+<a name="l00139"></a>00139 <span class="preprocessor"></span><span class="preprocessor">#undef IDX1</span>
+<a name="l00140"></a>00140 <span class="preprocessor"></span><span class="preprocessor">#undef UD1</span>
+<a name="l00141"></a>00141 <span class="preprocessor"></span><span class="preprocessor">#undef UDX1</span>
+<a name="l00142"></a>00142 <span class="preprocessor"></span><span class="preprocessor">#undef UID1</span>
+<a name="l00143"></a>00143 <span class="preprocessor"></span><span class="preprocessor">#undef UIDX1</span>
+<a name="l00144"></a>00144 <span class="preprocessor"></span><span class="preprocessor">#if DEBUG &gt;= 1</span>
+<a name="l00145"></a>00145 <span class="preprocessor"></span><span class="preprocessor"># define D1(x,...) D0(x, ##__VA_ARGS__)</span>
+<a name="l00146"></a>00146 <span class="preprocessor"></span><span class="preprocessor"># define DX1(x,...) DX0(x, ##__VA_ARGS__)</span>
+<a name="l00147"></a>00147 <span class="preprocessor"></span><span class="preprocessor"># define ID1(x,...) ID0(x, ##__VA_ARGS__)</span>
+<a name="l00148"></a>00148 <span class="preprocessor"></span><span class="preprocessor"># define IDX1(x,...) IDX0(x, ##__VA_ARGS__)</span>
+<a name="l00149"></a>00149 <span class="preprocessor"></span><span class="preprocessor"># define UD1(x,...) UD0(x, ##__VA_ARGS__)</span>
+<a name="l00150"></a>00150 <span class="preprocessor"></span><span class="preprocessor"># define UDX1(x,...) UDX0(x, ##__VA_ARGS__)</span>
+<a name="l00151"></a>00151 <span class="preprocessor"></span><span class="preprocessor"># define UID1(x,...) UID0(x, ##__VA_ARGS__)</span>
+<a name="l00152"></a>00152 <span class="preprocessor"></span><span class="preprocessor"># define UIDX1(x,...) UIDX0(x, ##__VA_ARGS__)</span>
+<a name="l00153"></a>00153 <span class="preprocessor"></span><span class="preprocessor">#else</span>
+<a name="l00154"></a><a class="code" href="libDebug_8h.html#a0bcbe29da956486d086a1c09e0beeebf">00154</a> <span class="preprocessor"></span><span class="preprocessor"># define D1(x,...) </span>
+<a name="l00155"></a><a class="code" href="libDebug_8h.html#a6c1573bbd9bf69711fd447e7bd2a8e53">00155</a> <span class="preprocessor"></span><span class="preprocessor"># define DX1(x,...)</span>
+<a name="l00156"></a><a class="code" href="libDebug_8h.html#ae75a8bd68ce44ffc566a8ac1eb17fdd4">00156</a> <span class="preprocessor"></span><span class="preprocessor"># define ID1(x,...)</span>
+<a name="l00157"></a><a class="code" href="libDebug_8h.html#a2cc7fb4b04c2935e18bfabbaf22959d4">00157</a> <span class="preprocessor"></span><span class="preprocessor"># define IDX1(x,...)</span>
+<a name="l00158"></a><a class="code" href="libDebug_8h.html#a8ae9cfcf225ca9f70084f5fdb4f45b41">00158</a> <span class="preprocessor"></span><span class="preprocessor"># define UD1(x,...)</span>
+<a name="l00159"></a><a class="code" href="libDebug_8h.html#a8ef2f43f00c4065c5f78fa893a754c95">00159</a> <span class="preprocessor"></span><span class="preprocessor"># define UDX1(x,...)</span>
+<a name="l00160"></a><a class="code" href="libDebug_8h.html#ae764fdffcc2eec869466ac5a75e3a25f">00160</a> <span class="preprocessor"></span><span class="preprocessor"># define UID1(x,...)</span>
+<a name="l00161"></a><a class="code" href="libDebug_8h.html#a6dd0f9f779db431294648d8101071e7f">00161</a> <span class="preprocessor"></span><span class="preprocessor"># define UIDX1(x,...)</span>
+<a name="l00162"></a>00162 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00163"></a>00163 <span class="preprocessor"></span>
+<a name="l00164"></a>00164 
+<a name="l00165"></a>00165 <span class="comment">//==========================================================================</span>
+<a name="l00166"></a>00166 <span class="comment">//==========================================================================</span>
+<a name="l00167"></a>00167 <span class="preprocessor">#undef D2</span>
+<a name="l00168"></a>00168 <span class="preprocessor"></span><span class="preprocessor">#undef DX2</span>
+<a name="l00169"></a>00169 <span class="preprocessor"></span><span class="preprocessor">#undef ID2</span>
+<a name="l00170"></a>00170 <span class="preprocessor"></span><span class="preprocessor">#undef IDX2</span>
+<a name="l00171"></a>00171 <span class="preprocessor"></span><span class="preprocessor">#undef UD2</span>
+<a name="l00172"></a>00172 <span class="preprocessor"></span><span class="preprocessor">#undef UDX2</span>
+<a name="l00173"></a>00173 <span class="preprocessor"></span><span class="preprocessor">#undef UID2</span>
+<a name="l00174"></a>00174 <span class="preprocessor"></span><span class="preprocessor">#undef UIDX2</span>
+<a name="l00175"></a>00175 <span class="preprocessor"></span><span class="preprocessor">#if DEBUG &gt;= 2</span>
+<a name="l00176"></a>00176 <span class="preprocessor"></span><span class="preprocessor"># define D2(x,...) D0(x, ##__VA_ARGS__)</span>
+<a name="l00177"></a>00177 <span class="preprocessor"></span><span class="preprocessor"># define DX2(x,...) DX0(x, ##__VA_ARGS__)</span>
+<a name="l00178"></a>00178 <span class="preprocessor"></span><span class="preprocessor"># define ID2(x,...) ID0(x, ##__VA_ARGS__)</span>
+<a name="l00179"></a>00179 <span class="preprocessor"></span><span class="preprocessor"># define IDX2(x,...) IDX0(x, ##__VA_ARGS__)</span>
+<a name="l00180"></a>00180 <span class="preprocessor"></span><span class="preprocessor"># define UD2(x,...) UD0(x, ##__VA_ARGS__)</span>
+<a name="l00181"></a>00181 <span class="preprocessor"></span><span class="preprocessor"># define UDX2(x,...) UDX0(x, ##__VA_ARGS__)</span>
+<a name="l00182"></a>00182 <span class="preprocessor"></span><span class="preprocessor"># define UID2(x,...) UID0(x, ##__VA_ARGS__)</span>
+<a name="l00183"></a>00183 <span class="preprocessor"></span><span class="preprocessor"># define UIDX2(x,...) UIDX0(x, ##__VA_ARGS__)</span>
+<a name="l00184"></a>00184 <span class="preprocessor"></span><span class="preprocessor">#else</span>
+<a name="l00185"></a><a class="code" href="libDebug_8h.html#a3523efae9a14a2819cf002a594fd0aa8">00185</a> <span class="preprocessor"></span><span class="preprocessor"># define D2(x,...) </span>
+<a name="l00186"></a><a class="code" href="libDebug_8h.html#a29d1d70fb8ede6b4318ad09921f3294b">00186</a> <span class="preprocessor"></span><span class="preprocessor"># define DX2(x,...)</span>
+<a name="l00187"></a><a class="code" href="libDebug_8h.html#af1ee0145eff32ebbfaa25c868adf4c38">00187</a> <span class="preprocessor"></span><span class="preprocessor"># define ID2(x,...)</span>
+<a name="l00188"></a><a class="code" href="libDebug_8h.html#a1bca890aec4edcb3cedc8892670994fd">00188</a> <span class="preprocessor"></span><span class="preprocessor"># define IDX2(x,...)</span>
+<a name="l00189"></a><a class="code" href="libDebug_8h.html#a1582739902a0042c0bac2bc422d1803e">00189</a> <span class="preprocessor"></span><span class="preprocessor"># define UD2(x,...)</span>
+<a name="l00190"></a><a class="code" href="libDebug_8h.html#afd263052cb91941b77910d105e275bb3">00190</a> <span class="preprocessor"></span><span class="preprocessor"># define UDX2(x,...)</span>
+<a name="l00191"></a><a class="code" href="libDebug_8h.html#ae06494c79288a0cd6fc719cd2f3070b7">00191</a> <span class="preprocessor"></span><span class="preprocessor"># define UID2(x,...)</span>
+<a name="l00192"></a><a class="code" href="libDebug_8h.html#ad9af2123fdd03e245d2ec0d5434ce5f2">00192</a> <span class="preprocessor"></span><span class="preprocessor"># define UIDX2(x,...)</span>
+<a name="l00193"></a>00193 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00194"></a>00194 <span class="preprocessor"></span>
+<a name="l00195"></a>00195 
+<a name="l00196"></a>00196 
+<a name="l00197"></a>00197 <span class="comment">//==========================================================================</span>
+<a name="l00198"></a>00198 <span class="comment">//==========================================================================</span>
+<a name="l00199"></a>00199 <span class="preprocessor">#undef D3</span>
+<a name="l00200"></a>00200 <span class="preprocessor"></span><span class="preprocessor">#undef DX3</span>
+<a name="l00201"></a>00201 <span class="preprocessor"></span><span class="preprocessor">#undef ID3</span>
+<a name="l00202"></a>00202 <span class="preprocessor"></span><span class="preprocessor">#undef IDX3</span>
+<a name="l00203"></a>00203 <span class="preprocessor"></span><span class="preprocessor">#undef UD3</span>
+<a name="l00204"></a>00204 <span class="preprocessor"></span><span class="preprocessor">#undef UDX3</span>
+<a name="l00205"></a>00205 <span class="preprocessor"></span><span class="preprocessor">#undef UID3</span>
+<a name="l00206"></a>00206 <span class="preprocessor"></span><span class="preprocessor">#undef UIDX3</span>
+<a name="l00207"></a>00207 <span class="preprocessor"></span><span class="preprocessor">#if DEBUG &gt;= 3</span>
+<a name="l00208"></a>00208 <span class="preprocessor"></span><span class="preprocessor"># define D3(x,...) D0(x, ##__VA_ARGS__)</span>
+<a name="l00209"></a>00209 <span class="preprocessor"></span><span class="preprocessor"># define DX3(x,...) DX0(x, ##__VA_ARGS__)</span>
+<a name="l00210"></a>00210 <span class="preprocessor"></span><span class="preprocessor"># define ID3(x,...) ID0(x, ##__VA_ARGS__)</span>
+<a name="l00211"></a>00211 <span class="preprocessor"></span><span class="preprocessor"># define IDX3(x,...) IDX0(x, ##__VA_ARGS__)</span>
+<a name="l00212"></a>00212 <span class="preprocessor"></span><span class="preprocessor"># define UD3(x,...) UD0(x, ##__VA_ARGS__)</span>
+<a name="l00213"></a>00213 <span class="preprocessor"></span><span class="preprocessor"># define UDX3(x,...) UDX0(x, ##__VA_ARGS__)</span>
+<a name="l00214"></a>00214 <span class="preprocessor"></span><span class="preprocessor"># define UID3(x,...) UID0(x, ##__VA_ARGS__)</span>
+<a name="l00215"></a>00215 <span class="preprocessor"></span><span class="preprocessor"># define UIDX3(x,...) UIDX0(x, ##__VA_ARGS__)</span>
+<a name="l00216"></a>00216 <span class="preprocessor"></span><span class="preprocessor">#else</span>
+<a name="l00217"></a><a class="code" href="libDebug_8h.html#a1f7f54ab528c0470ef3c90e767db7b9d">00217</a> <span class="preprocessor"></span><span class="preprocessor"># define D3(x,...) </span>
+<a name="l00218"></a><a class="code" href="libDebug_8h.html#a219b56ae517abf9532b836074b5d01cf">00218</a> <span class="preprocessor"></span><span class="preprocessor"># define DX3(x,...)</span>
+<a name="l00219"></a><a class="code" href="libDebug_8h.html#a6e971e665b658c8d7a5c0ea36f95f833">00219</a> <span class="preprocessor"></span><span class="preprocessor"># define ID3(x,...)</span>
+<a name="l00220"></a><a class="code" href="libDebug_8h.html#ada22cc2cce85b9a571b995dc9456d83d">00220</a> <span class="preprocessor"></span><span class="preprocessor"># define IDX3(x,...)</span>
+<a name="l00221"></a><a class="code" href="libDebug_8h.html#af6a0befb79b3e2fabb06e46b26473fe5">00221</a> <span class="preprocessor"></span><span class="preprocessor"># define UD3(x,...)</span>
+<a name="l00222"></a><a class="code" href="libDebug_8h.html#aee5c773c340bd7ac054216b615df09e4">00222</a> <span class="preprocessor"></span><span class="preprocessor"># define UDX3(x,...)</span>
+<a name="l00223"></a><a class="code" href="libDebug_8h.html#a668eaa54ee7f048c2327d31771b27e5c">00223</a> <span class="preprocessor"></span><span class="preprocessor"># define UID3(x,...)</span>
+<a name="l00224"></a><a class="code" href="libDebug_8h.html#af8ff9cf1da1812305433d055b37a9fa5">00224</a> <span class="preprocessor"></span><span class="preprocessor"># define UIDX3(x,...)</span>
+<a name="l00225"></a>00225 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00226"></a>00226 <span class="preprocessor"></span>
+<a name="l00227"></a>00227 
+<a name="l00228"></a>00228 <span class="comment">//==========================================================================</span>
+<a name="l00229"></a>00229 <span class="comment">//==========================================================================</span>
+<a name="l00230"></a>00230 <span class="preprocessor">#undef D4</span>
+<a name="l00231"></a>00231 <span class="preprocessor"></span><span class="preprocessor">#undef DX4</span>
+<a name="l00232"></a>00232 <span class="preprocessor"></span><span class="preprocessor">#undef ID4</span>
+<a name="l00233"></a>00233 <span class="preprocessor"></span><span class="preprocessor">#undef IDX4</span>
+<a name="l00234"></a>00234 <span class="preprocessor"></span><span class="preprocessor">#undef UD4</span>
+<a name="l00235"></a>00235 <span class="preprocessor"></span><span class="preprocessor">#undef UDX4</span>
+<a name="l00236"></a>00236 <span class="preprocessor"></span><span class="preprocessor">#undef UID4</span>
+<a name="l00237"></a>00237 <span class="preprocessor"></span><span class="preprocessor">#undef UIDX4</span>
+<a name="l00238"></a>00238 <span class="preprocessor"></span><span class="preprocessor">#if DEBUG &gt;= 4</span>
+<a name="l00239"></a>00239 <span class="preprocessor"></span><span class="preprocessor"># define D4(x,...) D0(x, ##__VA_ARGS__)</span>
+<a name="l00240"></a>00240 <span class="preprocessor"></span><span class="preprocessor"># define DX4(x,...) DX0(x, ##__VA_ARGS__)</span>
+<a name="l00241"></a>00241 <span class="preprocessor"></span><span class="preprocessor"># define ID4(x,...) ID0(x, ##__VA_ARGS__)</span>
+<a name="l00242"></a>00242 <span class="preprocessor"></span><span class="preprocessor"># define IDX4(x,...) IDX0(x, ##__VA_ARGS__)</span>
+<a name="l00243"></a>00243 <span class="preprocessor"></span><span class="preprocessor"># define UD4(x,...) UD0(x, ##__VA_ARGS__)</span>
+<a name="l00244"></a>00244 <span class="preprocessor"></span><span class="preprocessor"># define UDX4(x,...) UDX0(x, ##__VA_ARGS__)</span>
+<a name="l00245"></a>00245 <span class="preprocessor"></span><span class="preprocessor"># define UID4(x,...) UID0(x, ##__VA_ARGS__)</span>
+<a name="l00246"></a>00246 <span class="preprocessor"></span><span class="preprocessor"># define UIDX4(x,...) UIDX0(x, ##__VA_ARGS__)</span>
+<a name="l00247"></a>00247 <span class="preprocessor"></span><span class="preprocessor">#else</span>
+<a name="l00248"></a><a class="code" href="libDebug_8h.html#ae8cdb2e535e4d1031d20efa98eef28b3">00248</a> <span class="preprocessor"></span><span class="preprocessor"># define D4(x,...) </span>
+<a name="l00249"></a><a class="code" href="libDebug_8h.html#a1f8be7a7a016150eaf262be18c4b0488">00249</a> <span class="preprocessor"></span><span class="preprocessor"># define DX4(x,...)</span>
+<a name="l00250"></a><a class="code" href="libDebug_8h.html#ad4c0f645a6637655732e4b1857616c21">00250</a> <span class="preprocessor"></span><span class="preprocessor"># define ID4(x,...)</span>
+<a name="l00251"></a><a class="code" href="libDebug_8h.html#a6931cb439abd6493516154aebccbe568">00251</a> <span class="preprocessor"></span><span class="preprocessor"># define IDX4(x,...)</span>
+<a name="l00252"></a><a class="code" href="libDebug_8h.html#ad91c6c6faa885a742d75d39c8f974797">00252</a> <span class="preprocessor"></span><span class="preprocessor"># define UD4(x,...)</span>
+<a name="l00253"></a><a class="code" href="libDebug_8h.html#a8d200d6549172a005825cd6ddb93b98d">00253</a> <span class="preprocessor"></span><span class="preprocessor"># define UDX4(x,...)</span>
+<a name="l00254"></a><a class="code" href="libDebug_8h.html#a6f7fd2bbab8c3287647aa7b5b9ac6e40">00254</a> <span class="preprocessor"></span><span class="preprocessor"># define UID4(x,...)</span>
+<a name="l00255"></a><a class="code" href="libDebug_8h.html#a013d18c6e0df4c275a349c09441bc6d4">00255</a> <span class="preprocessor"></span><span class="preprocessor"># define UIDX4(x,...)</span>
+<a name="l00256"></a>00256 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -318,7 +320,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Aug 3 2011 05:15:07 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Sep 19 2011 11:20:24 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

@@ -50,8 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a>  </div>
+<a href="#pub-static-methods">Static Public Member Functions</a>  </div>
   <div class="headertitle">
 <h1>CongealGroupPhasedOf&lt; RECIPIE &gt; Class Template Reference</h1>  </div>
 </div>
@@ -82,13 +81,8 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCongealGroupPhasedOf.html#ad1e6c9a7cfa21d9f5a708bfaf8aaf7bc">MeasureVariance</a> (const <a class="el" href="libBaseTypes_8h.html#aa5a8596c8a075ab60c09bccbc0b0ae6d">Parameter</a> *vparam, const <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a> &amp;rErrMin, const void *p)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCongealGroupPhasedOf.html#ab5d4b49491859573b217999a4877ba7a">MeasureVarianceInPlace</a> (const void *p)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCongealGroupPhasedOf.html#a743dd21ec754b9167ca2a4e5ad3376f9">MeasureInverseParzenProbability</a> (const <a class="el" href="libBaseTypes_8h.html#aa5a8596c8a075ab60c09bccbc0b0ae6d">Parameter</a> *vparam, const <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a> &amp;rErrMin, const void *p)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCongealGroupPhasedOf.html#a8130d95dba878f973b8d50b07dad40ba">InitFastGaussian</a> (<a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a> &amp;rSigma)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCongealGroupPhasedOf.html#a04a820585da6cc82973cd3c33bf01f4f">FastGaussian</a> (const DATA &amp;r, const DATA &amp;<a class="el" href="libGaussian_8h.html#a96dda6ce9544686904b67e50b7298c71">rMean</a>, <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a> &amp;rSigma)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCongealGroupPhasedOf.html#ac40d17d8fbf6a437ffc37d13244bd702">MeasureInverseParzenProbabilityInPlace</a> (const void *p)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCongealGroupPhasedOf.html#a9935526a01e9707b103b8f3e37e51de4">MeasureFullInverseParzenProbabilityInPlace</a> (const void *p)</td></tr>
-<tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCongealGroupPhasedOf.html#a4ed7950bbd7fe0963d909d3ddf58ccdc">m_vrFastGaussian</a> [FASTGAUSSIAN_TABLESIZE]</td></tr>
 </table>
 <h3>template&lt;class RECIPIE&gt;<br/>
  class CongealGroupPhasedOf&lt; RECIPIE &gt;</h3>
@@ -134,61 +128,6 @@ template&lt;class RECIPIE &gt; </div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a04a820585da6cc82973cd3c33bf01f4f"></a><!-- doxytag: member="CongealGroupPhasedOf::FastGaussian" ref="a04a820585da6cc82973cd3c33bf01f4f" args="(const DATA &amp;r, const DATA &amp;rMean, Real &amp;rSigma)" -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class RECIPIE &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a> <a class="el" href="classCongealGroupPhasedOf.html">CongealGroupPhasedOf</a>&lt; RECIPIE &gt;::FastGaussian </td>
-          <td>(</td>
-          <td class="paramtype">const DATA &amp;&nbsp;</td>
-          <td class="paramname"> <em>r</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const DATA &amp;&nbsp;</td>
-          <td class="paramname"> <em>rMean</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>rSigma</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [inline, static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a8130d95dba878f973b8d50b07dad40ba"></a><!-- doxytag: member="CongealGroupPhasedOf::InitFastGaussian" ref="a8130d95dba878f973b8d50b07dad40ba" args="(Real &amp;rSigma)" -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class RECIPIE &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">static void <a class="el" href="classCongealGroupPhasedOf.html">CongealGroupPhasedOf</a>&lt; RECIPIE &gt;::InitFastGaussian </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a> &amp;&nbsp;</td>
-          <td class="paramname"> <em>rSigma</em></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [inline, static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a9935526a01e9707b103b8f3e37e51de4"></a><!-- doxytag: member="CongealGroupPhasedOf::MeasureFullInverseParzenProbabilityInPlace" ref="a9935526a01e9707b103b8f3e37e51de4" args="(const void *p)" -->
 <div class="memitem">
 <div class="memproto">
@@ -652,25 +591,8 @@ template&lt;class RECIPIE &gt; </div>
 
 </div>
 </div>
-<hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="a4ed7950bbd7fe0963d909d3ddf58ccdc"></a><!-- doxytag: member="CongealGroupPhasedOf::m_vrFastGaussian" ref="a4ed7950bbd7fe0963d909d3ddf58ccdc" args="[FASTGAUSSIAN_TABLESIZE]" -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class RECIPIE &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a> <a class="el" href="classCongealGroupPhasedOf.html">CongealGroupPhasedOf</a>&lt; RECIPIE &gt;::<a class="el" href="classCongealGroupPhasedOf.html#a4ed7950bbd7fe0963d909d3ddf58ccdc">m_vrFastGaussian</a><code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="CongealGroupPhased_8h_source.html">CongealGroupPhased.h</a></li>
-<li><a class="el" href="main_8c_09_09.html">main.c++</a></li>
 </ul>
 </div>
 <!--- window showing the filter options -->
@@ -687,7 +609,7 @@ template&lt;class RECIPIE &gt; </div>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Aug 3 2011 05:15:07 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Sep 19 2011 11:20:25 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>
