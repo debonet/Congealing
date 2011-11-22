@@ -7,6 +7,7 @@
 #include "SourceMemory.h"
 #include "SourceTransform.h"
 #include "SourceTransformScale.h"
+#include "SourceAccessorAperature.h"
 #include "SourceAccessorNearestNeighbor.h"
 #include "SourceAccessorLinearInterpolate.h"
 #include "SourceAccessorCubicInterpolate.h"
@@ -197,11 +198,14 @@ protected:
 	typedef PointOf<DIMENSIONALITY, Real> WARPPOINT;
 	typedef WarpControlPointsOf<DIMENSIONALITY> WARPCONTROLPOINTS;
 	typedef SourceAccessorCubicInterpolateOf<WARPPOINT, DIMENSIONALITY, Real,WARPCONTROLPOINTS> WARPINTERPOLATEDCONTROLPOINTS;
-	typedef SourceTransformScaleOf<WARPPOINT, DIMENSIONALITY, PRECISION, WARPINTERPOLATEDCONTROLPOINTS> WARPFIELD;
+	typedef SourceTransformScaleOf<WARPPOINT, DIMENSIONALITY, PRECISION, WARPINTERPOLATEDCONTROLPOINTS> WARPINTERPOLATEDCONTROLPOINTSSCALED;
+	typedef SourceAccessorAperatureOf<WARPPOINT, DIMENSIONALITY, PRECISION, WARPINTERPOLATEDCONTROLPOINTSSCALED> WARPFIELD;
 
 	mutable WARPFIELD* m_pwarpfield;
+	mutable bool m_bDeactivated;
 
 public:
+	typedef PointOf<DIMENSIONALITY, int> POINT;
 	typedef PointOf<DIMENSIONALITY, Real> WarpPoint;
 	typedef WarpControlPointsOf<DIMENSIONALITY> WarpControlPoints;
 	typedef SourceAccessorCubicInterpolateOf<WARPPOINT, DIMENSIONALITY, Real,WARPCONTROLPOINTS> WarpInterpolatedControlPoints;
@@ -223,44 +227,54 @@ public:
 
 	void AllocateWarpfield(PointOf<DIMENSIONALITY,int> ptSizeWarp, InterpolationType it=Cubic)
 	{
-		ReleasePointer(m_pwarpfield);
-
 		WarpControlPointsOf<DIMENSIONALITY> *pcp=new WarpControlPointsOf<DIMENSIONALITY>;
 		pcp->Allocate(ptSizeWarp);
+
+		UD("ORIG %s",pcp->Size().Describe().VCH()) ;
 		pcp->Fill(PointOf<DIMENSIONALITY,Real>(0.));
 
-		HandoffPointer(pcp);
-		m_pwarpfield=new WARPFIELD;
-//		m_pwarpfield->SetSource(NewInterpolatedSource(pcp,it));
-		m_pwarpfield->SetSource(CubicInterpolation(pcp));
+		ReleasePointer(m_pwarpfield);
+		m_pwarpfield=ClaimPointer(
+			Aperature(
+				POINT(0),
+				POINT(1),
+				ScaleTo(
+					POINT(1.),
+					CubicInterpolation(pcp))));
+
+		ReleasePointer(pcp);
 	}
 
 	void SetWarpfieldInterpolation(InterpolationType it=Cubic)
 	{
-		WARPCONTROLPOINTS* pcp=GetPWarpControlPoints();
+		WARPCONTROLPOINTS* pcp=PWarpControlPoints();
 		ClaimPointer(pcp);
-		ReleasePointer(m_pwarpfield);
 
-		HandoffPointer(pcp);
-		m_pwarpfield=new WARPFIELD;
-//		m_pwarpfield->SetSource(NewInterpolatedSource(pcp,it));
-		m_pwarpfield->SetSource(CubicInterpolation(pcp));
+		ReleasePointer(m_pwarpfield);
+		m_pwarpfield=ClaimPointer(
+			Aperature(
+				POINT(0),
+				POINT(1),
+				ScaleTo(
+					POINT(1.),
+					CubicInterpolation(pcp))));
+		ReleasePointer(pcp);
 	}
 
 	void SetWarpControlPoints(WARPCONTROLPOINTS* pwarpcontrolpoints)
 	{
-		m_pwarpfield->PSource()->SetSource(pwarpcontrolpoints);
+		m_pwarpfield->PSource()->PSource()->SetSource(pwarpcontrolpoints);
 	}
 
-	WARPCONTROLPOINTS* GetPWarpControlPoints() const
+	WARPCONTROLPOINTS* PWarpControlPoints() const
+	{
+		return m_pwarpfield->PSource()->PSource()->PSource();
+	}
+
+
+	WARPINTERPOLATEDCONTROLPOINTS* PInterpolatedWarpControlPoints() const
 	{
 		return m_pwarpfield->PSource()->PSource();
-	}
-
-
-	WARPINTERPOLATEDCONTROLPOINTS* GetPInterpolatedWarpControlPoints() const
-	{
-		return m_pwarpfield->PSource();
 	}
 
 	virtual String Describe() const
@@ -285,10 +299,16 @@ public:
 		// sources to compute their final sizes
 		m_pwarpfield->PrepareForAccess();
 
+		// set the aperature
+		m_pwarpfield->SetAperature(
+			POINT(0),
+			POINT(this->PSource()->Size())
+		);
+
 		// then adjust the scaling of the warp
-		m_pwarpfield->SetScale(
+		m_pwarpfield->PSource()->SetScale(
 			PointOf<DIMENSIONALITY,Real>(this->PSource()->Size())
-			/ m_pwarpfield->PSource()->Size()
+			/ PWarpControlPoints()->Size()
 		);
 
 		// and allow it to readjust
@@ -296,6 +316,10 @@ public:
 
 		// and finally set our own size;
 		this->m_ptSize=this->PSource()->Size();
+
+//		UD("%s",PWarpControlPoints()->Size().Describe().VCH());
+		this->m_bDeactivated=PWarpControlPoints()->Size().X()<4;
+//		UD("WARPFIELD: %s", this->m_bDeactivated?"inactive" : "ACTIVE");
 	}
 
 
@@ -399,7 +423,8 @@ private:
 public:
 	void Get(DATA& dataOut, const PRECISION& rX, const PRECISION& rY, const PRECISION& rZ) const
 	{
-		if (this->m_pwarpfield->Size().X() < 4){
+		// if deactivated, pass right through without doing calculations
+		if (this->m_bDeactivated){
 			return ::Get(
 				*(this->m_psource),
 				dataOut, 
@@ -447,14 +472,18 @@ void IncreaseWarpfieldControlPointResolution(
 	const PointOf<DIMENSIONALITY,Real> &ptSize, 
 	int nInterpType=3
 ){
-	D("increasing resolution of warpfield control points");
+	UD("increasing resolution of warpfield control points");
 	srcWarp.PrepareForAccess();
 	srcWarp.SetWarpControlPoints(
 		RasterizeInto(
 			HandoffPointer(new typename SourceTransformWarpOf<DATA,DIMENSIONALITY,PRECISION,SOURCE>::WarpControlPoints),
-			ScaleTo(
+			Aperature(
+				PointOf<DIMENSIONALITY,Real>(0),
 				ptSize,
-				srcWarp.GetPInterpolatedWarpControlPoints())));
+				ScaleTo(
+					ptSize,
+					srcWarp.PInterpolatedWarpControlPoints()))));
+
 	srcWarp.SetWarpfieldInterpolation(
 		InterpolationType(nInterpType));
 }

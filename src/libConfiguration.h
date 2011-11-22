@@ -106,7 +106,7 @@ public:
 		String sVal;
 
 		forhash(sKey,sVal,g_h){
-			s+=_LINE + StringF("%60s",sKey.V()) + " := " + sVal + LINE_;
+			s+=_LINE + StringF("%60s",sKey.VCH()) + " := " + sVal + LINE_;
 		}
 
 		return s;

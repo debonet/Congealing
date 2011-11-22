@@ -37,8 +37,8 @@ else
 release : CFLAGS = \
 			-DFEATURE_LBFGS=0\
 			-DPTHREAD_BARRIER=0\
-			-O3 \
 			-Wall\
+			-O3 \
 			-finline-limit=2000 \
 			--param inline-unit-growth=90000 \
 			--param large-function-growth=90000 \
@@ -54,6 +54,7 @@ release : CFLAGS = \
 			-ftree-loop-linear\
 			-fsched-interblock \
 			-fgcse-sm 
+
 endif
 release : LINKFLAGS = 
 release : OBJDIR = ../obj/release/

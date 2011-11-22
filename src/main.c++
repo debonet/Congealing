@@ -165,14 +165,16 @@ void WriteRecipie(RECIPIE& recipie, int nSchedule, int nProgress)
 
 
 	// MATLAB-----------------------------------
-	SaveMatlab(
-		StringF(sdir + sflPrefix + "%03d.%03d.m",nSchedule,nProgress),
-		StringF(sflPrefix + "%03d.%03d",nSchedule,nProgress),
-		recipie
-	);
+	if (ConfigValue("congeal.output.matlab",true)){
+		SaveMatlab(
+			StringF(sdir + sflPrefix + "%03d.%03d.m",nSchedule,nProgress),
+			StringF(sflPrefix + "%03d.%03d",nSchedule,nProgress),
+			recipie
+		);
+	}
 
 	// FULL ERROR -----------------------------------
-	{
+	if (ConfigValue("congeal.output.error",true)){
 		String sfl=StringF(sdir + sflPrefix + "%03d.%03d.err",nSchedule,nProgress);
 		Real rErr= ComputeParzenError(recipie);
 		UD("GOT ERROR %f", rErr);
@@ -187,17 +189,23 @@ void WriteRecipie(RECIPIE& recipie, int nSchedule, int nProgress)
 		}
 	}
 
+
+	const int dataMean=ConfigValue("congeal.output.colors.mid",2048);
+	const int dataRange=ConfigValue("congeal.output.colors.range",1024);
 	//----------------------------------------
-	UD1("writing out overview congealed volumes");
-	{
-		const int dataMean=ConfigValue("congeal.output.colors.mid",2048);
-		const int dataRange=ConfigValue("congeal.output.colors.range",1024);
+	// INPUT LAYOUT
+	if (ConfigValue("congeal.output.source.layout",false)){
+		UD1("writing out layout of transformed sources");
 
 		for (int dtSlice=0; dtSlice<3; dtSlice++){
-			int nSlice=ConfigValue("congeal.output.slice",.5) * recipie.PSource(0)->Size().Dim(dtSlice);
+			int nSlice=(
+				ConfigValue(
+					StringF("congeal.output.slice[%d]",dtSlice),
+					ConfigValue("congeal.output.slice",.5)) 
+			) * recipie.PSource(0)->Size().Dim(dtSlice);
 
-			ScanLayout layoutInputs;
-			int cLayout=congeal_min(recipie.CSources(),ConfigValue("congeal.output.sourcegrid",1024));
+			ScanLayout layoutSources;
+			int cLayout=congeal_min(recipie.CSources(),ConfigValue("congeal.output.source.layout.grid",1024));
 			int cC = floor(sqrt(cLayout));
 			int cR = floor(sqrt(cLayout));
 
@@ -206,65 +214,155 @@ void WriteRecipie(RECIPIE& recipie, int nSchedule, int nProgress)
 
 				for (int n=0; n<cLayout; n++){
 
-					layoutInputs.AddSource(
-						ScaleTo(
-							Point2D(1024./cC,1024./cR),
-							Aperature(
-								Point2D(-50.,-50.),Point2D(350.,350.),
-								ScaleTo(
-									Point2D(300.,300.),
+					layoutSources.AddSource(
+						Aperature(
+							Point2D(-50.,-50.),Point2D(1024./cC+50,1024./cR+50),
+							ScaleUpto(
+								Point2D(1024./cC,1024./cR),
 									Slice(
 										DimensionType(dtSlice),nSlice,
 										(//										LinearInterpolation(
-											recipie.PSource(n)))))));
+											recipie.PSource(n))))));
 				}
-				layoutInputs.AutoArrange();
+				layoutSources.AutoArrange();
 
 				UD("ARRANGE TIME (%g)", TOCK(dtmWriteVolume));
 			}
 
 			{
 				TICK(dtmWriteVolume);
+				String sfl=StringF(sdir + sflPrefix + "%03d.%03d-sourcelayout-dim%d-%03d",nSchedule,nProgress,dtSlice,nSlice);
 				WritePGM(
-					StringF(sdir + sflPrefix + "%03d.%03d-inputs%d-%03d.pgm",nSchedule,nProgress,dtSlice,nSlice),
+					sfl+".pgm",
 					Rasterize(						
 						GreyPixelRangeScale(
 							dataMean,dataRange,
-							ScaleTo(
-								Point2D(512,512),
-								&layoutInputs))));
 
-				UD("WRITE INPUT TIME (%g)", TOCK(dtmWriteVolume));
-			}
+							Aperature(
+								Point2D(0,0),
+								Point2D(
+									ConfigValue("congeal.output.source.layout.width",512),
+									ConfigValue("congeal.output.source.layout.height",512)),
+								ScaleUpto(
+									Point2D(
+										ConfigValue("congeal.output.source.layout.width",512),
+										ConfigValue("congeal.output.source.layout.height",512)),
+									&layoutSources)))));
 
-			{
-				TICK(dtmWriteVolume);
-
-				WritePGM(
-					StringF(sdir + sflPrefix + "%03d.%03d-average%d-%03d.pgm",nSchedule,nProgress,dtSlice,nSlice),
-					Rasterize(
-						ScaleUpto(
-							Point2D(
-								ConfigValue("congeal.output.average.width",512),
-								ConfigValue("congeal.output.average.height",512)
-							),
-							GreyPixelRangeScale(
-								dataMean,dataRange,
-								Slice(
-									DimensionType(dtSlice),nSlice,
-									(//									LinearInterpolation(
-										Average(
-											recipie.VSources(),
-											recipie.CSources())))))));
-
-				UD("WRITE AVERAGE TIME (%g)", TOCK(dtmWriteVolume));
+				UD("WRITE SOURCE TIME (%g)", TOCK(dtmWriteVolume));
+				system(
+					StringF(
+						ConfigValue(
+							StringF("congeal.output.source.layout.postprocess.dim%d",dtSlice),
+							ConfigValue("congeal.output.source.layout.postprocess","")),
+						sfl.VCH()));
 			}
 		}
 	}
 
 
-	UD1("Writing NIFTI average volume ");
-	{
+	//----------------------------------------
+	// SOURCE SLICES
+	if (ConfigValue("congeal.output.source.slices",true)){
+		UD1("writing out transformed source slices");
+		for (int dtSlice=0; dtSlice<3; dtSlice++){
+			int nSlice=(
+				ConfigValue(StringF("congeal.output.slice[%d]",dtSlice),ConfigValue("congeal.output.slice",.5)) 
+			) * recipie.PSource(0)->Size().Dim(dtSlice);
+
+			int cSources = recipie.CSources();
+			for (int nSource=0; nSource<cSources; nSource++){
+
+				TICK(dtmWriteVolume);
+
+				String sfl=StringF(sdir + sflPrefix + "%03d.%03d-source%d-dim%d-%03d",nSchedule,nProgress,nSource,dtSlice,nSlice);
+
+				WritePGM(
+					sfl + ".pgm",
+					Rasterize(
+						Aperature(
+							Point2D(0,0),
+							Point2D(
+								ConfigValue("congeal.output.source.slices.width",512),
+								ConfigValue("congeal.output.source.slices.height",512)),
+							ScaleUpto(
+								Point2D(
+									ConfigValue("congeal.output.source.slices.width",512),
+									ConfigValue("congeal.output.source.slices.height",512)
+								),
+								GreyPixelRangeScale(
+									dataMean,dataRange,
+									Slice(
+										DimensionType(dtSlice),nSlice,
+										recipie.PSource(nSource)
+									))))));
+
+				UD("WRITE SOURCE SLICE TIME (%g)", TOCK(dtmWriteVolume));
+
+				system(
+					StringF(
+						ConfigValue(
+							StringF("congeal.output.source.slices.postprocess.dim%d",dtSlice),
+							ConfigValue("congeal.output.source.slices.postprocess","")),
+						sfl.VCH()));
+			}
+		}
+	}
+
+
+
+	//----------------------------------------
+	// AVERAGE SLICES
+	if (ConfigValue("congeal.output.average.slices",true)){
+		for (int dtSlice=0; dtSlice<3; dtSlice++){
+			int nSlice=(
+				ConfigValue(StringF("congeal.output.slice[%d]",dtSlice),ConfigValue("congeal.output.slice",.5)) 
+			) * recipie.PSource(0)->Size().Dim(dtSlice);
+
+			UD1("writing out overview congealed volumes");
+			{
+				TICK(dtmWriteVolume);
+
+				String sfl=StringF(sdir + sflPrefix + "%03d.%03d-average-dim%d-%03d",nSchedule,nProgress,dtSlice,nSlice);
+
+				WritePGM(
+					sfl + ".pgm",
+					Rasterize(
+						Aperature(
+							Point2D(0,0),
+							Point2D(
+								ConfigValue("congeal.output.average.slices.width",512),
+								ConfigValue("congeal.output.average.slices.height",512)),
+							ScaleUpto(
+								Point2D(
+									ConfigValue("congeal.output.average.slices.width",512),
+									ConfigValue("congeal.output.average.slices.height",512)
+								),
+								GreyPixelRangeScale(
+									dataMean,dataRange,
+									Slice(
+										DimensionType(dtSlice),nSlice,
+										(//									LinearInterpolation(
+											Average(
+												recipie.VSources(),
+												recipie.CSources()))))))));
+
+				UD("WRITE AVERAGE TIME (%g)", TOCK(dtmWriteVolume));
+				system(
+					StringF(
+						ConfigValue(
+							StringF("congeal.output.average.slices.postprocess.dim%d",dtSlice),
+							ConfigValue("congeal.output.average.slices.postprocess","")),
+						sfl.VCH()));
+			}
+		}
+	}
+
+
+	//----------------------------------------
+	// AVERAGE VOLUME
+	if (ConfigValue("congeal.output.average.volume",true)){
+		UD1("Writing NIFTI average volume ");
 		TICK(dtmWriteVolume);
 
 		UD("STARTING WRITE NIFTI TIME (%g)", TOCK(dtmWriteVolume));
@@ -514,7 +612,7 @@ void CongealSchedules()
 	ScanVolume vscan[c];
 	Recipie_G3R_All_G3I recipie(c,vscan);
 
-	P(DescribeConfiguration());
+	P("%s",DescribeConfiguration().VCH());
 
 	String sdir = ConfigValue("congeal.output.path","../output/congeal/");
 	String sflPrefix = ConfigValue("congeal.output.prefix","../output/congeal/out");

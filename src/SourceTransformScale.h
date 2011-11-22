@@ -51,7 +51,8 @@ public:
 
 	void PrepareForAccessAction() const
 	{
-		this->m_ptSize=this->m_psource->Size() * m_ptScale;
+//		this->m_ptSize=this->m_psource->Size() * m_ptScale;
+		this->m_ptSize=this->m_psource->Size();
 	}
 
 

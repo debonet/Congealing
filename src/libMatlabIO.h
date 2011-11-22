@@ -195,9 +195,9 @@ void WriteMatlab(
 {
 	//D("writing bspline");
 	s+="{'bspline' ";
-//	WriteMatlab(s,*t.GetPWarpControlPoints());
+//	WriteMatlab(s,*t.PWarpControlPoints());
 
-	const WarpControlPointsOf<DIMENSIONALITY> &t2=*t.GetPWarpControlPoints();
+	const WarpControlPointsOf<DIMENSIONALITY> &t2=*t.PWarpControlPoints();
 	s+="reshape([";
 	int c=t2.CSize();
 	const Point3DReal *pdata=t2.ReadData();

@@ -518,7 +518,7 @@ public:
 
 			// Unknown algorithm -------------------------------------------
 			else{
-				P(DescribeConfiguration());
+				P("%s",DescribeConfiguration().VCH());
 				CONGEAL_ERROR(
 					"Unknown algorithm." 
 					"Parameter congeal.optimize.algorithm must be one of {lbfgs|gradientdescent|neldermead}."

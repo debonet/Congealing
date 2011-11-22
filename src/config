@@ -1,7 +1,41 @@
 ##########################################
 #  EXPERIMENTAL
 ##########################################
-congeal.optimize.bestpoints 5
+congeal.optimize.bestpoints 500
+
+
+##########################################
+#  NEW PARAMETERS (NEED DOCUMENTATION)
+##########################################
+#
+congeal.output.matlab false
+
+# 
+congeal.output.error false
+
+#
+congeal.output.source.layout false
+congeal.output.source.layout.width 512
+congeal.output.source.layout.height 512
+congeal.output.source.layout.postprocess convert %1$s.pgm %1$s.png
+congeal.output.source.layout.postprocess.dim0 convert %1$s.pgm -flip %1$s.png
+
+#
+congeal.output.source.slices true
+congeal.output.source.slices.width 512
+congeal.output.source.slices.height 512
+congeal.output.sources.slices.postprocess convert %1$s.pgm %1$s.png
+congeal.output.sources.slices.postprocess.dim0 convert %1$s.pgm -flip %1$s.png
+
+#
+congeal.output.average.slices true
+congeal.output.average.slices.width 512
+congeal.output.average.slices.height 512
+#congeal.output.average.slices.postprocess convert %1$s.pgm %1$s.png
+#congeal.output.average.slices.postprocess.dim0 convert %1$s.pgm -flip %1$s.png
+
+#
+congeal.output.average.volume false
 
 
 ##########################################
@@ -213,7 +247,7 @@ congeal.initialsteps.scale .2
 ## @parameter congeal.initialsteps.warp
 ## @type real
 ## @doc relative scaling of warp control point displacement when computing kernels and step sizes. Scale: Warp as fraction of control point's region
-congeal.initialsteps.warp 0.3
+congeal.initialsteps.warp .3
 
 ## @parameter congeal.initialsteps.datascale.slope
 ## @note CURRENTLY UNUSED
@@ -291,7 +325,7 @@ congeal.schedule[{$n}].optimize.warp[1] false
 congeal.schedule[{$n}].optimize.warp[2] false
 congeal.schedule[{$n}].optimize.warp[3] false
 congeal.schedule[{$n}].optimize.iterations 30
-congeal.schedule[{$n}].optimize.samples 50000
+congeal.schedule[{$n}].optimize.samples 5000
 
 congeal.schedule[{++n}].cache true
 congeal.schedule[{$n}].downsample 0
@@ -305,7 +339,7 @@ congeal.schedule[{$n}].optimize.warp[1] false
 congeal.schedule[{$n}].optimize.warp[2] false
 congeal.schedule[{$n}].optimize.warp[3] false
 congeal.schedule[{$n}].optimize.iterations 30
-congeal.schedule[{$n}].optimize.samples 50000
+congeal.schedule[{$n}].optimize.samples 5000
 
 congeal.schedule[{++n}].cache true
 congeal.schedule[{$n}].downsample 0
@@ -318,7 +352,7 @@ congeal.schedule[{$n}].optimize.warp[0] true
 congeal.schedule[{$n}].optimize.warp[1] false
 congeal.schedule[{$n}].optimize.warp[2] false
 congeal.schedule[{$n}].optimize.warp[3] false
-congeal.schedule[{$n}].optimize.iterations 100
+congeal.schedule[{$n}].optimize.iterations 300
 congeal.schedule[{$n}].optimize.samples 50000
 
 congeal.schedule[{++n}].cache true
@@ -332,7 +366,7 @@ congeal.schedule[{$n}].optimize.warp[0] true
 congeal.schedule[{$n}].optimize.warp[1] false
 congeal.schedule[{$n}].optimize.warp[2] false
 congeal.schedule[{$n}].optimize.warp[3] false
-congeal.schedule[{$n}].optimize.iterations 500
+congeal.schedule[{$n}].optimize.iterations 300
 congeal.schedule[{$n}].optimize.samples 50000
 
 congeal.schedule[{++n}].cache true
@@ -346,9 +380,11 @@ congeal.schedule[{$n}].optimize.warp[0] true
 congeal.schedule[{$n}].optimize.warp[1] false
 congeal.schedule[{$n}].optimize.warp[2] false
 congeal.schedule[{$n}].optimize.warp[3] false
-congeal.schedule[{$n}].optimize.iterations 5000
+congeal.schedule[{$n}].optimize.iterations 300
 congeal.schedule[{$n}].optimize.samples 50000
 
 
 congeal.schedules {++n}
+
+
 

@@ -220,32 +220,32 @@ void NormalizeGroup(
 
 /*
 
-	WARPCP dptMax=WARPCP(.5)/vsrc[0].GetPWarpControlPoints()->Size();
+	WARPCP dptMax=WARPCP(.5)/vsrc[0].PWarpControlPoints()->Size();
 	WARPCP dptMin=-1*dptMax;
 
 	
-	forpoint(POINT,pt,0,vsrc[0].GetPWarpControlPoints()->Size()){
+	forpoint(POINT,pt,0,vsrc[0].PWarpControlPoints()->Size()){
 		for (int n=0; n<csource; n++){
 			WARPCP dpt;
-			GetPoint(*vsrc[n].GetPWarpControlPoints(),dpt,pt);
+			GetPoint(*vsrc[n].PWarpControlPoints(),dpt,pt);
 			dpt=dpt.Bound(dptMin,dptMax);
-			SetPoint(*vsrc[n].GetPWarpControlPoints(),pt,dpt);
+			SetPoint(*vsrc[n].PWarpControlPoints(),pt,dpt);
 		}
 	}
 
-	forpoint(POINT,pt,0,vsrc[0].GetPWarpControlPoints()->Size()){
+	forpoint(POINT,pt,0,vsrc[0].PWarpControlPoints()->Size()){
 		WARPCP dptT(0.);
 		for (int n=0; n<csource; n++){
 			WARPCP dpt;
-			GetPoint(*vsrc[n].GetPWarpControlPoints(),dpt,pt);
+			GetPoint(*vsrc[n].PWarpControlPoints(),dpt,pt);
 			dptT+=dpt;
 		}
 		dptT/=csource;
 
 		for (int n=0; n<csource; n++){
 			WARPCP dpt;
-			GetPoint(*vsrc[n].GetPWarpControlPoints(),dpt,pt);
-			SetPoint(*vsrc[n].GetPWarpControlPoints(),pt,dpt-dptT);
+			GetPoint(*vsrc[n].PWarpControlPoints(),dpt,pt);
+			SetPoint(*vsrc[n].PWarpControlPoints(),pt,dpt-dptT);
 		}
 	}
 
@@ -263,8 +263,8 @@ void RegisterInitialSteps(
 
 	static Real rStepDefault=ConfigValue("congeal.initialsteps.warp",.5);
 
-	WARPCP dpt=WARPCP(rStepDefault)/src.GetPWarpControlPoints()->Size();
-	forpoint(POINT,pt,0,src.GetPWarpControlPoints()->Size()){
+	WARPCP dpt=WARPCP(rStepDefault)/src.PWarpControlPoints()->Size();
+	forpoint(POINT,pt,0,src.PWarpControlPoints()->Size()){
 		regSteps.Register(dpt);
 	}
 }
