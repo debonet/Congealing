@@ -20,9 +20,11 @@ typedef Grey12Volume NiftiDataVolume;
 //typedef Pixel8BitGrey NiftiPixel;
 //typedef GreyVolume NiftiDataVolume;
 
-typedef SourceTransformScaleOf<
+typedef SourceAccessorAperatureOf<
 	NiftiPixel,3,Real,
-	NIFTI_INTERPOLANT<NiftiPixel,3,Real,NiftiDataVolume> > 
+	SourceTransformScaleOf<
+	NiftiPixel,3,Real,
+	NIFTI_INTERPOLANT<NiftiPixel,3,Real,NiftiDataVolume> > >
 NiftiVolume;
 
 

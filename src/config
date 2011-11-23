@@ -24,13 +24,22 @@ congeal.output.source.layout.postprocess.dim0 convert %1$s.pgm -flip %1$s.png
 congeal.output.source.slices true
 congeal.output.source.slices.width 512
 congeal.output.source.slices.height 512
-congeal.output.sources.slices.postprocess convert %1$s.pgm %1$s.png
-congeal.output.sources.slices.postprocess.dim0 convert %1$s.pgm -flip %1$s.png
+congeal.output.source.slices.postprocess convert %1$s.pgm %1$s.png
+congeal.output.source.slices.postprocess.dim0 convert %1$s.pgm -flip %1$s.png
 
 #
 congeal.output.average.slices true
+
+## @parameter congeal.output.average.slices.width
+## @type integer 
+## @doc determines the width of the congealing average visualization
 congeal.output.average.slices.width 512
+
+## @parameter congeal.output.average.slices.height
+## @type integer 
+## @doc determines the height of the congealing average visualization
 congeal.output.average.slices.height 512
+
 #congeal.output.average.slices.postprocess convert %1$s.pgm %1$s.png
 #congeal.output.average.slices.postprocess.dim0 convert %1$s.pgm -flip %1$s.png
 
@@ -63,7 +72,8 @@ congeal.inputfile.format nifti
 ## set to '0' in which case all the files in the list 
 ## will be used
 ## 
-congeal.inputfiles.list ../input/oasisNifti/allfiles
+#congeal.inputfiles.list ../input/oasisNifti/allfiles
+congeal.inputfiles.list ../input/NIH/4yearolds
 
 
 ## @parameter congeal.inputfiles.pattern
@@ -195,12 +205,12 @@ congeal.output.prefix out
 ## @parameter congeal.output.colors.mid 
 ## @type integer (0-4096)
 ## @doc color equalization intercept. This value determines which data value will be mapped to mid gray
-congeal.output.colors.mid 128
+congeal.output.colors.mid 1024
 
 ## @parameter congeal.output.colors.range
 ## @type integer (0-4096)
 ## @doc color equalization slope. This value determines the relationship between changes in data value and changes in output image gray value
-congeal.output.colors.range 256
+congeal.output.colors.range 2048
 
 ## @parameter congeal.output.sourcegrid
 ## @type integer (1-49)
@@ -213,16 +223,6 @@ congeal.output.sourcegrid 9
 ## @doc determines how many output file sets will be generated during each schedule
 congeal.optimize.progresspoints 4
 
-
-## @parameter congeal.output.average.width
-## @type integer (128-1024)
-## @doc determines the width of the congealing average visualization
-congeal.output.average.width 512
-
-## @parameter congeal.output.average.height
-## @type integer (128-1024)
-## @doc determines the height of the congealing average visualization
-congeal.output.average.height 512
 
 
 ##----------------------------------

@@ -114,7 +114,7 @@ NiftiVolume* ReadNifti(const char* sfl)
 	
 	read(fd,&nifti,sizeof(NiftiHeader));
 
-	D(DescribeNifti(*((NiftiHeader*)&nifti)));
+//	D(DescribeNifti(*((NiftiHeader*)&nifti)));
 
 /*
 
@@ -189,13 +189,14 @@ NiftiVolume* ReadNifti(const char* sfl)
 
 //	P("SIZE %d %d %d", cX,cY,cZ);
 //	P("SCALE %g %g %g", rX,rY,rZ);
-	return ScaleBy(
-		Point3DReal(rX,rY,rZ),
-		NIFTI_INTERPOLANT_FUNCTION(
-			HandoffPointer(pgv)
-		)
-	);
-
+	return Aperature(
+		Point3D(0.),
+		pgv->Size()*Point3DReal(rX,rY,rZ),
+		ScaleBy(
+			Point3DReal(rX,rY,rZ),
+			NIFTI_INTERPOLANT_FUNCTION(
+				HandoffPointer(pgv)
+			)));
 }
 
 
