@@ -1,49 +1,156 @@
 ##########################################
 #  EXPERIMENTAL
 ##########################################
+## @parameter congeal.output.matlab
+## @type bool
+## @doc determines whether or not matlab transform files should be generated
+##
 congeal.optimize.bestpoints 500
 
+##########################################
+#  MATLAB OUTPUT
+##########################################
 
-##########################################
-#  NEW PARAMETERS (NEED DOCUMENTATION)
-##########################################
-#
+## @parameter congeal.output.matlab
+## @type bool
+## @doc determines whether or not matlab transform files should be generated
+##
 congeal.output.matlab false
 
-# 
+##########################################
+#  OBJECTIVE FUNCTION/ERROR OUTPUT
+##########################################
+
+## @parameter congeal.output.error
+## @type bool
+## @doc determines whether or not full parzen error files should be computed
+##
 congeal.output.error false
 
-#
+##########################################
+#  SOURCE LAYOUT OUTPUT
+##########################################
+
+## @parameter congeal.output.source.layout
+## @type bool
+## @doc determines whether or not the source layout montage should be generated
+##
 congeal.output.source.layout false
+
+## @parameter congeal.output.source.layout.width
+## @type integer
+## @doc determines the width of the source layout montage
+##
 congeal.output.source.layout.width 512
+
+## @parameter congeal.output.source.layout.height
+## @type integer
+## @doc determines the width of the source layout montage
+##
 congeal.output.source.layout.height 512
+
+## @parameter congeal.output.source.layout.postprocess
+## @type format string (1 argument, the base name of the pgm image)
+## @doc a command to be executed for each dimension of each layout file generated, unless
+##   a specific command is defined for that dimension. Use "%1$s" to get the file base name
+## @example
+##   congeal.output.source.layout.postprocess convert %1$s.pgm %1$s.png
 congeal.output.source.layout.postprocess convert %1$s.pgm %1$s.png
+
+## @parameter congeal.output.source.layout.postprocess.dim#
+## @type format string (1 argument, the base name of the pgm image)
+## @doc a command to be executed for the specified dimension (0,1, or 2) of 
+## each layout file generated. Use "%1$s" to get the file base name
+## @example
+##   congeal.output.source.layout.postprocess.dim0 convert %1$s.pgm -flip %1$s.png
 congeal.output.source.layout.postprocess.dim0 convert %1$s.pgm -flip %1$s.png
 
-#
+
+##########################################
+#  SOURCE SLICES OUTPUT
+##########################################
+
+## @parameter congeal.output.source.slices
+## @type bool
+## @doc determines whether or not the individual source slices should be generated
+##
 congeal.output.source.slices true
+
+## @parameter congeal.output.source.slices.width
+## @type integer
+## @doc determines the width of the source slices images
+##
 congeal.output.source.slices.width 512
+
+## @parameter congeal.output.source.slices.height
+## @type integer
+## @doc determines the height of the source slices images
+##
 congeal.output.source.slices.height 512
+
+## @parameter congeal.output.source.slices.postprocess
+## @type format string (1 argument, the base name of the pgm image)
+## @doc a command to be executed for each dimension of each source slice file generated, unless
+##   a specific command is defined for that dimension. Use "%1$s" to get the file base name
+## @example
+##   congeal.output.source.slices.postprocess convert %1$s.pgm %1$s.png
 congeal.output.source.slices.postprocess convert %1$s.pgm %1$s.png
+
+## @parameter congeal.output.source.slices.postprocess.dim#
+## @type format string (1 argument, the base name of the pgm image)
+## @doc a command to be executed for the specified dimension (0,1, or 2) of 
+## each source slice file generated. Use "%1$s" to get the file base name
+## @example
+##   congeal.output.source.slices.postprocess.dim0 convert %1$s.pgm -flip %1$s.png
 congeal.output.source.slices.postprocess.dim0 convert %1$s.pgm -flip %1$s.png
 
-#
+
+##########################################
+#  AVERAGE SLICES OUTPUT
+##########################################
+
+## @parameter congeal.output.average.slices
+## @type bool
+## @doc determines whether or not the average slices should be generated
+##
 congeal.output.average.slices true
 
 ## @parameter congeal.output.average.slices.width
 ## @type integer 
 ## @doc determines the width of the congealing average visualization
+##
 congeal.output.average.slices.width 512
 
 ## @parameter congeal.output.average.slices.height
 ## @type integer 
 ## @doc determines the height of the congealing average visualization
+##
 congeal.output.average.slices.height 512
 
-#congeal.output.average.slices.postprocess convert %1$s.pgm %1$s.png
-#congeal.output.average.slices.postprocess.dim0 convert %1$s.pgm -flip %1$s.png
+## @parameter congeal.output.average.slices.postprocess
+## @type format string (1 argument, the base name of the pgm image)
+## @doc a command to be executed for each dimension of the average slice file generated, unless
+##   a specific command is defined for that dimension. Use "%1$s" to get the file base name
+## @example
+##   congeal.output.average.slices.postprocess convert %1$s.pgm %1$s.png
+congeal.output.average.slices.postprocess convert %1$s.pgm %1$s.png
 
-#
+## @parameter congeal.output.average.slices.postprocess.dim#
+## @type format string (1 argument, the base name of the pgm image)
+## @doc a command to be executed for the specified dimension (0,1, or 2) of 
+## each average slice file generated. Use "%1$s" to get the file base name
+## @example
+##   congeal.output.average.slices.postprocess.dim0 convert %1$s.pgm -flip %1$s.png
+congeal.output.average.slices.postprocess.dim0 convert %1$s.pgm -flip %1$s.png
+
+##########################################
+#  AVERAGE VOLUME OUTPUT
+##########################################
+
+## @parameter congeal.output.average.volume
+## @type bool
+## @doc determines whether or not the average volume should be generated
+##
 congeal.output.average.volume false
 
 
@@ -192,8 +299,8 @@ congeal.error[parzen].apriori .000001
 ## @type string
 ## @doc directory into which outputfiles are saved. This value can include an absolute or relative path. Should end in a slash 
 ## @example
-##     congeal.output.prefix ../output/congeal/
-congeal.output.prefix ../output/congeal/
+##     congeal.output.path ../output/congeal/
+congeal.output.path ../output/congeal/
 
 ## @parameter congeal.output.prefix
 ## @type string
@@ -327,7 +434,7 @@ congeal.schedule[{$n}].optimize.warp[3] false
 congeal.schedule[{$n}].optimize.iterations 30
 congeal.schedule[{$n}].optimize.samples 5000
 
-congeal.schedule[{++n}].cache true
+congeal.schedule[{++n}].cache false
 congeal.schedule[{$n}].downsample 0
 congeal.schedule[{$n}].optimize.affine false
 congeal.schedule[{$n}].warpfield[0].size 4
@@ -341,7 +448,7 @@ congeal.schedule[{$n}].optimize.warp[3] false
 congeal.schedule[{$n}].optimize.iterations 30
 congeal.schedule[{$n}].optimize.samples 5000
 
-congeal.schedule[{++n}].cache true
+congeal.schedule[{++n}].cache false
 congeal.schedule[{$n}].downsample 0
 congeal.schedule[{$n}].optimize.affine false
 congeal.schedule[{$n}].warpfield[0].size 8
@@ -355,7 +462,7 @@ congeal.schedule[{$n}].optimize.warp[3] false
 congeal.schedule[{$n}].optimize.iterations 300
 congeal.schedule[{$n}].optimize.samples 50000
 
-congeal.schedule[{++n}].cache true
+congeal.schedule[{++n}].cache false
 congeal.schedule[{$n}].downsample 0
 congeal.schedule[{$n}].optimize.affine false
 congeal.schedule[{$n}].warpfield[0].size 16
@@ -369,7 +476,7 @@ congeal.schedule[{$n}].optimize.warp[3] false
 congeal.schedule[{$n}].optimize.iterations 300
 congeal.schedule[{$n}].optimize.samples 50000
 
-congeal.schedule[{++n}].cache true
+congeal.schedule[{++n}].cache false
 congeal.schedule[{$n}].downsample 0
 congeal.schedule[{$n}].optimize.affine false
 congeal.schedule[{$n}].warpfield[0].size 32

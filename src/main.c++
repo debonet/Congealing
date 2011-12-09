@@ -615,7 +615,7 @@ void CongealSchedules()
 	P("%s",DescribeConfiguration().VCH());
 
 	String sdir = ConfigValue("congeal.output.path","../output/congeal/");
-	String sflPrefix = ConfigValue("congeal.output.prefix","../output/congeal/out");
+	String sflPrefix = ConfigValue("congeal.output.prefix","out");
 
 	system("cp '" + GetConfigFile() + "' '" + sdir + sflPrefix + ".config'");
 
