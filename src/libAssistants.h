@@ -88,21 +88,27 @@ MAKE_ASSISTANT(
 //    provides Downsampling with 1-2-1 filtering along a single dimension
 //============================================================================
 template <class SOURCE>			
-inline SourceTransformScaleOf<
+inline SourceAccessorAperatureOf<
 	TypeOfData(SOURCE),
 	TypeOfDimensionality(SOURCE),
 	TypeOfPrecision(SOURCE),
-	SourceAccessorConvolutionOf<
+	SourceTransformScaleOf<
 		TypeOfData(SOURCE),
 		TypeOfDimensionality(SOURCE),
 		TypeOfPrecision(SOURCE),
-		SOURCE>
-	> *
+		SourceAccessorConvolutionOf<
+			TypeOfData(SOURCE),
+			TypeOfDimensionality(SOURCE),
+			TypeOfPrecision(SOURCE),
+			SOURCE
+> > > *
 DownsampleAlong(
 	const DimensionType& dt, 
 	SOURCE* psrcIn
 )
 {
+	psrcIn->PrepareForAccess();
+
 	typedef PointOf<TypeOfDimensionality(SOURCE),int> POINT;
 	POINT ptSupport(1);
 	ptSupport.Dim(int(dt))=3;
@@ -127,10 +133,19 @@ DownsampleAlong(
 		SOURCE
 	> SRC_OUT;			
 
+	D("HMMFUG %s goes to %s", psrcIn->Size().Describe().VCH(),(ptScale*psrcIn->Size()).Describe().VCH());
+
 	SRC_OUT *psrcOut=new SRC_OUT;
 	psrcOut->SetSource(psrcIn);
 	psrcOut->SetFilter(HandoffPointer(piFilter));
-	return ScaleBy(ptScale,HandoffPointer(psrcOut));																							
+	return Aperature(
+		PointOf<TypeOfDimensionality(SOURCE),Real>(0),
+		ptScale*psrcIn->Size(),
+		ScaleBy(
+			ptScale,
+			HandoffPointer(psrcOut)
+		)
+	);																							
 }
 
 

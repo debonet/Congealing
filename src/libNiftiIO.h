@@ -14,11 +14,14 @@
 #  define NIFTI_INTERPOLANT_FUNCTION NearestNeighbor
 #endif
 
-typedef Pixel12BitGrey NiftiPixel;
-typedef Grey12Volume NiftiDataVolume;
 
-//typedef Pixel8BitGrey NiftiPixel;
-//typedef GreyVolume NiftiDataVolume;
+#ifdef DATARANGE_0_TO_255
+  typedef Pixel8BitGrey NiftiPixel;
+  typedef GreyVolume NiftiDataVolume;
+#else
+  typedef Pixel12BitGrey NiftiPixel;
+  typedef Grey12Volume NiftiDataVolume;
+#endif
 
 typedef SourceAccessorAperatureOf<
 	NiftiPixel,3,Real,

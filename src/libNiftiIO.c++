@@ -179,16 +179,18 @@ NiftiVolume* ReadNifti(const char* sfl)
 			rMax=vr[n];
 		}
 	}
-	P("MAX %g MIN %g", rMax, rMin);
+	float rScale=rMax-rMin;
+	float rRange=Range(NiftiPixel);
 
-//	float rScale=rMax-rMin;
+	P("Volume max %g min %g scale %g range %g", rMax, rMin, rScale,rRange);
+
 	for (int n=0; n<cSize; n++){
-//		pgv->WriteData()[n]=(vr[n]-rMin)/rScale*4095;
-		pgv->WriteData()[n]=vr[n];
+		pgv->WriteData()[n]=(vr[n]-rMin)/rScale*rRange;
+		//		pgv->WriteData()[n]=vr[n];
 	}
 
-//	P("SIZE %d %d %d", cX,cY,cZ);
-//	P("SCALE %g %g %g", rX,rY,rZ);
+	//	P("SIZE %d %d %d", cX,cY,cZ);
+	//	P("SCALE %g %g %g", rX,rY,rZ);
 	return Aperature(
 		Point3D(0.),
 		pgv->Size()*Point3DReal(rX,rY,rZ),

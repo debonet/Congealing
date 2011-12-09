@@ -22,6 +22,7 @@ release : PROGRAM := $(PROGRAM)
 ifeq ($(OSTYPE),darwin)
 release : CFLAGS = \
 			-DPTHREAD_BARRIER=1\
+			-DDATARANGE_0_TO_255=1\
 			-O3\
 			-Wall \
 			-Winline \
@@ -37,6 +38,7 @@ else
 release : CFLAGS = \
 			-DFEATURE_LBFGS=0\
 			-DPTHREAD_BARRIER=0\
+			-DDATARANGE_0_TO_255=1\
 			-Wall\
 			-O3 \
 			-finline-limit=2000 \
@@ -66,10 +68,12 @@ release :
 debug : PROGRAM := $(PROGRAM).debug
 ifeq ($(OSTYPE),darwin)
 debug : CFLAGS = -g -O0 -Wall -frepo \
-			-DPTHREAD_BARRIER=1
+			-DPTHREAD_BARRIER=1\
+			-DDATARANGE_0_TO_255=1
 else
 debug : CFLAGS = -g -O0 -Wall -frepo \
-			-DFEATURE_LBFGS=0
+			-DFEATURE_LBFGS=0\
+			-DDATARANGE_0_TO_255=1
 endif
 
 debug : LINKFLAGS = 

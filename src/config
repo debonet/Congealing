@@ -1,8 +1,16 @@
+########################################## # PARAMETERS ########################################## 
+## @parameter operation
+## @type string
+## @doc the test to be performed. For congealing, use "congeal"
+operation congeal
+
+
 ##########################################
 #  EXPERIMENTAL
 ##########################################
 ## @parameter congeal.output.matlab
 ## @type bool
+## @suggested_range 250-10000
 ## @doc determines whether or not matlab transform files should be generated
 ##
 congeal.optimize.bestpoints 500
@@ -39,20 +47,21 @@ congeal.output.source.layout false
 
 ## @parameter congeal.output.source.layout.width
 ## @type integer
+## @suggested_range 256-2048
 ## @doc determines the width of the source layout montage
 ##
 congeal.output.source.layout.width 512
 
 ## @parameter congeal.output.source.layout.height
 ## @type integer
+## @suggested_range 256-2048
 ## @doc determines the width of the source layout montage
 ##
 congeal.output.source.layout.height 512
 
 ## @parameter congeal.output.source.layout.postprocess
 ## @type format string (1 argument, the base name of the pgm image)
-## @doc a command to be executed for each dimension of each layout file generated, unless
-##   a specific command is defined for that dimension. Use "%1$s" to get the file base name
+## @doc a command to be executed for each dimension of each layout file generated, unless a specific command is defined for that dimension. Use "%1$s" to get the file base name
 ## @example
 ##   congeal.output.source.layout.postprocess convert %1$s.pgm %1$s.png
 congeal.output.source.layout.postprocess convert %1$s.pgm %1$s.png
@@ -78,20 +87,21 @@ congeal.output.source.slices true
 
 ## @parameter congeal.output.source.slices.width
 ## @type integer
+## @suggested_range 256-2048
 ## @doc determines the width of the source slices images
 ##
 congeal.output.source.slices.width 512
 
 ## @parameter congeal.output.source.slices.height
 ## @type integer
+## @suggested_range 256-2048
 ## @doc determines the height of the source slices images
 ##
 congeal.output.source.slices.height 512
 
 ## @parameter congeal.output.source.slices.postprocess
 ## @type format string (1 argument, the base name of the pgm image)
-## @doc a command to be executed for each dimension of each source slice file generated, unless
-##   a specific command is defined for that dimension. Use "%1$s" to get the file base name
+## @doc a command to be executed for each dimension of each source slice file generated, unless a specific command is defined for that dimension. Use "%1$s" to get the file base name
 ## @example
 ##   congeal.output.source.slices.postprocess convert %1$s.pgm %1$s.png
 congeal.output.source.slices.postprocess convert %1$s.pgm %1$s.png
@@ -117,12 +127,14 @@ congeal.output.average.slices true
 
 ## @parameter congeal.output.average.slices.width
 ## @type integer 
+## @suggested_range 256-2048
 ## @doc determines the width of the congealing average visualization
 ##
 congeal.output.average.slices.width 512
 
 ## @parameter congeal.output.average.slices.height
 ## @type integer 
+## @suggested_range 256-2048
 ## @doc determines the height of the congealing average visualization
 ##
 congeal.output.average.slices.height 512
@@ -229,17 +241,20 @@ congeal.inputfiles.list ../input/NIH/4yearolds
 ## @parameter congeal.optimize[gradientdescent].kernel
 ## @note only applies for congeal.optimize.algorithm gradientdescent
 ## @type real
-## @doc size of support to use for computing gradient. This factor is multipled by *.initialsteps to establish a radius for each dimension
+## @suggested_range 0.01 - 0.3
+## @doc size of support to use for computing gradient. This factor is multipled 
+##    by *.initialsteps to establish a radius for each dimension
 
 ## @parameter congeal.optimize[gradientdescent].walk
 ## @note only applies for congeal.optimize.algorithm gradientdescent
-## @type boolean {true,false,0,1}
+## @type boolean 
 ## @doc if true, algorithm will take multiple steps in direction of gradient if beneficial
 
 ## @parameter congeal.optimize[gradientdescent].walk.steps
 ## @note only applies for congeal.optimize.algorithm gradientdescent
 ## @note only applies for congeal.optimize[gradientdescent].walk true
 ## @type integer (1-100)
+## @suggested_range 10-50
 ## @doc maximum number of steps to take in direction of gradient
 
 
@@ -250,16 +265,20 @@ congeal.inputfiles.list ../input/NIH/4yearolds
 ## @parameter congeal.optimize[randomwalk].kernel
 ## @note only applies for congeal.optimize.algorithm randomwalk
 ## @type real
-## @doc size of support to use for computing initial stepsize. This factor is multipled by *.initialsteps to establish a maximum step radius for each dimension
+## @doc size of support to use for computing initial stepsize. 
+##   This factor is multipled by *.initialsteps to establish 
+##   a maximum step radius for each dimension
 
 ## @parameter congeal.optimize[randomwalk].steps
 ## @note only applies for congeal.optimize.algorithm randomwalk
-## @type integer (1-100)
+## @type integer 
+## @suggested_range 10-50
 ## @doc maximum number of steps to take along any beam
 
 ## @parameter congeal.optimize[randomwalk].walk.directions
 ## @note only applies for congeal.optimize.algorithm randomwalk
-## @type integer (1-100)
+## @type integer
+## @suggested_range 10-50
 ## @doc number of beams to try during each iteration
 
 
@@ -282,12 +301,14 @@ congeal.optimize.error parzen
 ## @parameter congeal.optimize[parzen].sigma
 ## @note onlyu applies for congeal.optimize.error parzen
 ## @type real
+## @suggested_range 1%-20% of range of data 
 ## @doc sigma of Gaussian used as kernel in Parzen density estimator. Measured in voxel intensity
 congeal.error[parzen].sigma 30
 
 ## @parameter congeal.optimize[parzen].apriori
 ## @note only applies for congeal.optimize.error parzen
 ## @type real
+## @suggested_range 0.000000001 - 0.1 
 ## @doc constant factor added to each Parzen estimate
 congeal.error[parzen].apriori .000001
 
@@ -297,7 +318,8 @@ congeal.error[parzen].apriori .000001
 
 ## @parameter congeal.output.path
 ## @type string
-## @doc directory into which outputfiles are saved. This value can include an absolute or relative path. Should end in a slash 
+## @doc directory into which outputfiles are saved. This value can 
+##    include an absolute or relative path. Should end in a slash 
 ## @example
 ##     congeal.output.path ../output/congeal/
 congeal.output.path ../output/congeal/
@@ -310,26 +332,38 @@ congeal.output.path ../output/congeal/
 congeal.output.prefix out
 
 ## @parameter congeal.output.colors.mid 
-## @type integer (0-4096)
-## @doc color equalization intercept. This value determines which data value will be mapped to mid gray
-congeal.output.colors.mid 1024
+## @type integer 
+## @suggested_range 25% of data range (e.g. 64 for UCHAR)
+## @doc color equalization intercept. This value 
+##   determines which data value will be mapped to mid gray
+## @see also DATARANGE_0_TO_255 compilation flag
+congeal.output.colors.mid 64
 
 ## @parameter congeal.output.colors.range
 ## @type integer (0-4096)
-## @doc color equalization slope. This value determines the relationship between changes in data value and changes in output image gray value
-congeal.output.colors.range 2048
+## @suggested_range 25% of data range (e.g. 64 for UCHAR)
+## @doc color equalization slope. 
+##   This value determines the relationship between changes 
+##   in data value and changes in output image gray value
+## @see also DATARANGE_0_TO_255 compilation flag
+congeal.output.colors.range 64
 
 ## @parameter congeal.output.sourcegrid
-## @type integer (1-49)
+## @type integer
+## @suggested_range 1-49
 ## @doc determines how many of the transformed source values are showm in the *-inputs* images
 congeal.output.sourcegrid 9
 
 
 ## @parameter congeal.optimize.progresspoints 
-## @type integer (1-30)
-## @doc determines how many output file sets will be generated during each schedule
+## @type integer 
+## @suggested_range 1-100
+## @doc determines how many output file sets will be 
+##   generated during each schedule. Points are uniformly 
+##   distributed every 1/progresspoints of the way. I.e.
+##   If progresspoints is 4, you'll get the 0%, 25%, 50%,
+##   and 75% and 100% points.
 congeal.optimize.progresspoints 4
-
 
 
 ##----------------------------------
@@ -338,21 +372,25 @@ congeal.optimize.progresspoints 4
 
 ## @parameter congeal.initialsteps.translate 
 ## @type real
+## @suggested_range 0.01-0.5
 ## @doc relative scaling of translation parameters when computing kernels and step sizes. Scale: translation as fraction of image size
 congeal.initialsteps.translate .2
 
 ## @parameter congeal.initialsteps.rotation
 ## @type real
+## @suggested_range 10-60
 ## @doc relative scaling of rotation parameters when computing kernels and step sizes. Scale: rotation in degrees
 congeal.initialsteps.rotate 30
 
 ## @parameter congeal.initialsteps.scale
 ## @type real
+## @suggested_range 0.05-0.5
 ## @doc relative scaling of scaling parameters when computing kernels and step sizes. Scale: Scale as fraction of image size
 congeal.initialsteps.scale .2
 
 ## @parameter congeal.initialsteps.warp
 ## @type real
+## @suggested_range 0.05-0.5
 ## @doc relative scaling of warp control point displacement when computing kernels and step sizes. Scale: Warp as fraction of control point's region
 congeal.initialsteps.warp .3
 
@@ -365,6 +403,7 @@ congeal.initialsteps.warp .3
 ## @parameter congeal.initialsteps.datascale.intercept
 ## @note CURRENTLY UNUSED
 ## @type real
+## @suggested_range 0-1
 ## @doc intercept changes in relative scaling of contrast. Scale: 0 to 1
 ##congeal.initialsteps.datascale.intercept .25
 
@@ -421,7 +460,21 @@ congeal.initialsteps.warp .3
 n -1
 
 congeal.schedule[{++n}].cache false
-congeal.schedule[{$n}].downsample 0
+congeal.schedule[{$n}].downsample 2
+congeal.schedule[{$n}].optimize.affine true
+congeal.schedule[{$n}].warpfield[0].size 1
+congeal.schedule[{$n}].warpfield[1].size 1
+congeal.schedule[{$n}].warpfield[2].size 1
+congeal.schedule[{$n}].warpfield[3].size 1
+congeal.schedule[{$n}].optimize.warp[0] false
+congeal.schedule[{$n}].optimize.warp[1] false
+congeal.schedule[{$n}].optimize.warp[2] false
+congeal.schedule[{$n}].optimize.warp[3] false
+congeal.schedule[{$n}].optimize.iterations 30
+congeal.schedule[{$n}].optimize.samples 5000
+
+congeal.schedule[{++n}].cache false
+congeal.schedule[{$n}].downsample 1
 congeal.schedule[{$n}].optimize.affine true
 congeal.schedule[{$n}].warpfield[0].size 1
 congeal.schedule[{$n}].warpfield[1].size 1
