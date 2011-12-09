@@ -15,12 +15,17 @@
 #endif
 
 
-#ifdef DATARANGE_0_TO_255
+#if DATARANGE==256
   typedef Pixel8BitGrey NiftiPixel;
   typedef GreyVolume NiftiDataVolume;
-#else
+#elif DATARANGE==4096
   typedef Pixel12BitGrey NiftiPixel;
   typedef Grey12Volume NiftiDataVolume;
+#elif DATARANGE==65536
+  typedef Pixel16BitGrey NiftiPixel;
+  typedef Grey16Volume NiftiDataVolume;
+#else
+error("unknown DATARANGE compilation value");
 #endif
 
 typedef SourceAccessorAperatureOf<

@@ -180,7 +180,7 @@ NiftiVolume* ReadNifti(const char* sfl)
 		}
 	}
 	float rScale=rMax-rMin;
-	float rRange=Range(NiftiPixel);
+	float rRange=DATARANGE;//Range(NiftiPixel);
 
 	P("Volume max %g min %g scale %g range %g", rMax, rMin, rScale,rRange);
 

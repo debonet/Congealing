@@ -9,10 +9,14 @@
 // set options for both CongealRecipieOutput and main
 typedef NiftiDataVolume ScanVolume;
 typedef NiftiPixel ScanPixel;
-#ifdef DATARANGE_0_TO_255
+#if DATARANGE==256
   typedef Source_G2R_Layout_G2R ScanLayout;
-#else
+#elif DATARANGE==4096
   typedef Source_S2R_Layout_S2R ScanLayout;
+#elif DATARANGE==65536
+  typedef Source_S2R_Layout_S2R ScanLayout;
+#else
+	error("unknown DATARANGE compilation value");
 #endif
 
 //--------------------------------------------------------------------------

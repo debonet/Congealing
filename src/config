@@ -336,7 +336,7 @@ congeal.output.prefix out
 ## @suggested_range 25% of data range (e.g. 64 for UCHAR)
 ## @doc color equalization intercept. This value 
 ##   determines which data value will be mapped to mid gray
-## @see also DATARANGE_0_TO_255 compilation flag
+## @see also DATARANGE compilation flag
 congeal.output.colors.mid 64
 
 ## @parameter congeal.output.colors.range
