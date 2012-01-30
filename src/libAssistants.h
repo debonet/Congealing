@@ -133,8 +133,6 @@ DownsampleAlong(
 		SOURCE
 	> SRC_OUT;			
 
-	D("HMMFUG %s goes to %s", psrcIn->Size().Describe().VCH(),(ptScale*psrcIn->Size()).Describe().VCH());
-
 	SRC_OUT *psrcOut=new SRC_OUT;
 	psrcOut->SetSource(psrcIn);
 	psrcOut->SetFilter(HandoffPointer(piFilter));

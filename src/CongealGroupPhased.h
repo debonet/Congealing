@@ -273,16 +273,18 @@ public:
 		SetUpRegistries();
 
 		m_precipie->PrepareForAccess();
-		UD("OPTIMIZING %d PARAMETERS PER VOLUME", m_regSteps.C());
-		UD("WITH %d MEASUREMENTS (%2.4g%%)", cSamples, Real(100*cSamples)/m_precipie->CSize());
+		P("Optimizing %d parameters per volume"
+			"with %d measurements (%2.4g%% converage)",
+			m_regSteps.C(),
+			cSamples, 
+			Real(100*cSamples)/m_precipie->CSize()
+		);
 
 		Real rErr=REAL_MAX;
 		for (int nIteration=nFirstIteration; nIteration<=nLastIteration && rErr > rThreshold; nIteration++){
 			m_cLookups=0;
 
 			m_rStep=(Real(cIterations-nIteration)/cIterations);
-
-			UD(	"---------------- ITERATION %d ---------------- %g, %g", nIteration,rErr,m_rStep);
 
 			if (1||nIteration==0){
 				// compute a random collection of samples, retrying if the point is not within a good pixel stack
@@ -303,18 +305,13 @@ public:
 							m_cLookups++;
 							if (vdataGroup[nSource]==0){
 								bGoodPoint=false;
-//								UD(String("point failed for source ") + nSource + " :: " +m_vpt[nSample]);
-
 								break;
 							}
 						}
 					}
 					while(!bGoodPoint);
-//					UD("Got point %d of %d in %d tries", nSample, cSamples,cTries);
 				}
 
-//				qsort(m_vpt,cSamples,sizeof(POINT),CongealGroupPhasedOf<RECIPIE>::SortPoints);
-				
 				// set up group statistics
 				for (int nSample=0; nSample<cSamples; nSample++){
 					DATA *vdataGroup=&m_mdata[nSample*m_cSources];
@@ -349,8 +346,6 @@ public:
 
 	 			for (int nPoint=0; nPoint<cPoints; nPoint++){
 					m_vpt[nPoint]=vpt[nPoint];
-//					D(String("POINT ") + nPoint + " = "  + m_vpt[nPoint]);
-
 				}
 				delete [] vpt;
 				delete [] vnvar;
@@ -364,7 +359,6 @@ public:
 							vdataGroup[nSource],m_vpt[nSample]
 						);
 						m_cLookups++;
-//						D(String("POINT ") + nSample + "/" + nSource + " = "  + m_vpt[nSample] + " ==> " + vdataGroup[nSource]);
 					}
 				}
 			}
@@ -387,8 +381,18 @@ public:
 				OptimizeSource(&m_vai[nSource]);
 			}
 #endif
-			UDTOCK("Time to optimize group %g", dtmOptimize);
-			UD("TOTAL LOOKUPS %ld (%g lookups/s)", m_cLookups, (Real)m_cLookups/TOCK(dtmOptimize));
+
+			// output
+			P(
+				"Iteration %d error: %g stepsize: %g"
+				" total time: %g lookups: %ld lookups/s:%g", 
+				nIteration,
+				rErr,
+				m_rStep,
+				TOCK(dtmOptimize), 
+				m_cLookups, 
+				(Real)m_cLookups/TOCK(dtmOptimize)
+			);
 
 
 			// Normalize the data
