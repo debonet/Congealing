@@ -230,7 +230,6 @@ public:
 		WarpControlPointsOf<DIMENSIONALITY> *pcp=new WarpControlPointsOf<DIMENSIONALITY>;
 		pcp->Allocate(ptSizeWarp);
 
-		UD("ORIG %s",pcp->Size().Describe().VCH()) ;
 		pcp->Fill(PointOf<DIMENSIONALITY,Real>(0.));
 
 		ReleasePointer(m_pwarpfield);
@@ -472,7 +471,7 @@ void IncreaseWarpfieldControlPointResolution(
 	const PointOf<DIMENSIONALITY,Real> &ptSize, 
 	int nInterpType=3
 ){
-	UD("increasing resolution of warpfield control points");
+//	UD("increasing resolution of warpfield control points");
 	srcWarp.PrepareForAccess();
 	srcWarp.SetWarpControlPoints(
 		RasterizeInto(

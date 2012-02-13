@@ -6,6 +6,9 @@
 #include <stdarg.h>
 
 #include "libAssistants.h"
+#include "libUtility.h"
+#include "libUtility.h"
+#include "libConfiguration.h"
 
 int strrcmp(const char *sfl1, const char*sfl2){
 	int c1=strlen(sfl1);
@@ -100,6 +103,166 @@ String DescribeNifti(NiftiHeader &niih){
 	);
 }
 
+
+//============================================================================
+//============================================================================
+void NormalizeNiftiInput_SimpleMinToMaxScale(
+	float *vr,	int cSize,	NiftiDataVolume *pgv
+){
+
+	// scale data into bytes
+	float rMin=vr[0];
+	float rMax=vr[0];
+
+	for (int n=1; n<cSize; n++){
+		if (rMin>vr[n]){
+			rMin=vr[n];
+		}
+		if (rMax<vr[n]){
+			rMax=vr[n];
+		}
+	}
+	float rScale=rMax-rMin;
+	float rRange=DATARANGE;//Range(NiftiPixel);
+
+	P("Volume max %g min %g scale %g range %g", rMax, rMin, rScale,rRange);
+
+	for (int n=0; n<cSize; n++){
+		pgv->WriteData()[n]=(vr[n]-rMin)/rScale*rRange;
+		//		pgv->WriteData()[n]=vr[n];
+	}
+}
+
+//============================================================================
+//============================================================================
+void BuildHistogram(
+	int *vc, int c, float *vr,	int cr
+){
+	// TODO: consider memset()?
+	for (int n=0; n<c; n++){
+		vc[n]=0;
+	}
+
+	for (int n=0; n<cr; n++){
+		vc[ Bound(int(vr[n]),0,c-1) ] ++;
+	}
+
+}
+
+//============================================================================
+//============================================================================
+void NormalizeNiftiInput_ScaleToNthPercentiles(
+	float *vr,	int cSize,	NiftiDataVolume *pgv
+){
+
+	int c=4096;
+	int* vc=new int[c];
+	BuildHistogram(vc,c,vr,cSize);
+
+	// scale data into bytes
+	float rMin=vr[0];
+	float rMax=vr[0];
+
+	Real rPercentMax = ConfigValue(
+		"congeal.inputfiles.normalization.percentile.max",99.5
+	)/100.;
+
+	Real rPercentMaxStretch = ConfigValue(
+		"congeal.inputfiles.normalization.percentile.maxstretch",
+		1./(rPercentMax?rPercentMax:1)*1.5
+	);
+
+
+	int cMaxCumulative = cSize * rPercentMax;
+
+	int cCumulative=0;
+	for (int n=0; n<c; n++){
+		cCumulative += vc[n];
+		if (cCumulative >= cMaxCumulative){
+			rMax=n * rPercentMaxStretch;
+			break;
+		}
+	}
+
+	Real rPercentMin = ConfigValue(
+		"congeal.inputfiles.normalization.percentile.min",0.
+	)/100.;
+
+	int cMinCumulative = cSize * rPercentMin;
+
+	cCumulative=0;
+	for (int n=0; n<c; n++){
+		cCumulative += vc[n];
+		if (cCumulative >= cMinCumulative){
+			rMin=n/(rPercentMin?rPercentMin:1);
+			break;
+		}
+	}
+
+	delete [] vc;
+
+	float rScale=rMax-rMin;
+	float rRange=DATARANGE;//Range(NiftiPixel);
+
+	P(
+		"Volume %g-percentile-max %g %g-percentile-min %g scale %g range %g", 
+		rPercentMin,rMax,rPercentMax, rMin, rScale,rRange
+	);
+
+	for (int n=0; n<cSize; n++){
+		pgv->WriteData()[n] = Bound(( vr[n]-rMin ) / rScale*rRange,(float)0.,rRange-1);
+	}
+}
+
+
+//============================================================================
+//============================================================================
+void NormalizeNiftiInput_ThresholdEqualize(
+	float *vr,	int cSize,	NiftiDataVolume *pgv
+){
+	D("building hist");
+
+	int c = 4096;
+	int* vc = new int[c];
+	BuildHistogram(vc,c,vr,cSize);
+
+	int* vcCum = new int[c];
+	D("building cum");
+
+	vcCum[0]=vc[0];
+	for (int n=1; n<c; n++){
+		vcCum[n] = vcCum[n-1]+vc[n];
+	}
+
+
+	int nThreshold = ConfigValue(
+		"congeal.inputfiles.normalization.threshold",10
+	);
+
+	int cStart = vcCum[nThreshold];
+	int d = (cSize - cStart) / DATARANGE;
+	
+	D("M %d %d",cStart,d);
+
+	int* vcEq = new int[c];
+	for (int n=0; n<nThreshold; n++){
+		vcEq[n]=0;
+	}
+	for (int n=nThreshold; n<c; n++){
+		vcEq[n]=(vcCum[n]-cStart) / d;
+	}
+
+	D("setting up eq");
+	for (int n=0; n<cSize; n++){
+		pgv->WriteData()[n] = vcEq[int(vr[n])];
+	}
+
+	delete [] vc;
+	delete [] vcCum;
+	delete [] vcEq;
+}
+
+
 //============================================================================
 //============================================================================
 NiftiVolume* ReadNifti(const char* sfl)
@@ -162,35 +325,19 @@ NiftiVolume* ReadNifti(const char* sfl)
 
 	close(fd);
 
+	// TODO: use rDataScale and rDataOffset if 
+	// normalization isn't being used.
+	// for (int n=0; n<cSize;n++){
+	//   vr[n]=vr[n]*nifti.m_rDataScale + nifti.m_rDataOffset;
+	// }
+
 	NiftiDataVolume* pgv=new NiftiDataVolume;
 	pgv->Allocate(Point3D(cX, cY, cZ));
 
 	CONGEAL_ASSERT(pgv->CSize()==cSize);
 
-	// scale data into bytes
-	float rMin=vr[0];
-	float rMax=vr[0];
+	NormalizeNiftiInput_ThresholdEqualize(vr,cSize,pgv);
 
-	for (int n=1; n<cSize; n++){
-		if (rMin>vr[n]){
-			rMin=vr[n];
-		}
-		if (rMax<vr[n]){
-			rMax=vr[n];
-		}
-	}
-	float rScale=rMax-rMin;
-	float rRange=DATARANGE;//Range(NiftiPixel);
-
-	P("Volume max %g min %g scale %g range %g", rMax, rMin, rScale,rRange);
-
-	for (int n=0; n<cSize; n++){
-		pgv->WriteData()[n]=(vr[n]-rMin)/rScale*rRange;
-		//		pgv->WriteData()[n]=vr[n];
-	}
-
-	//	P("SIZE %d %d %d", cX,cY,cZ);
-	//	P("SCALE %g %g %g", rX,rY,rZ);
 	return Aperature(
 		Point3D(0.),
 		pgv->Size()*Point3DReal(rX,rY,rZ),

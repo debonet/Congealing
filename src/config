@@ -1,4 +1,13 @@
-########################################## # PARAMETERS ########################################## 
+##########################################
+#  INPUT SCALING PARAMETERS
+##########################################
+congeal.inputfiles.normalization.percentile.max 99.9
+congeal.inputfiles.normalization.percentile.min 0
+
+
+########################################## 
+# PARAMETERS 
+########################################## 
 ## @parameter operation
 ## @type string
 ## @doc the test to be performed. For congealing, use "congeal"
@@ -167,14 +176,14 @@ congeal.output.average.volume false
 
 
 ##########################################
-#  PARAMETERS
+#  INPUT FILE PARAMETERS
 ##########################################
 ## @parameter congeal.inputfiles 
 ## @type integer (1-300)
 ## @doc number of input files to use. Use '0' 
 ## for all files when used in conjuctions with congeal.inputfiles.list
 ##
-congeal.inputfiles 2
+congeal.inputfiles 0
 
 ## @parameter congeal.inputfile.format
 ## @type string
@@ -192,7 +201,8 @@ congeal.inputfile.format nifti
 ## will be used
 ## 
 #congeal.inputfiles.list ../input/oasisNifti/allfiles
-congeal.inputfiles.list ../input/NIH/4yearolds
+#congeal.inputfiles.list ../input/NIH/4yearolds
+congeal.inputfiles.list 4.5yearolds
 
 
 ## @parameter congeal.inputfiles.pattern
@@ -547,4 +557,19 @@ congeal.schedule[{$n}].optimize.samples 50000
 congeal.schedules {++n}
 
 
+n -1
+congeal.schedule[{++n}].cache false
+congeal.schedule[{$n}].downsample 0
+congeal.schedule[{$n}].optimize.affine false
+congeal.schedule[{$n}].warpfield[0].size 4
+congeal.schedule[{$n}].warpfield[1].size 1
+congeal.schedule[{$n}].warpfield[2].size 1
+congeal.schedule[{$n}].warpfield[3].size 1
+congeal.schedule[{$n}].optimize.warp[0] true
+congeal.schedule[{$n}].optimize.warp[1] false
+congeal.schedule[{$n}].optimize.warp[2] false
+congeal.schedule[{$n}].optimize.warp[3] false
+congeal.schedule[{$n}].optimize.iterations 30
+congeal.schedule[{$n}].optimize.samples 5000
+congeal.schedules {++n}
 
