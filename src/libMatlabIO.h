@@ -142,6 +142,24 @@ void WriteMatlab(
 }
 
 
+//============================================================================
+// WriteMatlab for DataScale
+//============================================================================
+template<class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE>
+void WriteMatlab(
+	String &s, 
+	const SourceTransformDataScaleOf<DATA, DIMENSIONALITY, PRECISION, SOURCE>& t
+)
+{
+	s+="{'datascale' [";
+	WriteMatlab(s,t.Slope());
+	s+=" ";
+	WriteMatlab(s,t.Intercept());
+	s+="]} ...\n";
+
+	WriteMatlab(s,*(t.PSource()));
+}
+
 
 //============================================================================
 // WriteMatlab for 3D rotations

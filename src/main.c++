@@ -54,16 +54,17 @@
 //
 // 
 #define congeal_mid_layers(_layer)                                                      \
-	_layer(Translate0,    SourceTransformTranslateOf,     ScanPixel, 3, Real, INPUT)      \
+	_layer(DataScale,     SourceTransformDataScaleOf,     ScanPixel, 3, Real, INPUT)      \
+	_layer(Translate0,    SourceTransformTranslateOf,     ScanPixel, 3, Real, DataScale)  \
 	_layer(Rotate,        SourceTransformRotateOf,        ScanPixel, 3, Real, Translate0) \
 	_layer(Translate1,    SourceTransformTranslateOf,     ScanPixel, 3, Real, Rotate)     \
 	_layer(Scale,         SourceTransformScaleOf,         ScanPixel, 3, Real, Translate1) \
-	_layer(Warp0, SourceTransformWarpOf, ScanPixel, 3, Real,Scale)			                  \
-	_layer(Warp1, SourceTransformWarpOf, ScanPixel, 3, Real,Warp0)			                  \
-	_layer(Warp2, SourceTransformWarpOf, ScanPixel, 3, Real,Warp1)	
+	_layer(Warp0,         SourceTransformWarpOf,          ScanPixel, 3, Real, Scale)      \
+	_layer(Warp1,         SourceTransformWarpOf,          ScanPixel, 3, Real, Warp0)      \
+	_layer(Warp2,         SourceTransformWarpOf,          ScanPixel, 3, Real, Warp1)
 
 #define congeal_last_layer(_layer)																									    \
-	_layer(Warp3, SourceTransformWarpOf, ScanPixel, 3, Real,Warp2)
+	_layer(Warp3,         SourceTransformWarpOf,          ScanPixel, 3, Real, Warp2)
 
 MAKE_RECIPIE(
 	Recipie_G3R_All_G3I,
@@ -294,6 +295,148 @@ int LinesInFile(const char* sfl)
 
 //============================================================================
 //============================================================================
+double *AllocateHist(
+	int c
+){
+	double* vrHist = new double [c];
+	for (int n=0; n<c; n++){
+		vrHist[n]=0;
+	}
+	return vrHist;
+}
+
+double *ComputeHist(
+	int c, int nSource, Recipie_G3R_All_G3I& recipie, double *vrHistAccumulate
+){
+	double* vrHist = AllocateHist(c);
+	
+	NiftiPixel pxl;
+	forpoint(Point3D,pt,0,recipie.PSource(nSource)->Size()){
+		recipie.PSource(nSource)->GetPoint(pxl,pt);
+		vrHist[pxl]++;
+		vrHistAccumulate[pxl]++;
+	}
+
+	return vrHist;
+}
+
+void NormalizeHist(
+	int c,double *vrHist
+){
+	double r=0;
+	for (int n=0; n<c; n++){
+		r+=vrHist[n];
+	}
+	for (int n=0; n<c; n++){
+		vrHist[n]/=r;
+	}
+}
+
+void FreeHist(
+	double *vrHist
+){
+	delete [] vrHist;
+}
+
+
+//============================================================================
+//============================================================================
+double KLDivergence(
+	int c,double *vr1,double *vr2
+){
+	double r = 0;
+	for (int n=0; n<c; n++){
+		if (vr1[n]!= 0 && vr2[n]!= 0){
+			r+=vr1[n] * log2(vr1[n]/vr2[n]);
+		}
+	}
+	return r;
+}
+
+double LinInterp(double r,double r1,double r2){
+	return (1.0-r)*r1 + r * r2;
+}
+
+//============================================================================
+//============================================================================
+void NormalizeBrightness(
+	Recipie_G3R_All_G3I& recipie, const String& sConfig
+){
+	D("Normalizing");
+	recipie.PrepareForAccess();
+
+	int c=256;
+	double* vrHist = AllocateHist(c);
+
+	// initalize global histogram to 1, instead of 0 to stabilize KL 
+	for (int n=0; n<c; n++){
+		vrHist[n]=1;
+	}
+
+	int cSource = recipie.CSources();
+	double** vvrHist = new double* [c];
+	for (int nSource=0; nSource<cSource; nSource++){
+		vvrHist[nSource] = ComputeHist(	c,nSource,recipie,vrHist );
+		NormalizeHist(c, vvrHist[nSource]);
+	}
+	NormalizeHist(c, vrHist);
+
+	double* vrScale = new double[cSource];
+	double* vrKLDivergence = new double[cSource];
+	double* vrT = AllocateHist(c);
+	for (int nSource=0; nSource<cSource; nSource++){
+		bool b=false;
+		for (double r = .1 ; r< 5; r+=.01){
+			for (int n=0; n<c; n++){
+				
+				double rBefore  = 0.;
+				double rAfter   = 0.;
+				double rScaled  = r*n;
+
+				int nBefore    = int(rScaled);
+				int nAfter     = int(rScaled+1);
+
+				if (nBefore < c){
+					rBefore = vvrHist[nSource][nBefore];
+					if (nAfter < c){
+						rAfter = vvrHist[nSource][nAfter];
+					}
+				}
+
+				vrT[n] = LinInterp(rScaled - double(nBefore), rBefore, rAfter);
+			}
+
+			NormalizeHist(c, vrT);
+			double rKLDivergence = KLDivergence(c, vrT,vrHist);
+			if (!b || vrKLDivergence[nSource] >  rKLDivergence){
+				b=true;
+				vrKLDivergence[nSource] = rKLDivergence;
+				vrScale[nSource] = 1./r;
+			}
+		}
+	}
+
+	FreeHist(vrT);
+	FreeHist(vrHist);
+	for (int nSource=0; nSource<cSource; nSource++){
+		FreeHist(vvrHist[nSource]);
+	}
+	delete [] vvrHist;
+
+	for (int nSource=0; nSource<cSource; nSource++){
+		recipie.LayerDataScale(nSource).SetSlopeIntercept(vrScale[nSource],0);
+	}
+
+	for (int nSource=0; nSource<cSource; nSource++){
+		UD("NORMALIZE %d: %g", nSource, vrScale[nSource]);
+	}
+	delete [] vrScale;
+
+	D("DONE normalizing");
+}
+
+//============================================================================
+//============================================================================
 void CongealSchedules()
 {
 	int c=ConfigValue("congeal.inputfiles",4);
@@ -329,6 +472,9 @@ void CongealSchedules()
 		else {
 			// otherwise do congealing steps
 			LoadAndScaleSources(c,vscan,sConfig);
+			if (nSchedule == 0){
+				NormalizeBrightness(recipie,sConfig);
+			}
 			UpdateScheduleRegistrationParameters(recipie,sConfig);
 			IncreaseWarpfieldControlPointResolution(c,recipie,sConfig);
 			Congeal(nSchedule,recipie,sConfig);

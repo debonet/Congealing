@@ -336,7 +336,7 @@ NiftiVolume* ReadNifti(const char* sfl)
 
 	CONGEAL_ASSERT(pgv->CSize()==cSize);
 
-	NormalizeNiftiInput_ThresholdEqualize(vr,cSize,pgv);
+	NormalizeNiftiInput_SimpleMinToMaxScale(vr,cSize,pgv);
 
 	return Aperature(
 		Point3D(0.),
