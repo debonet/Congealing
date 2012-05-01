@@ -194,9 +194,7 @@ congeal.inputfile.format nifti
 ## set to '0' in which case all the files in the list 
 ## will be used
 ## 
-#congeal.inputfiles.list ../input/oasisNifti/allfiles
-#congeal.inputfiles.list ../input/NIH/4yearolds
-congeal.inputfiles.list 4.5yearolds
+congeal.inputfiles.list /home/user/my/input/4.5yearolds
 
 
 ## @parameter congeal.inputfiles.pattern
@@ -325,8 +323,8 @@ congeal.error[parzen].apriori .000001
 ## @doc directory into which outputfiles are saved. This value can 
 ##    include an absolute or relative path. Should end in a slash 
 ## @example
-##     congeal.output.path ../output/congeal/
-congeal.output.path ../output/congeal/
+##     congeal.output.path /tmp/output/congeal/
+congeal.output.path /home/user/my/output/congeal/
 
 ## @parameter congeal.output.prefix
 ## @type string
@@ -340,7 +338,7 @@ congeal.output.prefix out
 ## @suggested_range 25% of data range (e.g. 64 for UCHAR)
 ## @doc color equalization intercept. This value 
 ##   determines which data value will be mapped to mid gray
-## @see also DATARANGE compilation flag
+## @seealso DATARANGE compilation flag
 congeal.output.colors.mid 64
 
 ## @parameter congeal.output.colors.range
@@ -349,7 +347,7 @@ congeal.output.colors.mid 64
 ## @doc color equalization slope. 
 ##   This value determines the relationship between changes 
 ##   in data value and changes in output image gray value
-## @see also DATARANGE_0_TO_255 compilation flag
+## @seealso DATARANGE_0_TO_255 compilation flag
 congeal.output.colors.range 64
 
 ## @parameter congeal.output.sourcegrid
@@ -397,19 +395,6 @@ congeal.initialsteps.scale .2
 ## @suggested_range 0.05-0.5
 ## @doc relative scaling of warp control point displacement when computing kernels and step sizes. Scale: Warp as fraction of control point's region
 congeal.initialsteps.warp .3
-
-## @parameter congeal.initialsteps.datascale.slope
-## @note CURRENTLY UNUSED
-## @type real
-## @doc slope changes in relative scaling of contrast. Scale: -1 to 1.
-##congeal.initialsteps.datascale.slope .25
-
-## @parameter congeal.initialsteps.datascale.intercept
-## @note CURRENTLY UNUSED
-## @type real
-## @suggested_range 0-1
-## @doc intercept changes in relative scaling of contrast. Scale: 0 to 1
-##congeal.initialsteps.datascale.intercept .25
 
 ##----------------------------------
 ## Schedule options

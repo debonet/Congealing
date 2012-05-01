@@ -8,6 +8,11 @@ function InputHandler_string($param)
 	print("<input name='$param[parameter]' type='text' />");
 }
 
+function InputHandler_format($param)
+{
+	print("<input name='$param[parameter]' type='text' />");
+}
+
 function InputHandler_integer($param)
 {
 	if (preg_match('/integer\s*\(([-0-9]*)\s*-\s*([-0-9]*)\)/',$param["type"],$a)){
@@ -30,6 +35,13 @@ function InputHandler_real($param)
 }
 
 function InputHandler_boolean($param)
+{
+		print("<input name='$param[parameter]' type='radio' value='true'/>True</value>");
+		print("<input name='$param[parameter]' type='radio' value='false'>False</value>");
+}
+
+
+function InputHandler_bool($param)
 {
 		print("<input name='$param[parameter]' type='radio' value='true'/>True</value>");
 		print("<input name='$param[parameter]' type='radio' value='false'>False</value>");
@@ -113,7 +125,9 @@ foreach($aparam as $param){
 	print("<div class='parameter'>");
 	print("<div class='parametername'>$param[parameter]</div>");
 	print("<div class='parameterdoc'>$param[doc]</div>");
-	print("<div class='parameterexample'>$param[example]</div>");
+	if (in_array('example',$param)){
+		print("<div class='parameterexample'>$param[example]</div>");
+	}
 	print("<div class='parameterinput'>");
 	
 	$sType=preg_replace('/\s.*/',"",$param['type']);
