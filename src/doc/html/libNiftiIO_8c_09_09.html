@@ -57,15 +57,60 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &lt;sys/stat.h&gt;</code><br/>
 <code>#include &lt;stdarg.h&gt;</code><br/>
 <code>#include &quot;<a class="el" href="libAssistants_8h_source.html">libAssistants.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="libUtility_8h_source.html">libUtility.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="libConfiguration_8h_source.html">libConfiguration.h</a>&quot;</code><br/>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8c_09_09.html#a173a755b146e7335ff8d53c1b0d208a2">strrcmp</a> (const char *sfl1, const char *sfl2)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classString.html">String</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8c_09_09.html#ad0c14b1e92c9ddec795065833172bb69">DescribeNifti</a> (<a class="el" href="structNiftiHeader.html">NiftiHeader</a> &amp;niih)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classSourceTransformScaleOf.html">NiftiVolume</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8c_09_09.html#ade2230a58517050aca0f28f808a45cc1">ReadNifti</a> (const char *sfl)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8c_09_09.html#ae64633564b5bdaf83158526ae392761a">WriteNifti</a> (const char *sfl, <a class="el" href="classImageOf.html">NiftiDataVolume</a> *pv)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8c_09_09.html#aebc6438e3355b05ec411dd4b7c8e9a1a">NormalizeNiftiInput_SimpleMinToMaxScale</a> (float *vr, int cSize, NiftiDataVolume *pgv)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8c_09_09.html#a1915c9572dc5707c793eb701a196fe69">BuildHistogram</a> (int *vc, int c, float *vr, int cr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8c_09_09.html#aa081510cdb4272184283dc5fd264d474">NormalizeNiftiInput_ScaleToNthPercentiles</a> (float *vr, int cSize, NiftiDataVolume *pgv)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8c_09_09.html#a6771d814a5f0efc0dbdc255d223672b8">NormalizeNiftiInput_ThresholdEqualize</a> (float *vr, int cSize, NiftiDataVolume *pgv)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classSourceAccessorAperatureOf.html">NiftiVolume</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8c_09_09.html#ade2230a58517050aca0f28f808a45cc1">ReadNifti</a> (const char *sfl)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8c_09_09.html#ae64633564b5bdaf83158526ae392761a">WriteNifti</a> (const char *sfl, NiftiDataVolume *pv)</td></tr>
 </table>
 <hr/><h2>Function Documentation</h2>
+<a class="anchor" id="a1915c9572dc5707c793eb701a196fe69"></a><!-- doxytag: member="libNiftiIO.c++::BuildHistogram" ref="a1915c9572dc5707c793eb701a196fe69" args="(int *vc, int c, float *vr, int cr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BuildHistogram </td>
+          <td>(</td>
+          <td class="paramtype">int *&nbsp;</td>
+          <td class="paramname"> <em>vc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&nbsp;</td>
+          <td class="paramname"> <em>vr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>cr</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ad0c14b1e92c9ddec795065833172bb69"></a><!-- doxytag: member="libNiftiIO.c++::DescribeNifti" ref="ad0c14b1e92c9ddec795065833172bb69" args="(NiftiHeader &amp;niih)" -->
 <div class="memitem">
 <div class="memproto">
@@ -84,12 +129,111 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aa081510cdb4272184283dc5fd264d474"></a><!-- doxytag: member="libNiftiIO.c++::NormalizeNiftiInput_ScaleToNthPercentiles" ref="aa081510cdb4272184283dc5fd264d474" args="(float *vr, int cSize, NiftiDataVolume *pgv)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NormalizeNiftiInput_ScaleToNthPercentiles </td>
+          <td>(</td>
+          <td class="paramtype">float *&nbsp;</td>
+          <td class="paramname"> <em>vr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>cSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NiftiDataVolume *&nbsp;</td>
+          <td class="paramname"> <em>pgv</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aebc6438e3355b05ec411dd4b7c8e9a1a"></a><!-- doxytag: member="libNiftiIO.c++::NormalizeNiftiInput_SimpleMinToMaxScale" ref="aebc6438e3355b05ec411dd4b7c8e9a1a" args="(float *vr, int cSize, NiftiDataVolume *pgv)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NormalizeNiftiInput_SimpleMinToMaxScale </td>
+          <td>(</td>
+          <td class="paramtype">float *&nbsp;</td>
+          <td class="paramname"> <em>vr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>cSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NiftiDataVolume *&nbsp;</td>
+          <td class="paramname"> <em>pgv</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6771d814a5f0efc0dbdc255d223672b8"></a><!-- doxytag: member="libNiftiIO.c++::NormalizeNiftiInput_ThresholdEqualize" ref="a6771d814a5f0efc0dbdc255d223672b8" args="(float *vr, int cSize, NiftiDataVolume *pgv)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NormalizeNiftiInput_ThresholdEqualize </td>
+          <td>(</td>
+          <td class="paramtype">float *&nbsp;</td>
+          <td class="paramname"> <em>vr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>cSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NiftiDataVolume *&nbsp;</td>
+          <td class="paramname"> <em>pgv</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ade2230a58517050aca0f28f808a45cc1"></a><!-- doxytag: member="libNiftiIO.c++::ReadNifti" ref="ade2230a58517050aca0f28f808a45cc1" args="(const char *sfl)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classSourceTransformScaleOf.html">NiftiVolume</a>* ReadNifti </td>
+          <td class="memname"><a class="el" href="classSourceAccessorAperatureOf.html">NiftiVolume</a>* ReadNifti </td>
           <td>(</td>
           <td class="paramtype">const char *&nbsp;</td>
           <td class="paramname"> <em>sfl</em></td>
@@ -142,7 +286,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classImageOf.html">NiftiDataVolume</a> *&nbsp;</td>
+          <td class="paramtype">NiftiDataVolume *&nbsp;</td>
           <td class="paramname"> <em>pv</em></td><td>&nbsp;</td>
         </tr>
         <tr>
@@ -171,7 +315,7 @@ Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Sep 19 2011 11:20:24 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Apr 30 2012 21:25:28 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

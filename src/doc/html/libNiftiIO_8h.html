@@ -148,16 +148,18 @@ Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8h.html#a80292343978413b03cb8ccc1e55eb121">NIFTI_XFORM_MNI_152</a>&nbsp;&nbsp;&nbsp;4</td></tr>
 <tr><td colspan="2"><h2><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="Pixels_8h.html#a0bac929d3cfca86279dc682a1cc82579">Pixel12BitGrey</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8h.html#a656d936072a9ef0789d5eaa14a52e091">NiftiPixel</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classImageOf.html">Grey12Volume</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8h.html#aa0a7260d0c840fb4005982c19bce932e">NiftiDataVolume</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classSourceTransformScaleOf.html">SourceTransformScaleOf</a><br class="typebreak"/>
-&lt; <a class="el" href="libNiftiIO_8h.html#a656d936072a9ef0789d5eaa14a52e091">NiftiPixel</a>, 3, <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>, <br class="typebreak"/>
-NIFTI_INTERPOLANT&lt; <a class="el" href="libNiftiIO_8h.html#a656d936072a9ef0789d5eaa14a52e091">NiftiPixel</a>, <br class="typebreak"/>
-3, <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>, <a class="el" href="classImageOf.html">NiftiDataVolume</a> &gt; &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8h.html#a7b7e57a3ce67273c4b224984f7d856f6">NiftiVolume</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef <br class="typebreak"/>
+<a class="el" href="classSourceAccessorAperatureOf.html">SourceAccessorAperatureOf</a><br class="typebreak"/>
+&lt; NiftiPixel, 3, <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>, <br class="typebreak"/>
+<a class="el" href="classSourceTransformScaleOf.html">SourceTransformScaleOf</a><br class="typebreak"/>
+&lt; NiftiPixel, 3, <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>, <br class="typebreak"/>
+NIFTI_INTERPOLANT&lt; NiftiPixel, <br class="typebreak"/>
+3, <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>, NiftiDataVolume &gt; &gt; &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8h.html#a73bd9e5d2724e389d5fdae8c6865a06d">NiftiVolume</a></td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classSourceTransformScaleOf.html">NiftiVolume</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8h.html#ade2230a58517050aca0f28f808a45cc1">ReadNifti</a> (const char *sfl)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8h.html#ae64633564b5bdaf83158526ae392761a">WriteNifti</a> (const char *sfl, <a class="el" href="classImageOf.html">NiftiDataVolume</a> *pv)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8h.html#a05215089ea6398b9ddef49bed9e5b574">error</a> (&quot;unknown DATARANGE compilation value&quot;)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classSourceAccessorAperatureOf.html">NiftiVolume</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8h.html#ade2230a58517050aca0f28f808a45cc1">ReadNifti</a> (const char *sfl)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="libNiftiIO_8h.html#ae64633564b5bdaf83158526ae392761a">WriteNifti</a> (const char *sfl, NiftiDataVolume *pv)</td></tr>
 </table>
 <hr/><h2>Define Documentation</h2>
 <a class="anchor" id="aabc78cf5797171dcb13b8095892a6433"></a><!-- doxytag: member="libNiftiIO.h::NIFTI_FIRST_STATCODE" ref="aabc78cf5797171dcb13b8095892a6433" args="" -->
@@ -1240,38 +1242,12 @@ Functions</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Typedef Documentation</h2>
-<a class="anchor" id="aa0a7260d0c840fb4005982c19bce932e"></a><!-- doxytag: member="libNiftiIO.h::NiftiDataVolume" ref="aa0a7260d0c840fb4005982c19bce932e" args="" -->
+<a class="anchor" id="a73bd9e5d2724e389d5fdae8c6865a06d"></a><!-- doxytag: member="libNiftiIO.h::NiftiVolume" ref="a73bd9e5d2724e389d5fdae8c6865a06d" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="classImageOf.html">Grey12Volume</a> <a class="el" href="classImageOf.html">NiftiDataVolume</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a656d936072a9ef0789d5eaa14a52e091"></a><!-- doxytag: member="libNiftiIO.h::NiftiPixel" ref="a656d936072a9ef0789d5eaa14a52e091" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef <a class="el" href="Pixels_8h.html#a0bac929d3cfca86279dc682a1cc82579">Pixel12BitGrey</a> <a class="el" href="libNiftiIO_8h.html#a656d936072a9ef0789d5eaa14a52e091">NiftiPixel</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a7b7e57a3ce67273c4b224984f7d856f6"></a><!-- doxytag: member="libNiftiIO.h::NiftiVolume" ref="a7b7e57a3ce67273c4b224984f7d856f6" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef <a class="el" href="classSourceTransformScaleOf.html">SourceTransformScaleOf</a>&lt; <a class="el" href="libNiftiIO_8h.html#a656d936072a9ef0789d5eaa14a52e091">NiftiPixel</a>,3,<a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>, NIFTI_INTERPOLANT&lt;<a class="el" href="libNiftiIO_8h.html#a656d936072a9ef0789d5eaa14a52e091">NiftiPixel</a>,3,<a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>,<a class="el" href="classImageOf.html">NiftiDataVolume</a>&gt; &gt; <a class="el" href="classSourceTransformScaleOf.html">NiftiVolume</a></td>
+          <td class="memname">typedef <a class="el" href="classSourceAccessorAperatureOf.html">SourceAccessorAperatureOf</a>&lt; NiftiPixel,3,<a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>, <a class="el" href="classSourceTransformScaleOf.html">SourceTransformScaleOf</a>&lt; NiftiPixel,3,<a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>, NIFTI_INTERPOLANT&lt;NiftiPixel,3,<a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>,NiftiDataVolume&gt; &gt; &gt; <a class="el" href="classSourceAccessorAperatureOf.html">NiftiVolume</a></td>
         </tr>
       </table>
 </div>
@@ -1280,12 +1256,30 @@ Functions</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
+<a class="anchor" id="a05215089ea6398b9ddef49bed9e5b574"></a><!-- doxytag: member="libNiftiIO.h::error" ref="a05215089ea6398b9ddef49bed9e5b574" args="(&quot;unknown DATARANGE compilation value&quot;)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">error </td>
+          <td>(</td>
+          <td class="paramtype">&quot;unknown DATARANGE compilation value&quot;&nbsp;</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ade2230a58517050aca0f28f808a45cc1"></a><!-- doxytag: member="libNiftiIO.h::ReadNifti" ref="ade2230a58517050aca0f28f808a45cc1" args="(const char *sfl)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classSourceTransformScaleOf.html">NiftiVolume</a>* ReadNifti </td>
+          <td class="memname"><a class="el" href="classSourceAccessorAperatureOf.html">NiftiVolume</a>* ReadNifti </td>
           <td>(</td>
           <td class="paramtype">const char *&nbsp;</td>
           <td class="paramname"> <em>sfl</em></td>
@@ -1311,7 +1305,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classImageOf.html">NiftiDataVolume</a> *&nbsp;</td>
+          <td class="paramtype">NiftiDataVolume *&nbsp;</td>
           <td class="paramname"> <em>pv</em></td><td>&nbsp;</td>
         </tr>
         <tr>
@@ -1340,7 +1334,7 @@ Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Sep 19 2011 11:20:24 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Apr 30 2012 21:25:28 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

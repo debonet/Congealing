@@ -270,32 +270,32 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00220"></a>00220 
 <a name="l00221"></a>00221 <span class="comment">/*</span>
 <a name="l00222"></a>00222 <span class="comment"></span>
-<a name="l00223"></a>00223 <span class="comment">        WARPCP dptMax=WARPCP(.5)/vsrc[0].GetPWarpControlPoints()-&gt;Size();</span>
+<a name="l00223"></a>00223 <span class="comment">        WARPCP dptMax=WARPCP(.5)/vsrc[0].PWarpControlPoints()-&gt;Size();</span>
 <a name="l00224"></a>00224 <span class="comment">        WARPCP dptMin=-1*dptMax;</span>
 <a name="l00225"></a>00225 <span class="comment"></span>
 <a name="l00226"></a>00226 <span class="comment">        </span>
-<a name="l00227"></a>00227 <span class="comment">        forpoint(POINT,pt,0,vsrc[0].GetPWarpControlPoints()-&gt;Size()){</span>
+<a name="l00227"></a>00227 <span class="comment">        forpoint(POINT,pt,0,vsrc[0].PWarpControlPoints()-&gt;Size()){</span>
 <a name="l00228"></a>00228 <span class="comment">                for (int n=0; n&lt;csource; n++){</span>
 <a name="l00229"></a>00229 <span class="comment">                        WARPCP dpt;</span>
-<a name="l00230"></a>00230 <span class="comment">                        GetPoint(*vsrc[n].GetPWarpControlPoints(),dpt,pt);</span>
+<a name="l00230"></a>00230 <span class="comment">                        GetPoint(*vsrc[n].PWarpControlPoints(),dpt,pt);</span>
 <a name="l00231"></a>00231 <span class="comment">                        dpt=dpt.Bound(dptMin,dptMax);</span>
-<a name="l00232"></a>00232 <span class="comment">                        SetPoint(*vsrc[n].GetPWarpControlPoints(),pt,dpt);</span>
+<a name="l00232"></a>00232 <span class="comment">                        SetPoint(*vsrc[n].PWarpControlPoints(),pt,dpt);</span>
 <a name="l00233"></a>00233 <span class="comment">                }</span>
 <a name="l00234"></a>00234 <span class="comment">        }</span>
 <a name="l00235"></a>00235 <span class="comment"></span>
-<a name="l00236"></a>00236 <span class="comment">        forpoint(POINT,pt,0,vsrc[0].GetPWarpControlPoints()-&gt;Size()){</span>
+<a name="l00236"></a>00236 <span class="comment">        forpoint(POINT,pt,0,vsrc[0].PWarpControlPoints()-&gt;Size()){</span>
 <a name="l00237"></a>00237 <span class="comment">                WARPCP dptT(0.);</span>
 <a name="l00238"></a>00238 <span class="comment">                for (int n=0; n&lt;csource; n++){</span>
 <a name="l00239"></a>00239 <span class="comment">                        WARPCP dpt;</span>
-<a name="l00240"></a>00240 <span class="comment">                        GetPoint(*vsrc[n].GetPWarpControlPoints(),dpt,pt);</span>
+<a name="l00240"></a>00240 <span class="comment">                        GetPoint(*vsrc[n].PWarpControlPoints(),dpt,pt);</span>
 <a name="l00241"></a>00241 <span class="comment">                        dptT+=dpt;</span>
 <a name="l00242"></a>00242 <span class="comment">                }</span>
 <a name="l00243"></a>00243 <span class="comment">                dptT/=csource;</span>
 <a name="l00244"></a>00244 <span class="comment"></span>
 <a name="l00245"></a>00245 <span class="comment">                for (int n=0; n&lt;csource; n++){</span>
 <a name="l00246"></a>00246 <span class="comment">                        WARPCP dpt;</span>
-<a name="l00247"></a>00247 <span class="comment">                        GetPoint(*vsrc[n].GetPWarpControlPoints(),dpt,pt);</span>
-<a name="l00248"></a>00248 <span class="comment">                        SetPoint(*vsrc[n].GetPWarpControlPoints(),pt,dpt-dptT);</span>
+<a name="l00247"></a>00247 <span class="comment">                        GetPoint(*vsrc[n].PWarpControlPoints(),dpt,pt);</span>
+<a name="l00248"></a>00248 <span class="comment">                        SetPoint(*vsrc[n].PWarpControlPoints(),pt,dpt-dptT);</span>
 <a name="l00249"></a>00249 <span class="comment">                }</span>
 <a name="l00250"></a>00250 <span class="comment">        }</span>
 <a name="l00251"></a>00251 <span class="comment"></span>
@@ -313,8 +313,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00263"></a>00263 
 <a name="l00264"></a>00264         <span class="keyword">static</span> <a class="code" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a> rStepDefault=<a class="code" href="libConfiguration_8h.html#a04387033efcf769849fbbf135b956a81">ConfigValue</a>(<span class="stringliteral">&quot;congeal.initialsteps.warp&quot;</span>,.5);
 <a name="l00265"></a>00265 
-<a name="l00266"></a>00266         WARPCP dpt=WARPCP(rStepDefault)/src.<a class="code" href="classSourceTransformWarpBaseOf.html#a9d9a3bd58959109607484ac0e05a42b5">GetPWarpControlPoints</a>()-&gt;Size();
-<a name="l00267"></a>00267         <a class="code" href="Point_8h.html#ad28de686f3c60d73ec154d83bc902d32">forpoint</a>(POINT,pt,0,src.<a class="code" href="classSourceTransformWarpBaseOf.html#a9d9a3bd58959109607484ac0e05a42b5">GetPWarpControlPoints</a>()-&gt;Size()){
+<a name="l00266"></a>00266         WARPCP dpt=WARPCP(rStepDefault)/src.<a class="code" href="classSourceTransformWarpBaseOf.html#a521c8a1f51e9cd61231e027be77a4fe8">PWarpControlPoints</a>()-&gt;Size();
+<a name="l00267"></a>00267         <a class="code" href="Point_8h.html#ad28de686f3c60d73ec154d83bc902d32">forpoint</a>(POINT,pt,0,src.<a class="code" href="classSourceTransformWarpBaseOf.html#a521c8a1f51e9cd61231e027be77a4fe8">PWarpControlPoints</a>()-&gt;Size()){
 <a name="l00268"></a>00268                 regSteps.<a class="code" href="classRegistryOf.html#ab3350996028a4efe6c415be0cf01d7c7">Register</a>(dpt);
 <a name="l00269"></a>00269         }
 <a name="l00270"></a>00270 }
@@ -438,7 +438,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Sep 19 2011 11:20:24 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Apr 30 2012 21:25:28 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

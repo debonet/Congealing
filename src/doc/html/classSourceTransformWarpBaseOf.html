@@ -79,6 +79,8 @@ Inheritance diagram for SourceTransformWarpBaseOf&lt; DATA, DIMENSIONALITY, PREC
 <tr><td colspan="2"><h2><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classPointOf.html">PointOf</a><br class="typebreak"/>
+&lt; DIMENSIONALITY, int &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSourceTransformWarpBaseOf.html#a6ed560f67ff0a4d14a33f12656107a9e">POINT</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classPointOf.html">PointOf</a><br class="typebreak"/>
 &lt; DIMENSIONALITY, <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSourceTransformWarpBaseOf.html#a8aea68e1a4617ba747bfbb683d9017f0">WarpPoint</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classWarpControlPointsOf.html">WarpControlPointsOf</a><br class="typebreak"/>
 &lt; DIMENSIONALITY &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSourceTransformWarpBaseOf.html#a12885b1adbeab1c89382bbac6a65fb58">WarpControlPoints</a></td></tr>
@@ -97,8 +99,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSourceTransformWarpBaseOf.html#a04e190eb916d62823c4a048bfe5a8176">AllocateWarpfield</a> (<a class="el" href="classPointOf.html">PointOf</a>&lt; DIMENSIONALITY, int &gt; ptSizeWarp, <a class="el" href="libBaseTypes_8h.html#a8472f01c511d77bbfb981a46618ea1ea">InterpolationType</a> it=Cubic)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSourceTransformWarpBaseOf.html#a6a60af3ae917ecd6a1caf03fc59e732f">SetWarpfieldInterpolation</a> (<a class="el" href="libBaseTypes_8h.html#a8472f01c511d77bbfb981a46618ea1ea">InterpolationType</a> it=Cubic)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSourceTransformWarpBaseOf.html#abe1c0e0f92b3ffac1dd982a83936d984">SetWarpControlPoints</a> (<a class="el" href="classWarpControlPointsOf.html">WARPCONTROLPOINTS</a> *pwarpcontrolpoints)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classWarpControlPointsOf.html">WARPCONTROLPOINTS</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSourceTransformWarpBaseOf.html#a9d9a3bd58959109607484ac0e05a42b5">GetPWarpControlPoints</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classSourceAccessorCubicInterpolateOf.html">WARPINTERPOLATEDCONTROLPOINTS</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSourceTransformWarpBaseOf.html#aa05bc5f5cbee10a46353574ecde5cd05">GetPInterpolatedWarpControlPoints</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classWarpControlPointsOf.html">WARPCONTROLPOINTS</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSourceTransformWarpBaseOf.html#a521c8a1f51e9cd61231e027be77a4fe8">PWarpControlPoints</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classSourceAccessorCubicInterpolateOf.html">WARPINTERPOLATEDCONTROLPOINTS</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSourceTransformWarpBaseOf.html#ad8478d0f69e1e9471780c7276f61aa19">PInterpolatedWarpControlPoints</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classString.html">String</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSourceTransformWarpBaseOf.html#a1edae6820c3d7228688bc62c8cf35650">Describe</a> () const </td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">describes the source as a human readable string  <a href="#a1edae6820c3d7228688bc62c8cf35650"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSourceTransformWarpBaseOf.html#acfc29795d38bf5bdbeba136c0cce7611">RegisterParameters</a> (<a class="el" href="classRegistryOf.html">RegistryOfParameters</a> &amp;reg)</td></tr>
@@ -121,27 +123,35 @@ Protected Types</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classSourceTransformScaleOf.html">SourceTransformScaleOf</a><br class="typebreak"/>
 &lt; <a class="el" href="classPointOf.html">WARPPOINT</a>, DIMENSIONALITY, <br class="typebreak"/>
 <a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, <br class="typebreak"/>
-<a class="el" href="classSourceAccessorCubicInterpolateOf.html">WARPINTERPOLATEDCONTROLPOINTS</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSourceTransformWarpBaseOf.html#a31ec1abff422d88a8e0d6679b25c2e93">WARPFIELD</a></td></tr>
+<a class="el" href="classSourceAccessorCubicInterpolateOf.html">WARPINTERPOLATEDCONTROLPOINTS</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSourceTransformWarpBaseOf.html#a5a82e18098627b0acf61b1ea4ab28ec2">WARPINTERPOLATEDCONTROLPOINTSSCALED</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef <br class="typebreak"/>
+<a class="el" href="classSourceAccessorAperatureOf.html">SourceAccessorAperatureOf</a><br class="typebreak"/>
+&lt; <a class="el" href="classPointOf.html">WARPPOINT</a>, DIMENSIONALITY, <br class="typebreak"/>
+<a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, <br class="typebreak"/>
+<a class="el" href="classSourceTransformScaleOf.html">WARPINTERPOLATEDCONTROLPOINTSSCALED</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSourceTransformWarpBaseOf.html#ae76199c23cf893c6f37c9dc8242fde56">WARPFIELD</a></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classSourceTransformScaleOf.html">WARPFIELD</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSourceTransformWarpBaseOf.html#a22ef33e26b0bfb658ac839d19eea05a5">m_pwarpfield</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classSourceAccessorAperatureOf.html">WARPFIELD</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSourceTransformWarpBaseOf.html#a22ef33e26b0bfb658ac839d19eea05a5">m_pwarpfield</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSourceTransformWarpBaseOf.html#a8b984aaaaf78b8deed13ca9eb0bce938">m_bDeactivated</a></td></tr>
 </table>
 <h3>template&lt;class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE&gt;<br/>
  class SourceTransformWarpBaseOf&lt; DATA, DIMENSIONALITY, PRECISION, SOURCE &gt;</h3>
 
 <hr/><h2>Member Typedef Documentation</h2>
-<a class="anchor" id="a81e48b7771aa333e38fb1f7922bbe4b8"></a><!-- doxytag: member="SourceTransformWarpBaseOf::WARPCONTROLPOINTS" ref="a81e48b7771aa333e38fb1f7922bbe4b8" args="" -->
+<a class="anchor" id="a6ed560f67ff0a4d14a33f12656107a9e"></a><!-- doxytag: member="SourceTransformWarpBaseOf::POINT" ref="a6ed560f67ff0a4d14a33f12656107a9e" args="" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="classWarpControlPointsOf.html">WarpControlPointsOf</a>&lt;DIMENSIONALITY&gt; <a class="el" href="classSourceTransformWarpBaseOf.html">SourceTransformWarpBaseOf</a>&lt; <a class="el" href="SourceMaskCombineSelect_8h.html#a24c2e6431e1d367ec25ae6e4bf260730">DATA</a>, DIMENSIONALITY, <a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, SOURCE &gt;::<a class="el" href="classWarpControlPointsOf.html">WARPCONTROLPOINTS</a><code> [protected]</code></td>
+          <td class="memname">typedef <a class="el" href="classPointOf.html">PointOf</a>&lt;DIMENSIONALITY, int&gt; <a class="el" href="classSourceTransformWarpBaseOf.html">SourceTransformWarpBaseOf</a>&lt; <a class="el" href="SourceMaskCombineSelect_8h.html#a24c2e6431e1d367ec25ae6e4bf260730">DATA</a>, DIMENSIONALITY, <a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, SOURCE &gt;::<a class="el" href="classPointOf.html">POINT</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classSourceBaseOf.html">SourceBaseOf&lt; DATA, DIMENSIONALITY, PRECISION &gt;</a>.</p>
 
 </div>
 </div>
@@ -160,14 +170,29 @@ template&lt;class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE&gt; </
 
 </div>
 </div>
-<a class="anchor" id="a31ec1abff422d88a8e0d6679b25c2e93"></a><!-- doxytag: member="SourceTransformWarpBaseOf::WARPFIELD" ref="a31ec1abff422d88a8e0d6679b25c2e93" args="" -->
+<a class="anchor" id="a81e48b7771aa333e38fb1f7922bbe4b8"></a><!-- doxytag: member="SourceTransformWarpBaseOf::WARPCONTROLPOINTS" ref="a81e48b7771aa333e38fb1f7922bbe4b8" args="" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="classSourceTransformScaleOf.html">SourceTransformScaleOf</a>&lt;<a class="el" href="classPointOf.html">WARPPOINT</a>, DIMENSIONALITY, <a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, <a class="el" href="classSourceAccessorCubicInterpolateOf.html">WARPINTERPOLATEDCONTROLPOINTS</a>&gt; <a class="el" href="classSourceTransformWarpBaseOf.html">SourceTransformWarpBaseOf</a>&lt; <a class="el" href="SourceMaskCombineSelect_8h.html#a24c2e6431e1d367ec25ae6e4bf260730">DATA</a>, DIMENSIONALITY, <a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, SOURCE &gt;::<a class="el" href="classSourceTransformScaleOf.html">WARPFIELD</a><code> [protected]</code></td>
+          <td class="memname">typedef <a class="el" href="classWarpControlPointsOf.html">WarpControlPointsOf</a>&lt;DIMENSIONALITY&gt; <a class="el" href="classSourceTransformWarpBaseOf.html">SourceTransformWarpBaseOf</a>&lt; <a class="el" href="SourceMaskCombineSelect_8h.html#a24c2e6431e1d367ec25ae6e4bf260730">DATA</a>, DIMENSIONALITY, <a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, SOURCE &gt;::<a class="el" href="classWarpControlPointsOf.html">WARPCONTROLPOINTS</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae76199c23cf893c6f37c9dc8242fde56"></a><!-- doxytag: member="SourceTransformWarpBaseOf::WARPFIELD" ref="ae76199c23cf893c6f37c9dc8242fde56" args="" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="classSourceAccessorAperatureOf.html">SourceAccessorAperatureOf</a>&lt;<a class="el" href="classPointOf.html">WARPPOINT</a>, DIMENSIONALITY, <a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, <a class="el" href="classSourceTransformScaleOf.html">WARPINTERPOLATEDCONTROLPOINTSSCALED</a>&gt; <a class="el" href="classSourceTransformWarpBaseOf.html">SourceTransformWarpBaseOf</a>&lt; <a class="el" href="SourceMaskCombineSelect_8h.html#a24c2e6431e1d367ec25ae6e4bf260730">DATA</a>, DIMENSIONALITY, <a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, SOURCE &gt;::<a class="el" href="classSourceAccessorAperatureOf.html">WARPFIELD</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -213,6 +238,21 @@ template&lt;class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE&gt; </
       <table class="memname">
         <tr>
           <td class="memname">typedef <a class="el" href="classSourceAccessorCubicInterpolateOf.html">SourceAccessorCubicInterpolateOf</a>&lt;<a class="el" href="classPointOf.html">WARPPOINT</a>, DIMENSIONALITY, <a class="el" href="libBaseTypes_8h.html#a445a5f0e2a34c9d97d69a3c2d1957907">Real</a>,<a class="el" href="classWarpControlPointsOf.html">WARPCONTROLPOINTS</a>&gt; <a class="el" href="classSourceTransformWarpBaseOf.html">SourceTransformWarpBaseOf</a>&lt; <a class="el" href="SourceMaskCombineSelect_8h.html#a24c2e6431e1d367ec25ae6e4bf260730">DATA</a>, DIMENSIONALITY, <a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, SOURCE &gt;::<a class="el" href="classSourceAccessorCubicInterpolateOf.html">WARPINTERPOLATEDCONTROLPOINTS</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5a82e18098627b0acf61b1ea4ab28ec2"></a><!-- doxytag: member="SourceTransformWarpBaseOf::WARPINTERPOLATEDCONTROLPOINTSSCALED" ref="a5a82e18098627b0acf61b1ea4ab28ec2" args="" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="classSourceTransformScaleOf.html">SourceTransformScaleOf</a>&lt;<a class="el" href="classPointOf.html">WARPPOINT</a>, DIMENSIONALITY, <a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, <a class="el" href="classSourceAccessorCubicInterpolateOf.html">WARPINTERPOLATEDCONTROLPOINTS</a>&gt; <a class="el" href="classSourceTransformWarpBaseOf.html">SourceTransformWarpBaseOf</a>&lt; <a class="el" href="SourceMaskCombineSelect_8h.html#a24c2e6431e1d367ec25ae6e4bf260730">DATA</a>, DIMENSIONALITY, <a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, SOURCE &gt;::<a class="el" href="classSourceTransformScaleOf.html">WARPINTERPOLATEDCONTROLPOINTSSCALED</a><code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -364,33 +404,14 @@ template&lt;class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE&gt; </
 
 </div>
 </div>
-<a class="anchor" id="aa05bc5f5cbee10a46353574ecde5cd05"></a><!-- doxytag: member="SourceTransformWarpBaseOf::GetPInterpolatedWarpControlPoints" ref="aa05bc5f5cbee10a46353574ecde5cd05" args="() const " -->
+<a class="anchor" id="ad8478d0f69e1e9471780c7276f61aa19"></a><!-- doxytag: member="SourceTransformWarpBaseOf::PInterpolatedWarpControlPoints" ref="ad8478d0f69e1e9471780c7276f61aa19" args="() const " -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classSourceAccessorCubicInterpolateOf.html">WARPINTERPOLATEDCONTROLPOINTS</a>* <a class="el" href="classSourceTransformWarpBaseOf.html">SourceTransformWarpBaseOf</a>&lt; <a class="el" href="SourceMaskCombineSelect_8h.html#a24c2e6431e1d367ec25ae6e4bf260730">DATA</a>, DIMENSIONALITY, <a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, SOURCE &gt;::GetPInterpolatedWarpControlPoints </td>
-          <td>(</td>
-          <td class="paramname"></td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a9d9a3bd58959109607484ac0e05a42b5"></a><!-- doxytag: member="SourceTransformWarpBaseOf::GetPWarpControlPoints" ref="a9d9a3bd58959109607484ac0e05a42b5" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classWarpControlPointsOf.html">WARPCONTROLPOINTS</a>* <a class="el" href="classSourceTransformWarpBaseOf.html">SourceTransformWarpBaseOf</a>&lt; <a class="el" href="SourceMaskCombineSelect_8h.html#a24c2e6431e1d367ec25ae6e4bf260730">DATA</a>, DIMENSIONALITY, <a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, SOURCE &gt;::GetPWarpControlPoints </td>
+          <td class="memname"><a class="el" href="classSourceAccessorCubicInterpolateOf.html">WARPINTERPOLATEDCONTROLPOINTS</a>* <a class="el" href="classSourceTransformWarpBaseOf.html">SourceTransformWarpBaseOf</a>&lt; <a class="el" href="SourceMaskCombineSelect_8h.html#a24c2e6431e1d367ec25ae6e4bf260730">DATA</a>, DIMENSIONALITY, <a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, SOURCE &gt;::PInterpolatedWarpControlPoints </td>
           <td>(</td>
           <td class="paramname"></td>
           <td>&nbsp;)&nbsp;</td>
@@ -421,6 +442,25 @@ template&lt;class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE&gt; </
 <p>the actions required for preparing the transformation for access does not recursively call the underlying source </p>
 
 <p>Reimplemented from <a class="el" href="classSourceTransformOf.html#aaf9fc0988f59613177b89c48a29aa1f7">SourceTransformOf&lt; DATA, DIMENSIONALITY, PRECISION, SOURCE &gt;</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a521c8a1f51e9cd61231e027be77a4fe8"></a><!-- doxytag: member="SourceTransformWarpBaseOf::PWarpControlPoints" ref="a521c8a1f51e9cd61231e027be77a4fe8" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classWarpControlPointsOf.html">WARPCONTROLPOINTS</a>* <a class="el" href="classSourceTransformWarpBaseOf.html">SourceTransformWarpBaseOf</a>&lt; <a class="el" href="SourceMaskCombineSelect_8h.html#a24c2e6431e1d367ec25ae6e4bf260730">DATA</a>, DIMENSIONALITY, <a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, SOURCE &gt;::PWarpControlPoints </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -528,6 +568,21 @@ template&lt;class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE&gt; </
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a8b984aaaaf78b8deed13ca9eb0bce938"></a><!-- doxytag: member="SourceTransformWarpBaseOf::m_bDeactivated" ref="a8b984aaaaf78b8deed13ca9eb0bce938" args="" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classSourceTransformWarpBaseOf.html">SourceTransformWarpBaseOf</a>&lt; <a class="el" href="SourceMaskCombineSelect_8h.html#a24c2e6431e1d367ec25ae6e4bf260730">DATA</a>, DIMENSIONALITY, <a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, SOURCE &gt;::<a class="el" href="classSourceTransformWarpBaseOf.html#a8b984aaaaf78b8deed13ca9eb0bce938">m_bDeactivated</a><code> [mutable, protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a22ef33e26b0bfb658ac839d19eea05a5"></a><!-- doxytag: member="SourceTransformWarpBaseOf::m_pwarpfield" ref="a22ef33e26b0bfb658ac839d19eea05a5" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -535,7 +590,7 @@ template&lt;class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE&gt; </
 template&lt;class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classSourceTransformScaleOf.html">WARPFIELD</a>* <a class="el" href="classSourceTransformWarpBaseOf.html">SourceTransformWarpBaseOf</a>&lt; <a class="el" href="SourceMaskCombineSelect_8h.html#a24c2e6431e1d367ec25ae6e4bf260730">DATA</a>, DIMENSIONALITY, <a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, SOURCE &gt;::<a class="el" href="classSourceTransformWarpBaseOf.html#a22ef33e26b0bfb658ac839d19eea05a5">m_pwarpfield</a><code> [mutable, protected]</code></td>
+          <td class="memname"><a class="el" href="classSourceAccessorAperatureOf.html">WARPFIELD</a>* <a class="el" href="classSourceTransformWarpBaseOf.html">SourceTransformWarpBaseOf</a>&lt; <a class="el" href="SourceMaskCombineSelect_8h.html#a24c2e6431e1d367ec25ae6e4bf260730">DATA</a>, DIMENSIONALITY, <a class="el" href="SourceMaskCombineSelect_8h.html#acee9b1556c27953575f56b04e7c9fbcb">PRECISION</a>, SOURCE &gt;::<a class="el" href="classSourceTransformWarpBaseOf.html#a22ef33e26b0bfb658ac839d19eea05a5">m_pwarpfield</a><code> [mutable, protected]</code></td>
         </tr>
       </table>
 </div>
@@ -561,7 +616,7 @@ template&lt;class DATA, int DIMENSIONALITY, class PRECISION, class SOURCE&gt; </
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Sep 19 2011 11:20:31 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Apr 30 2012 21:25:35 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

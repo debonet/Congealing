@@ -64,7 +64,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00014"></a>00014 <span class="comment">//============================================================================</span>
 <a name="l00015"></a>00015 <span class="comment">//============================================================================</span>
 <a name="l00016"></a>00016 <span class="keyword">template</span> &lt;<span class="keyword">class</span> DATA, <span class="keywordtype">int</span> DIMENSIONALITY, <span class="keyword">class</span> PRECISION&gt;
-<a name="l00017"></a><a class="code" href="libDownsample_8h.html#a75818750df7c5cf3932f0d4258d3bc5f">00017</a> <a class="code" href="classImageOf.html">ImageOf&lt;DATA,DIMENSIONALITY&gt;</a> <a class="code" href="libAssistants_8h.html#ab58f97d8b5bbf2fb7c148b4f3220a9d8">DownsampleAlong</a>(
+<a name="l00017"></a><a class="code" href="libDownsample_8h.html#a75818750df7c5cf3932f0d4258d3bc5f">00017</a> <a class="code" href="classImageOf.html">ImageOf&lt;DATA,DIMENSIONALITY&gt;</a> <a class="code" href="libAssistants_8h.html#a901cb959b00aa66f2bf16d0771a2e2af">DownsampleAlong</a>(
 <a name="l00018"></a>00018         <span class="keyword">const</span> <a class="code" href="classPointOf.html">PointOf&lt;DIMENSIONALITY, PRECISION&gt;</a> &amp;ptDimension,
 <a name="l00019"></a>00019         <span class="keyword">const</span> <a class="code" href="classSourceOf.html">SourceOf&lt;DATA,DIMENSIONALITY,PRECISION&gt;</a>&amp; iIn
 <a name="l00020"></a>00020 )
@@ -124,8 +124,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00074"></a>00074         <span class="keyword">const</span> <a class="code" href="classSourceOf_3_01DATA_00_012_00_01PRECISION_01_4.html">SourceOf&lt;DATA,2,PRECISION&gt;</a>&amp; src
 <a name="l00075"></a>00075 )
 <a name="l00076"></a>00076 {
-<a name="l00077"></a>00077         <a class="code" href="classImageOf_3_01DATA_00_012_01_4.html">ImageOf&lt;DATA,2&gt;</a> iT0  = <a class="code" href="libAssistants_8h.html#ab58f97d8b5bbf2fb7c148b4f3220a9d8">DownsampleAlong</a>(src,<a class="code" href="Point2D_8h.html#a604d2c7ae7e9930f3c9947470c6e0da1">Point2D</a>(1,0));
-<a name="l00078"></a>00078         <a class="code" href="classImageOf_3_01DATA_00_012_01_4.html">ImageOf&lt;DATA,2&gt;</a> iOut = <a class="code" href="libAssistants_8h.html#ab58f97d8b5bbf2fb7c148b4f3220a9d8">DownsampleAlong</a>(iT0,<a class="code" href="Point2D_8h.html#a604d2c7ae7e9930f3c9947470c6e0da1">Point2D</a>(0,1));
+<a name="l00077"></a>00077         <a class="code" href="classImageOf_3_01DATA_00_012_01_4.html">ImageOf&lt;DATA,2&gt;</a> iT0  = <a class="code" href="libAssistants_8h.html#a901cb959b00aa66f2bf16d0771a2e2af">DownsampleAlong</a>(src,<a class="code" href="Point2D_8h.html#a604d2c7ae7e9930f3c9947470c6e0da1">Point2D</a>(1,0));
+<a name="l00078"></a>00078         <a class="code" href="classImageOf_3_01DATA_00_012_01_4.html">ImageOf&lt;DATA,2&gt;</a> iOut = <a class="code" href="libAssistants_8h.html#a901cb959b00aa66f2bf16d0771a2e2af">DownsampleAlong</a>(iT0,<a class="code" href="Point2D_8h.html#a604d2c7ae7e9930f3c9947470c6e0da1">Point2D</a>(0,1));
 <a name="l00079"></a>00079 
 <a name="l00080"></a>00080         <span class="keywordflow">return</span> iOut;
 <a name="l00081"></a>00081 }
@@ -140,9 +140,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00090"></a>00090 )
 <a name="l00091"></a>00091 {
 <a name="l00092"></a>00092         src.<a class="code" href="classSourceBaseOf.html#ab9033f9b055bd4226bafc10f00d71175">PrepareForAccess</a>();
-<a name="l00093"></a>00093         <a class="code" href="classImageOf_3_01DATA_00_013_01_4.html">ImageOf&lt;DATA,3&gt;</a> iT0  = <a class="code" href="libAssistants_8h.html#ab58f97d8b5bbf2fb7c148b4f3220a9d8">DownsampleAlong</a>(src,<a class="code" href="Point3D_8h.html#ad0ae79505bd2cd1355c96625b86964e9">Point3D</a>(1,0,0));
-<a name="l00094"></a>00094         <a class="code" href="classImageOf_3_01DATA_00_013_01_4.html">ImageOf&lt;DATA,3&gt;</a> iT1  = <a class="code" href="libAssistants_8h.html#ab58f97d8b5bbf2fb7c148b4f3220a9d8">DownsampleAlong</a>(iT0,<a class="code" href="Point3D_8h.html#ad0ae79505bd2cd1355c96625b86964e9">Point3D</a>(0,1,0));
-<a name="l00095"></a>00095         <a class="code" href="classImageOf_3_01DATA_00_013_01_4.html">ImageOf&lt;DATA,3&gt;</a> iOut = <a class="code" href="libAssistants_8h.html#ab58f97d8b5bbf2fb7c148b4f3220a9d8">DownsampleAlong</a>(iT1,<a class="code" href="Point3D_8h.html#ad0ae79505bd2cd1355c96625b86964e9">Point3D</a>(0,0,1));
+<a name="l00093"></a>00093         <a class="code" href="classImageOf_3_01DATA_00_013_01_4.html">ImageOf&lt;DATA,3&gt;</a> iT0  = <a class="code" href="libAssistants_8h.html#a901cb959b00aa66f2bf16d0771a2e2af">DownsampleAlong</a>(src,<a class="code" href="Point3D_8h.html#ad0ae79505bd2cd1355c96625b86964e9">Point3D</a>(1,0,0));
+<a name="l00094"></a>00094         <a class="code" href="classImageOf_3_01DATA_00_013_01_4.html">ImageOf&lt;DATA,3&gt;</a> iT1  = <a class="code" href="libAssistants_8h.html#a901cb959b00aa66f2bf16d0771a2e2af">DownsampleAlong</a>(iT0,<a class="code" href="Point3D_8h.html#ad0ae79505bd2cd1355c96625b86964e9">Point3D</a>(0,1,0));
+<a name="l00095"></a>00095         <a class="code" href="classImageOf_3_01DATA_00_013_01_4.html">ImageOf&lt;DATA,3&gt;</a> iOut = <a class="code" href="libAssistants_8h.html#a901cb959b00aa66f2bf16d0771a2e2af">DownsampleAlong</a>(iT1,<a class="code" href="Point3D_8h.html#ad0ae79505bd2cd1355c96625b86964e9">Point3D</a>(0,0,1));
 <a name="l00096"></a>00096 
 <a name="l00097"></a>00097         <span class="keywordflow">return</span> iOut;
 <a name="l00098"></a>00098 }
@@ -200,7 +200,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Sep 19 2011 11:20:24 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Apr 30 2012 21:25:28 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

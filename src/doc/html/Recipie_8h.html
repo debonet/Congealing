@@ -927,11 +927,11 @@ Defines</h2></td></tr>
 <ul>
 <li>example</li>
 </ul>
-<p>A congeal recipie for a translate, rotate, warp of a volume define <a class="el" href="main_8c_09_09.html#a48af83e4332bcbc9912fc2044c0ccf57">my_mid_layers(_layer)</a> \ _layer(Interp,       SourceAccessorLinearInterpolateOf,  Pixel8BitGrey, 3, Real, INPUT) \ _layer(Translate0, SourceTransformTranslateOf,         Pixel8BitGrey, 3, Real, Interp) \ _layer(Rotate,     SourceTransformRotateOf,            Pixel8BitGrey, 3, Real, Translate0) \ _layer(Translate1, SourceTransformTranslateOf,         Pixel8BitGrey, 3, Real, Rotate)</td></tr>
+<p>A congeal recipie for a translate, rotate, warp of a volume define my_mid_layers(_layer) \ _layer(Interp,       SourceAccessorLinearInterpolateOf,  Pixel8BitGrey, 3, Real, INPUT) \ _layer(Translate0, SourceTransformTranslateOf,         Pixel8BitGrey, 3, Real, Interp) \ _layer(Rotate,     SourceTransformRotateOf,            Pixel8BitGrey, 3, Real, Translate0) \ _layer(Translate1, SourceTransformTranslateOf,         Pixel8BitGrey, 3, Real, Rotate)</td></tr>
   </table>
   </dd>
 </dl>
-<p>define <a class="el" href="main_8c_09_09.html#a5b6662faaab57588ec3029074e8b508c">my_last_layer(_layer)</a> \ _layer(Warp, SourceTransformWarpOf, Pixel8BitGrey, 3, Real,Translate1)</p>
+<p>define my_last_layer(_layer) \ _layer(Warp, SourceTransformWarpOf, Pixel8BitGrey, 3, Real,Translate1)</p>
 <p>MAKE_RECIPIE( Recipie_G3R_All_G3I, GreyVolume, my_mid_layers, my_last_layer ); </p>
 
 </div>
@@ -964,7 +964,7 @@ Defines</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Mon Sep 19 2011 11:20:24 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Apr 30 2012 21:25:29 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>
